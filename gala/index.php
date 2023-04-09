@@ -3,7 +3,13 @@
         session_start();
     }
 
-
+    if (isset($_POST['action'])){
+        if ($_POST['action'] == 'goback'){
+            header('Location: ../');
+        } elseif ($_POST['action'] == 'continue'){
+            header('Location: ./options');
+        }
+    }
 
 ?>
 
