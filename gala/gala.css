@@ -1,0 +1,124 @@
+main {
+    height: 200px;
+    width: 45vw;
+    margin: 100px 27.5vw;
+}
+
+form {
+    display: grid;
+    grid-template-columns: 1fr 2px 1fr;
+    grid-template-rows: 1fr 20px;
+}
+
+.column {
+    height: 150px;
+}
+
+.field {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.field input {
+    outline: none;
+    border: #4998c5 2px solid;
+    border-radius: 5px;
+    padding: 15px 15px;
+    margin-top: 0;
+    background-color: #e5e9ec;
+}
+
+.placeholder {
+    position: absolute;
+    margin: 17px 0;
+    padding: 0 4px;
+    color:  #6c757d;
+    display: flex;
+    align-items: center;
+    top: 0;
+    left: 17px;
+    transition: all 0.2s;
+    transform-origin: 0% 0%;
+    pointer-events: none;
+}
+
+.field input:focus + .placeholder {
+    transform: scale(0.8) translateY(-30px) translateX(-3px);
+    background-color: #e5e9ec;
+}
+
+.field input:focus{
+    color: #284B63;
+    border-color: #284B63;
+}
+
+.field input:focus + .placeholder {
+    color: #284B63;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* input {
+    border: #4998c5 2px solid;
+    padding: 3px;
+    border-radius: 5px;
+    background-color: transparent;
+    margin: 20px;
+    padding: 10px;
+}
+
+input:focus {
+    outline: none;
+    position: relative;
+}
+
+label {
+    display: inline-block;
+    padding:10px;
+    pointer-events: none;
+    position:absolute;
+    left:50px;
+    top:0;
+    transition: 0.2s;
+    transition-timing-function: ease;
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    opacity:0.5;
+    background: #fff;
+}
+
+input:focus + label, input:not(:placeholder-shown) + label {
+    opacity:1;
+    transform: scale(0.75) translateY(-70%) translateX(-14px);
+} */
+
+/* input:focus + label {
+    display: inline-block;
+    font-size: 10px;
+    background-color: #e5e9ec;
+    position: absolute;
+    top: -8px;
+    left: 3px;
+    padding: 0 5px;
+} */
+
+/* input:focus::placeholder {
+    display: inline-block;
+    font-size: 10px;
+    background-color: #e5e9ec;
+    position: absolute;
+    top: -8px;
+    left: 3px;
+    z-index: 1;
+    padding: 0 5px;
+} */
+
+
