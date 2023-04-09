@@ -12,6 +12,8 @@
         $prefix = "./";
         include('./modules/nav/nav.php');
     ?>
-    
+
+    <main>
+    </main>
 </body>
 </html>
