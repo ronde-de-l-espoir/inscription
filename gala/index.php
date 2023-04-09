@@ -27,6 +27,7 @@
     ?>
 
     <main>
+        <h2>Informations personnelles</h2>
         <form action="./" method="post">
             <div class="column">
                 <div class="field">
@@ -54,7 +55,7 @@
                 </div>
             </div>
             <div id="buttons">
-
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit velit modi, aut suscipit consequuntur aspernatur tempore sint beatae id optio. Nobis autem sapiente nesciunt nisi voluptatibus dignissimos aspernatur alias cum?
             </div>
         </form>
     </main>

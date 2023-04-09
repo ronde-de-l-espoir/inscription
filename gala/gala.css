@@ -1,7 +1,11 @@
 main {
-    height: 200px;
     width: 45vw;
     margin: 100px 27.5vw;
+}
+
+h2 {
+    text-align: center;
+    padding-bottom: 30px;
 }
 
 form {
@@ -11,7 +15,9 @@ form {
 }
 
 .column {
-    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .field {
@@ -56,69 +62,30 @@ form {
     color: #284B63;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-/* input {
-    border: #4998c5 2px solid;
-    padding: 3px;
-    border-radius: 5px;
-    background-color: transparent;
-    margin: 20px;
-    padding: 10px;
+#buttons {
+    grid-column: span 4;
 }
 
-input:focus {
-    outline: none;
-    position: relative;
+@media only screen and (max-width: 1120px){
+    main {
+        width: 80vw;
+        margin-left: 10vw;
+        margin-right: 10vw;
+    }
 }
 
-label {
-    display: inline-block;
-    padding:10px;
-    pointer-events: none;
-    position:absolute;
-    left:50px;
-    top:0;
-    transition: 0.2s;
-    transition-timing-function: ease;
-    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
-    opacity:0.5;
-    background: #fff;
+@media only screen and (max-width: 600px){
+    form {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 2px 1fr;
+    }
+
+    #separator {
+        visibility: hidden;
+    }
+
+    #buttons {
+        grid-column: unset;
+    }
 }
-
-input:focus + label, input:not(:placeholder-shown) + label {
-    opacity:1;
-    transform: scale(0.75) translateY(-70%) translateX(-14px);
-} */
-
-/* input:focus + label {
-    display: inline-block;
-    font-size: 10px;
-    background-color: #e5e9ec;
-    position: absolute;
-    top: -8px;
-    left: 3px;
-    padding: 0 5px;
-} */
-
-/* input:focus::placeholder {
-    display: inline-block;
-    font-size: 10px;
-    background-color: #e5e9ec;
-    position: absolute;
-    top: -8px;
-    left: 3px;
-    z-index: 1;
-    padding: 0 5px;
-} */
-
 
