@@ -1,3 +1,23 @@
+<?php
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    if (isset($_POST['activity'])){
+        if ($_POST['activity'] == 'gala'){
+            $_SESSION['activity'] == 'gala';
+            header('Location: ./gala');
+        } elseif ($_POST['activity'] == 'tombola'){
+            $_SESSION['activity'] = 'tombola';
+            header('Location: ./tombola');
+        }
+    }
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
