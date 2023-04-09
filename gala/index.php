@@ -55,7 +55,8 @@
                 </div>
             </div>
             <div id="buttons">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit velit modi, aut suscipit consequuntur aspernatur tempore sint beatae id optio. Nobis autem sapiente nesciunt nisi voluptatibus dignissimos aspernatur alias cum?
+                <button type="submit" name="action" value="goback">Retour</button>
+                <button type="submit" name="action" value="continue">Continuer</button>
             </div>
         </form>
     </main>
