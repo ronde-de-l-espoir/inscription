@@ -3,6 +3,7 @@
         session_start();
     }
 
+
     $fieldErrors = [];
 
     if (isset($_POST['action'])){
@@ -29,23 +30,25 @@
             } elseif (!preg_match('/^[a-zA-Z]+$/', $_SESSION['fname'])){
                 $fieldErrors['fname'] = 'Prénom non valide';
             } else {
-                $fieldErrors['lname'] = '';
+                $fieldErrors['fname'] = '';
                 $fieldErrors['total'] = false;
             }
-            if (empty($_SESSION['age'])){
-                $fieldErrors['age'] = 'Un age est requis';
-            } elseif (!(intval($_SESSION['age']) > 11 && intval($_SESSION['age'] < 100))){
-                $fieldErrors['age'] = 'Age non valide';
-            } else {
-                $fieldErrors['lname'] = '';
-                $fieldErrors['total'] = false;
+            if ($_SESSION['activity'] == 'gala'){
+                if (empty($_SESSION['age'])){
+                    $fieldErrors['age'] = 'Un age est requis';
+                } elseif (!(intval($_SESSION['age']) > 11 && intval($_SESSION['age'] < 100))){
+                    $fieldErrors['age'] = 'Age non valide';
+                } else {
+                    $fieldErrors['age'] = '';
+                    $fieldErrors['total'] = false;
+                }
             }
             if (empty($_SESSION['email'])){
                 $fieldErrors['email'] = 'Un email est requis';
             } elseif (!filter_var($_SESSION['email'], FILTER_VALIDATE_EMAIL)){
                 $fieldErrors['email'] = 'Email non valide';
             } else {
-                $fieldErrors['lname'] = '';
+                $fieldErrors['email'] = '';
                 $fieldErrors['total'] = false;
             }
             if (empty($_SESSION['phone'])){
@@ -53,13 +56,19 @@
             } elseif (!preg_match('/^(0|(\+33[\s]?([0]?|[(0)]{3}?)))[1-9]([-. ]?[0-9]{2}){4}$/', $_SESSION['phone'])){
                 $fieldErrors['phone'] = 'Téléphone non valide';
             } else {
-                $fieldErrors['lname'] = '';
+                $fieldErrors['phone'] = '';
                 $fieldErrors['total'] = false;
             }
 
+
             if ($fieldErrors['total'] == false){
                 $_SESSION['infoErrors'] = false;
-                header('Location: ./options');
+                if ($_SESSION['activity'] == 'gala'){
+                    header('Location: ../options-gala');
+                } else {
+                    header('Location: ../paiement');
+                }
+
                 die();
             }
         }
@@ -77,7 +86,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LRDE -- Inscription</title>
     <link rel="stylesheet" href="../common.css">
-    <link rel="stylesheet" href="./gala.css">
+    <link rel="stylesheet" href="./informations.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
@@ -100,11 +109,13 @@
                     <span class="placeholder">Prénom</span>
                     <p class="error-text"><?php echo array_key_exists('fname', $fieldErrors) ? $fieldErrors['fname'] : '' ?></p>
                 </div>
+                <?php if ($_SESSION['activity'] == 'gala') : ?>
                 <div class="field">
                     <input type="number" name="age" min="0" value="<?php echo $_SESSION['age']?>">
                     <span class="placeholder">Age</span>
                     <p class="error-text"><?php echo array_key_exists('age', $fieldErrors) ? $fieldErrors['age'] : '' ?></p>
                 </div>
+                <?php endif; ?>
             </div>
             <div id="separator" style="background-color: #888;"></div>
             <div class="column">

@@ -8,11 +8,10 @@
             $_SESSION['activity'] = 'gala';
         } elseif ($_POST['activity'] == 'tombola'){
             $_SESSION['activity'] = 'tombola';
-            header('Location: ./tombola');
         }
+        echo $_SESSION['activity'];
+        header('Location: ./informations');
     }
-
-
 ?>
 
 
