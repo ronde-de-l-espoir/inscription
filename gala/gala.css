@@ -99,6 +99,15 @@ form {
     color: #222;
 }
 
+.error-text {
+    color: rgb(190 0 0);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 14.5px;
+    margin: 0;
+    text-align: right;
+}
+
 @media only screen and (max-width: 1120px){
     main {
         width: 80vw;

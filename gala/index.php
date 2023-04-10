@@ -22,6 +22,7 @@
                 $fieldErrors['lname'] = 'Nom non valide';
             } else {
                 $fieldErrors['lname'] = '';
+                $fieldErrors['total'] = false;
             }
             if (empty($_SESSION['fname'])){
                 $fieldErrors['fname'] = 'Un prénom est requis';
@@ -29,6 +30,7 @@
                 $fieldErrors['fname'] = 'Prénom non valide';
             } else {
                 $fieldErrors['lname'] = '';
+                $fieldErrors['total'] = false;
             }
             if (empty($_SESSION['age'])){
                 $fieldErrors['age'] = 'Un age est requis';
@@ -36,6 +38,7 @@
                 $fieldErrors['age'] = 'Age non valide';
             } else {
                 $fieldErrors['lname'] = '';
+                $fieldErrors['total'] = false;
             }
             if (empty($_SESSION['email'])){
                 $fieldErrors['email'] = 'Un email est requis';
@@ -43,18 +46,21 @@
                 $fieldErrors['email'] = 'Email non valide';
             } else {
                 $fieldErrors['lname'] = '';
+                $fieldErrors['total'] = false;
             }
             if (empty($_SESSION['phone'])){
-                $fieldErrors['phone'] = 'Un numéro de téléphone est requis';
+                $fieldErrors['phone'] = 'Un téléphone est requis';
             } elseif (!preg_match('/^(0|(\+33[\s]?([0]?|[(0)]{3}?)))[1-9]([-. ]?[0-9]{2}){4}$/', $_SESSION['phone'])){
-                $fieldErrors['phone'] = 'Numéro de téléphone non valide';
+                $fieldErrors['phone'] = 'Téléphone non valide';
             } else {
                 $fieldErrors['lname'] = '';
+                $fieldErrors['total'] = false;
             }
 
-
-            if (!$fieldErrors){
+            if ($fieldErrors['total'] == false){
+                $_SESSION['infoErrors'] = false;
                 header('Location: ./options');
+                die();
             }
         }
     }
@@ -95,7 +101,7 @@
                     <p class="error-text"><?php echo array_key_exists('fname', $fieldErrors) ? $fieldErrors['fname'] : '' ?></p>
                 </div>
                 <div class="field">
-                    <input type="number" name="age" min="0" value="<?php $hello = $_SESSION['age'] ?? '' ?>">
+                    <input type="number" name="age" min="0" value="<?php echo $_SESSION['age']?>">
                     <span class="placeholder">Age</span>
                     <p class="error-text"><?php echo array_key_exists('age', $fieldErrors) ? $fieldErrors['age'] : '' ?></p>
                 </div>
@@ -103,12 +109,12 @@
             <div id="separator" style="background-color: #888;"></div>
             <div class="column">
                 <div class="field">
-                    <input type="email" name="email" value="<?php echo $_SESSION['email'] ?>">
+                    <input type="text" name="email" value="<?php echo $_SESSION['email'] ?>">
                     <span class="placeholder">Email</span>
                     <p class="error-text"><?php echo array_key_exists('email', $fieldErrors) ? $fieldErrors['email'] : '' ?></p>
                 </div>
                 <div class="field">
-                    <input type="text" name="phone" value="<?php echo array_key_exists('phone', $_SESSION) ? $_SESSION['phone'] : '' ?>">
+                    <input type="text" name="phone" value="<?php echo $_SESSION['phone'] ?>">
                     <span class="placeholder">Téléphone</span>
                     <p class="error-text"><?php echo array_key_exists('phone', $fieldErrors) ? $fieldErrors['phone'] : '' ?></p>
                 </div>
