@@ -1,6 +1,6 @@
 main {
-    width: 45vw;
-    margin: 100px 27.5vw;
+    width: 40vw;
+    margin: 100px 30vw;
 }
 
 h2 {
@@ -48,6 +48,7 @@ form {
     pointer-events: none;
 }
 
+.field input:focus + .placeholder,
 .field input:not(:placeholder-shown) + .placeholder {
     transform: scale(0.8) translateY(-30px) translateX(-3px);
     background-color: #e5e9ec;
