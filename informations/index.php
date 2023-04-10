@@ -93,18 +93,18 @@
         <form action="./" method="post">
             <div class="column">
                 <div class="field">
-                    <input type="text" name="lname" value="<?php echo $_SESSION['lname'] ?>" placeholder=" ">
+                    <input type="text" name="lname" value="<?php echo array_key_exists('lname', $_SESSION) ? $_SESSION['lname'] : null ?>" placeholder=" ">
                     <span class="placeholder">Nom</span>
                     <p class="error-text"><?php echo array_key_exists('lname', $fieldErrors) ? $fieldErrors['lname'] : '' ?></p>
                 </div>
                 <div class="field">
-                    <input type="text" name="fname" value="<?php echo $_SESSION['fname'] ?>" placeholder=" ">
+                    <input type="text" name="fname" value="<?php echo array_key_exists('fname', $_SESSION) ? $_SESSION['fname'] : null ?>" placeholder=" ">
                     <span class="placeholder">Prénom</span>
                     <p class="error-text"><?php echo array_key_exists('fname', $fieldErrors) ? $fieldErrors['fname'] : '' ?></p>
                 </div>
                 <?php if ($_SESSION['activity'] == 'gala') : ?>
                 <div class="field">
-                    <input type="number" name="age" min="0" value="<?php echo $_SESSION['age']?>" placeholder=" ">
+                    <input type="number" name="age" min="0" value="<?php echo array_key_exists('age', $_SESSION) ? $_SESSION['age'] : null ?>" placeholder=" ">
                     <span class="placeholder">Age</span>
                     <p class="error-text"><?php echo array_key_exists('age', $fieldErrors) ? $fieldErrors['age'] : '' ?></p>
                 </div>
@@ -113,7 +113,7 @@
             <div id="separator" style="background-color: #888;"></div>
             <div class="column">
                 <div class="field">
-                    <input type="text" name="email" value="<?php echo $_SESSION['email'] ?>" placeholder=" ">
+                    <input type="text" name="email" value="<?php echo array_key_exists('email', $_SESSION) ? $_SESSION['email'] : null ?>" placeholder=" ">
                     <span class="placeholder">Email</span>
                     <p class="error-text"><?php echo array_key_exists('email', $fieldErrors) ? $fieldErrors['email'] : '' ?></p>
                 </div>
