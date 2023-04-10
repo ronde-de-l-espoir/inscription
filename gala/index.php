@@ -3,11 +3,59 @@
         session_start();
     }
 
+    $fieldErrors = [];
+
     if (isset($_POST['action'])){
+        
+        foreach ($_POST as $key => $fieldValue) {
+            $_SESSION[$key] = $fieldValue;
+            $fieldErrors[$key] = '';
+        }
+
         if ($_POST['action'] == 'goback'){
             header('Location: ../');
         } elseif ($_POST['action'] == 'continue'){
-            header('Location: ./options');
+            
+            if (empty($_SESSION['lname'])){
+                $fieldErrors['lname'] = 'Un nom est requis';
+            } elseif (!preg_match('/^[a-zA-Z]+$/', $_SESSION['lname'])){
+                $fieldErrors['lname'] = 'Nom non valide';
+            } else {
+                $fieldErrors['lname'] = '';
+            }
+            if (empty($_SESSION['fname'])){
+                $fieldErrors['fname'] = 'Un prénom est requis';
+            } elseif (!preg_match('/^[a-zA-Z]+$/', $_SESSION['fname'])){
+                $fieldErrors['fname'] = 'Prénom non valide';
+            } else {
+                $fieldErrors['lname'] = '';
+            }
+            if (empty($_SESSION['age'])){
+                $fieldErrors['age'] = 'Un age est requis';
+            } elseif (!(intval($_SESSION['age']) > 11 && intval($_SESSION['age'] < 100))){
+                $fieldErrors['age'] = 'Age non valide';
+            } else {
+                $fieldErrors['lname'] = '';
+            }
+            if (empty($_SESSION['email'])){
+                $fieldErrors['email'] = 'Un email est requis';
+            } elseif (!filter_var($_SESSION['email'], FILTER_VALIDATE_EMAIL)){
+                $fieldErrors['email'] = 'Email non valide';
+            } else {
+                $fieldErrors['lname'] = '';
+            }
+            if (empty($_SESSION['phone'])){
+                $fieldErrors['phone'] = 'Un numéro de téléphone est requis';
+            } elseif (!preg_match('/^(0|(\+33[\s]?([0]?|[(0)]{3}?)))[1-9]([-. ]?[0-9]{2}){4}$/', $_SESSION['phone'])){
+                $fieldErrors['phone'] = 'Numéro de téléphone non valide';
+            } else {
+                $fieldErrors['lname'] = '';
+            }
+
+
+            if (!$fieldErrors){
+                header('Location: ./options');
+            }
         }
     }
 
@@ -37,27 +85,32 @@
         <form action="./" method="post">
             <div class="column">
                 <div class="field">
-                    <input type="text" name="lname">
+                    <input type="text" name="lname" value="<?php echo $_SESSION['lname'] ?>">
                     <span class="placeholder">Nom</span>
+                    <p class="error-text"><?php echo array_key_exists('lname', $fieldErrors) ? $fieldErrors['lname'] : '' ?></p>
                 </div>
                 <div class="field">
-                    <input type="text" name="fname">
+                    <input type="text" name="fname" value="<?php echo $_SESSION['fname'] ?>">
                     <span class="placeholder">Prénom</span>
+                    <p class="error-text"><?php echo array_key_exists('fname', $fieldErrors) ? $fieldErrors['fname'] : '' ?></p>
                 </div>
                 <div class="field">
-                    <input type="number" name="age" min="0">
+                    <input type="number" name="age" min="0" value="<?php $hello = $_SESSION['age'] ?? '' ?>">
                     <span class="placeholder">Age</span>
+                    <p class="error-text"><?php echo array_key_exists('age', $fieldErrors) ? $fieldErrors['age'] : '' ?></p>
                 </div>
             </div>
             <div id="separator" style="background-color: #888;"></div>
             <div class="column">
                 <div class="field">
-                    <input type="email" name="email">
+                    <input type="email" name="email" value="<?php echo $_SESSION['email'] ?>">
                     <span class="placeholder">Email</span>
+                    <p class="error-text"><?php echo array_key_exists('email', $fieldErrors) ? $fieldErrors['email'] : '' ?></p>
                 </div>
                 <div class="field">
-                    <input type="text" name="phone">
+                    <input type="text" name="phone" value="<?php echo array_key_exists('phone', $_SESSION) ? $_SESSION['phone'] : '' ?>">
                     <span class="placeholder">Téléphone</span>
+                    <p class="error-text"><?php echo array_key_exists('phone', $fieldErrors) ? $fieldErrors['phone'] : '' ?></p>
                 </div>
             </div>
             <div id="buttons">
