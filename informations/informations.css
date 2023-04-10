@@ -48,8 +48,7 @@ form {
     pointer-events: none;
 }
 
-.field input:valid + .placeholder,
-.field input:focus + .placeholder {
+.field input:not(:placeholder-shown) + .placeholder {
     transform: scale(0.8) translateY(-30px) translateX(-3px);
     background-color: #e5e9ec;
 }
