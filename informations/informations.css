@@ -87,6 +87,7 @@ form {
 }
 
 #buttons button[value="continue"]{
+    order: 1;
     background-color: #0099D7;
     border: 0;
     color: #EEE;
@@ -94,6 +95,7 @@ form {
 }
 
 #buttons button[value="goback"]{
+    order: -1;
     padding: 5px 16px;
     border: 3px #0099D7 solid;
     color: #222;

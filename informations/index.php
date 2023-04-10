@@ -124,8 +124,8 @@
                 </div>
             </div>
             <div id="buttons">
-                <button type="submit" name="action" value="goback">Retour</button>
                 <button type="submit" name="action" value="continue">Continuer</button>
+                <button type="submit" name="action" value="goback">Retour</button>
             </div>
         </form>
     </main>
