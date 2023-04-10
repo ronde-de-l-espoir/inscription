@@ -23,7 +23,6 @@
                 $fieldErrors['lname'] = 'Nom non valide';
             } else {
                 $fieldErrors['lname'] = '';
-                $fieldErrors['total'] = false;
             }
             if (empty($_SESSION['fname'])){
                 $fieldErrors['fname'] = 'Un prénom est requis';
@@ -31,7 +30,6 @@
                 $fieldErrors['fname'] = 'Prénom non valide';
             } else {
                 $fieldErrors['fname'] = '';
-                $fieldErrors['total'] = false;
             }
             if ($_SESSION['activity'] == 'gala'){
                 if (empty($_SESSION['age'])){
@@ -40,7 +38,6 @@
                     $fieldErrors['age'] = 'Age non valide';
                 } else {
                     $fieldErrors['age'] = '';
-                    $fieldErrors['total'] = false;
                 }
             }
             if (empty($_SESSION['email'])){
@@ -49,7 +46,6 @@
                 $fieldErrors['email'] = 'Email non valide';
             } else {
                 $fieldErrors['email'] = '';
-                $fieldErrors['total'] = false;
             }
             if (empty($_SESSION['phone'])){
                 $fieldErrors['phone'] = 'Un téléphone est requis';
@@ -57,12 +53,9 @@
                 $fieldErrors['phone'] = 'Téléphone non valide';
             } else {
                 $fieldErrors['phone'] = '';
-                $fieldErrors['total'] = false;
             }
 
-
-            if ($fieldErrors['total'] == false){
-                $_SESSION['infoErrors'] = false;
+            if (empty(array_filter($fieldErrors))){
                 if ($_SESSION['activity'] == 'gala'){
                     header('Location: ../options-gala');
                 } else {
