@@ -5,8 +5,7 @@
 
     if (isset($_POST['activity'])){
         if ($_POST['activity'] == 'gala'){
-            $_SESSION['activity'] == 'gala';
-            header('Location: ./gala');
+            $_SESSION['activity'] = 'gala';
         } elseif ($_POST['activity'] == 'tombola'){
             $_SESSION['activity'] = 'tombola';
             header('Location: ./tombola');
