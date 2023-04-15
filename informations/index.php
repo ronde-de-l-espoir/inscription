@@ -54,12 +54,7 @@
             }
 
             if (empty(array_filter($fieldErrors))){
-                if ($_SESSION['activity'] == 'gala'){
-                    header('Location: ../options-gala');
-                } else {
-                    header('Location: ../paiement');
-                }
-
+                header('Location: ../ajouter-des-proches');
                 die();
             }
         }
