@@ -87,7 +87,8 @@
     ?>
 
     <main>
-        <h2>Informations personnelles</h2>
+        <h2>Vos Informations personnelles</h2>
+        <p id="can-add-more-people-later">Vous pourrez ajouter d'autres personnes plus tard</p>
         <form action="./" method="post">
             <div class="column">
                 <div class="field">

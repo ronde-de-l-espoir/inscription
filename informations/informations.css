@@ -5,7 +5,11 @@ main {
 
 h2 {
     text-align: center;
+}
+
+#can-add-more-people-later {
     padding-bottom: 30px;
+    text-align: center;
 }
 
 form {
