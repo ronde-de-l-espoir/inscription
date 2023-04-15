@@ -31,14 +31,12 @@
             } else {
                 $fieldErrors['fname'] = '';
             }
-            if ($_SESSION['activity'] == 'gala'){
-                if (empty($_SESSION['age'])){
-                    $fieldErrors['age'] = 'Un age est requis';
-                } elseif (!(intval($_SESSION['age']) > 11 && intval($_SESSION['age'] < 100))){
-                    $fieldErrors['age'] = 'Age non valide';
-                } else {
-                    $fieldErrors['age'] = '';
-                }
+            if (empty($_SESSION['age'])){
+                $fieldErrors['age'] = 'Un age est requis';
+            } elseif (!(intval($_SESSION['age']) > 11 && intval($_SESSION['age'] < 100))){
+                $fieldErrors['age'] = 'Age non valide';
+            } else {
+                $fieldErrors['age'] = '';
             }
             if (empty($_SESSION['email'])){
                 $fieldErrors['email'] = 'Un email est requis';
@@ -102,13 +100,11 @@
                     <span class="placeholder">Prénom</span>
                     <p class="error-text"><?php echo array_key_exists('fname', $fieldErrors) ? $fieldErrors['fname'] : '' ?></p>
                 </div>
-                <?php if ($_SESSION['activity'] == 'gala') : ?>
                 <div class="field">
                     <input type="number" name="age" min="0" value="<?php echo array_key_exists('age', $_SESSION) ? $_SESSION['age'] : null ?>" placeholder=" ">
                     <span class="placeholder">Age</span>
                     <p class="error-text"><?php echo array_key_exists('age', $fieldErrors) ? $fieldErrors['age'] : '' ?></p>
                 </div>
-                <?php endif; ?>
             </div>
             <div id="separator" style="background-color: #888;"></div>
             <div class="column">

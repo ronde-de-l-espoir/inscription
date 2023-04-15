@@ -3,13 +3,7 @@
         session_start();
     }
 
-    if (isset($_POST['activity'])){
-        if ($_POST['activity'] == 'gala'){
-            $_SESSION['activity'] = 'gala';
-        } elseif ($_POST['activity'] == 'tombola'){
-            $_SESSION['activity'] = 'tombola';
-        }
-        echo $_SESSION['activity'];
+    if (isset($_POST['start'])){
         header('Location: ./informations');
     }
 ?>
@@ -36,11 +30,10 @@
     <main>
         <div id="welcome">
             <h2>Bonjour !</h2>
-            <p>Cette plateforme vous permettra d'acheter vos tickets pour :</p>
+            <p>Cette plateforme vous permet de vous préinscrire pour le Gala du 2 juin 2023</p>
         </div>
         <form action="./" method="post">
-            <button name="activity" id="gala-btn" value="gala">Gala</button>
-            <button name="activity" id="tombola-btn" value="tombola">Tombola</button>
+            <button name="start" id="gala-btn" value="start">C'est parti !</button>
         </form>
     </main>
 </body>
