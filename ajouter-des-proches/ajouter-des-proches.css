@@ -1,0 +1,74 @@
+main {
+    width: 45vw;
+    margin: 100px 27.5vw;
+}
+
+h2 {
+    text-align: center;
+}
+
+#info {
+    text-align: center;
+    padding-bottom: 30px;
+    font-style: italic;
+}
+
+#add-member {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.person {
+    width: 80%;
+    margin: 10px 10%;
+    border-radius: 5px;
+    border: #5f6368 2px solid;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+main .add-person {
+    /* width: 60px; */
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48;
+    color: #5f6368;
+}
+
+main .delete {
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+}
+
+main .edit {
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+}
+
+.delete:hover {
+    color: red;
+}
+
+#actions span:hover {
+    cursor: pointer;
+}
+
+#current-buyer #actions .material-symbols-rounded  {
+    color: #888e95;
+}
+
+#current-buyer #actions .material-symbols-rounded:hover  {
+    cursor: not-allowed;
+}
