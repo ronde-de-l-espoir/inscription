@@ -54,6 +54,10 @@
                 Votre prix total est : 
                 <span id="total"></span>
             </div> -->
+
+            <form action="./" method="post">
+                
+            </form>
         </form>
     </main>
 </body>
