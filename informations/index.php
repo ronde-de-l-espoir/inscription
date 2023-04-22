@@ -73,6 +73,7 @@
     <title>LRDE -- Inscription</title>
     <link rel="stylesheet" href="../common.css">
     <link rel="stylesheet" href="./informations.css">
+    <link rel="stylesheet" href="../modules/fields/fields.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>

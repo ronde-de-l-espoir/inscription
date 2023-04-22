@@ -1,0 +1,42 @@
+.field {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.field input {
+    outline: none;
+    border: #4998c5 2px solid;
+    border-radius: 5px;
+    padding: 15px 15px;
+    margin-top: 0;
+    background-color: #e5e9ec;
+}
+
+.placeholder {
+    position: absolute;
+    margin: 17px 0;
+    padding: 0 4px;
+    color:  #6c757d;
+    display: flex;
+    align-items: center;
+    top: 0;
+    left: 17px;
+    transition: all 0.2s;
+    transform-origin: 0% 0%;
+    pointer-events: none;
+}
+
+.field input:focus + .placeholder,
+.field input:not(:placeholder-shown) + .placeholder {
+    transform: scale(0.8) translateY(-30px) translateX(-3px);
+    background-color: #e5e9ec;
+}
+
+.field input:focus{
+    color: #284B63;
+    border-color: #284B63;
+}
+
+.field input:focus + .placeholder {
+    color: #284B63;
+}
