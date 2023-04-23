@@ -44,7 +44,7 @@
                     </div>
                 </div>
             </div>
-            <div id="add-member" onclick="addPersonBlock(this)">
+            <div id="add-member" onclick="addPersonBlock()">
                 <span class="material-symbols-outlined add-person">person_add</span>
                 <span>Ajouter quelqu'un</span>
             </div>
@@ -56,21 +56,26 @@
                 <span id="total"></span>
             </div> -->
 
-            <form id="member-info-form" unblur class="hidden">
+            <form id="member-info-form" unblur class="hidden" oninput="allowMemberFormContinue()" onsubmit="return false">
+                <h4 unblur>Informations sur ce membre</h4>
                 <div class="field" unblur>
                     <input type="text" name="lname" value="" placeholder=" " unblur>
                     <span class="placeholder" unblur>Nom</span>
-                    <!-- <p class="error-text"><?php // echo array_key_exists('lname', $fieldErrors) ? $fieldErrors['lname'] : '' ?></p> -->
+                    <p class="error-text" unblur></p>
                 </div>
                 <div class="field" unblur>
                     <input type="text" name="fname" value="" placeholder=" " unblur>
                     <span class="placeholder" unblur>Prénom</span>
-                    <!-- <p class="error-text"><?php // echo array_key_exists('lname', $fieldErrors) ? $fieldErrors['lname'] : '' ?></p> -->
+                    <p class="error-text" unblur></p>
                 </div>
                 <div class="field" unblur>
                     <input type="text" name="age" value="" placeholder=" " unblur>
                     <span class="placeholder" unblur>Age</span>
-                    <!-- <p class="error-text"><?php // echo array_key_exists('lname', $fieldErrors) ? $fieldErrors['lname'] : '' ?></p> -->
+                    <p class="error-text" unblur></p>
+                </div>
+                <div id="buttons" unblur>
+                    <button id="member-form-continue" type="submit" onclick="validateMemberForm()" value="continue-form" unblur disabled>Continuer</button>
+                    <button type="submit" onclick="cancelMemberForm()" value="cancel-form" unblur>Annuler</button>
                 </div>
             </form>
         </div>
