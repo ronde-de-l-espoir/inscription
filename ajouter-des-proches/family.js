@@ -63,6 +63,7 @@ function closeMemberForm() {
     document.getElementsByName('lname')[0].value = ""
     document.getElementsByName('fname')[0].value = ""
     document.getElementsByName('age')[0].value = ""
+    hideErrors()
     const everything = document.getElementsByTagName('*')
     for (let i = 0; i < everything.length; i++) {
         if (!(everything[i].hasAttribute('unblur'))) {
@@ -89,6 +90,12 @@ function showErrors(errors){
             document.getElementsByName('age')[0].parentNode.getElementsByTagName('p')[0].innerHTML = 'Age invalide'
         }
     });
+}
+
+function hideErrors() {
+    document.getElementsByName('lname')[0].parentNode.getElementsByTagName('p')[0].innerHTML = ''
+    document.getElementsByName('fname')[0].parentNode.getElementsByTagName('p')[0].innerHTML = ''
+    document.getElementsByName('age')[0].parentNode.getElementsByTagName('p')[0].innerHTML = ''
 }
 
 function validateMemberForm() {
