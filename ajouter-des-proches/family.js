@@ -96,7 +96,6 @@ function validateMemberForm() {
     var fname = fnameInput.value
     var age = ageInput.value
     var errors = []
-    console.log(lname, fname, age)
     if (!(/^[a-zA-Z\-\s]+$/.test(lname))) {
         errors.push('lname')
     }
