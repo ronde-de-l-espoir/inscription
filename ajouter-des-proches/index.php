@@ -2,6 +2,10 @@
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
+
+    if (isset($_SESSION['members'])){
+        $table = $_SESSION['members']['table'];
+    }
 ?>
 
 
@@ -23,6 +27,12 @@
     </script>
     <script src="./price.js" defer></script> -->
     <script src="./family.js" defer></script>
+    <script>
+        var info = <?php echo array_key_exists('members' ,$_SESSION) && $_SESSION['members'] != null ? json_encode($_SESSION['members']) : json_encode('{"table": []}') ?>;
+        if (typeof info === 'string'){
+            info = JSON.parse(info)
+        }
+    </script>
 </head>
 <body unblur>
     <?php
@@ -32,7 +42,7 @@
 
     <main unblur>
         <h2>Ajouter des proches</h2>
-        <p id="info">Cette page est facultative, vous pouvez continuer si vous le souhaitez</p>
+        <p id="line">Cette page est facultative, vous pouvez continuer si vous le souhaitez</p>
         <div id="general-form" unblur>
             <p>Liste des personnes inscrites :</p>
             <div id="members">
@@ -44,6 +54,25 @@
                     </div>
                 </div>
             </div>
+            <?php
+                if (isset($_SESSION['members'])){
+                    for ($i=0; $i < count($table); $i++) {
+                        $memberID = $table[$i]['member'];
+                        $fname = $table[$i]['fname'];
+                        $lname = $table[$i]['lname'];
+                        $block = <<<EOD
+                        <div class="person" id="$memberID">
+                            <span class="person-name">$fname $lname</span>
+                            <div id="actions">
+                                <span class="material-symbols-rounded edit" onclick="editPerson('$memberID')">edit</span>
+                                <span class="material-symbols-rounded delete" onclick="removePerson('$memberID')">delete_forever</span>
+                            </div>
+                        </div>
+                        EOD;
+                        echo $block;
+                    }
+                }
+            ?>
             <div id="add-member" onclick="addPersonBlock()">
                 <span class="material-symbols-outlined add-person">person_add</span>
                 <span>Ajouter quelqu'un</span>
@@ -55,6 +84,11 @@
                 Votre prix total est : 
                 <span id="total"></span>
             </div> -->
+
+            <div class="buttons">
+                <button type="submit" onclick="sendData(true)">Continuer</button>
+                <button type="submit" onclick="sendData(false)">Retour</button>
+            </div>
 
             <form id="member-info-form" unblur class="hidden" oninput="allowMemberFormContinue()" onsubmit="return false">
                 <h4 unblur>Informations sur ce membre</h4>
@@ -73,7 +107,7 @@
                     <span class="placeholder" unblur>Age</span>
                     <p class="error-text" unblur></p>
                 </div>
-                <div id="buttons" unblur>
+                <div class="buttons" unblur>
                     <button id="member-form-continue" type="submit" onclick="validateMemberForm()" value="continue-form" unblur disabled>Continuer</button>
                     <button type="submit" onclick="cancelMemberForm()" value="cancel-form" unblur>Annuler</button>
                 </div>

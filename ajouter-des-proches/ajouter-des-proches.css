@@ -7,7 +7,7 @@ h2 {
     text-align: center;
 }
 
-#info {
+#line{
     text-align: center;
     padding-bottom: 30px;
     font-style: italic;
@@ -115,7 +115,7 @@ main .edit {
     text-align: right;
 }
 
-#buttons {
+.buttons {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(100px, 50%));
     box-sizing: border-box;
@@ -125,7 +125,7 @@ main .edit {
     height: 57px;
 }
 
-#buttons button {
+.buttons button {
     width: fit-content;
     align-self: center;
     justify-self: center;
@@ -135,11 +135,11 @@ main .edit {
     border-radius: 7px;
 }
 
-#buttons button:hover {
+.buttons button:hover {
     cursor: pointer;
 }
 
-#buttons button[value="continue-form"]{
+.buttons button[value="continue-form"]{
     order: 1;
     background-color: #0099D7;
     border: 0;
@@ -147,7 +147,7 @@ main .edit {
     font-weight: 600;
 }
 
-#buttons button[value="continue-form"]{
+.buttons button[value="continue"]{
     order: 1;
     background-color: #0099D7;
     border: 0;
@@ -155,12 +155,27 @@ main .edit {
     font-weight: 600;
 }
 
-#buttons button:disabled{
+.buttons button[value="continue-form"]{
+    order: 1;
+    background-color: #0099D7;
+    border: 0;
+    color: #EEE;
+    font-weight: 600;
+}
+
+.buttons button:disabled{
     background-color: grey;
 }
 
 
-#buttons button[value="cancel-form"]{
+.buttons button[value="cancel-form"]{
+    order: -1;
+    padding: 5px 16px;
+    border: 3px #0099D7 solid;
+    color: #222;
+}
+
+.buttons button[value="goback"]{
     order: -1;
     padding: 5px 16px;
     border: 3px #0099D7 solid;

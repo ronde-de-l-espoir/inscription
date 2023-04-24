@@ -6,8 +6,6 @@ const lnameInput = document.getElementsByName('lname')[0]
 const ageInput = document.getElementsByName('age')[0]
 const fnameInput = document.getElementsByName('fname')[0]
 let memberID = ''
-let info = {}
-info.table = []
 
 function addPersonBlock(){
     memberID = crypto.randomUUID()
@@ -15,25 +13,26 @@ function addPersonBlock(){
     <div class="person" id="${memberID}">
         <span class="person-name">Personne inconnue</span>
         <div id="actions">
-            <span class="material-symbols-rounded edit" onclick="editPersonBlock('${memberID}')">edit</span>
+            <span class="material-symbols-rounded edit" onclick="editPerson('${memberID}')">edit</span>
             <span class="material-symbols-rounded delete" onclick="removePerson('${memberID}')">delete_forever</span>
         </div>
     </div>
     `
     membersDiv.innerHTML += personBlock
-    editPersonBlock(memberID)
+    editPerson(memberID)
 }
 
 function removePerson(memberID){
     try {
         var memberPos = Object.values(info.table).findIndex(subObj => subObj.member === memberID);
+        info.table.splice(memberPos, 1)
         delete info.table[memberPos]
     } finally {
         document.getElementById(memberID).remove()
     }
 }
 
-function editPersonBlock(memberID){
+function editPerson(memberID){
     const everything = document.getElementsByTagName('*')
     for (let i = 0; i < everything.length; i++) {
         if (!(everything[i].hasAttribute('unblur'))) {
@@ -136,6 +135,20 @@ function validateMemberForm() {
     } else {
         showErrors(errors)
     }
+}
+
+function sendData(proceed) {
+    fetch('./data.php', {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(info)
+    }).then(response => {
+        return response.text()
+    }).then(text => {
+        console.log(text)
+    }).catch(error => {
+        console.error(error)
+    })
 }
 
 function allowMemberFormContinue() {
