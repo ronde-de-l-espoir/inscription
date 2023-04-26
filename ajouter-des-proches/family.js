@@ -7,12 +7,45 @@ const ageInput = document.getElementsByName('age')[0]
 const fnameInput = document.getElementsByName('fname')[0]
 let memberID = ''
 
+async function checkIDExists(ID) {
+    try {
+        const response = await fetch('./checkIfIDExists.php', {
+            method: "POST",
+            headers: {'Content-Type': 'text/plain'},
+            body: ID
+        });
+
+        if (response.status === 205) {
+            return false; // If response code is 205, ID does not exist
+        } else if (response.status === 405) {
+            return true; // If response code is 405, ID exists
+        } else {
+            console.error("Unexpected response from server");
+            return false; // Return false for unexpected response
+        }
+    } catch (error) {
+        console.error(error);
+        return false; // Return false for any errors
+    }
+}
+
 function createID(){
-    let part1 = (Math.floor(Math.random() * 100000)).toString()
-    part1 = "0".repeat(5 - part1.length) + part1
-    let part2 = (Math.floor(Math.random() * 10000)).toString()
-    part2 = "0".repeat(4 - part2.length) + part2
-    return part1 + '-' + part2
+    return new Promise(async (resolve) => {
+        while (true) {
+            let part1 = (Math.floor(Math.random() * 100000)).toString();
+            part1 = "0".repeat(5 - part1.length) + part1;
+            let part2 = (Math.floor(Math.random() * 10000)).toString();
+            part2 = "0".repeat(4 - part2.length) + part2;
+            var ID = part1 + '-' + part2;
+
+            const exists = await checkIDExists(ID);
+
+            if (!exists) {
+                resolve(ID);
+                break;
+            }
+        }
+    });
 }
 
 function addPersonBlock(){
