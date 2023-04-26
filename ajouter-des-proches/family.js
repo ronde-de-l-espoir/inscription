@@ -33,7 +33,7 @@ function createID(){
     return new Promise(async (resolve) => {
         while (true) {
             let ID = (Math.floor(Math.random() * 1000000000)).toString();
-            ID = "0".repeat(9 - ID.length) + part1;
+            ID = "0".repeat(9 - ID.length) + ID;
 
             const exists = await checkIDExists(ID);
 
