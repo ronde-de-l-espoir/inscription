@@ -32,11 +32,8 @@ async function checkIDExists(ID) {
 function createID(){
     return new Promise(async (resolve) => {
         while (true) {
-            let part1 = (Math.floor(Math.random() * 100000)).toString();
-            part1 = "0".repeat(5 - part1.length) + part1;
-            let part2 = (Math.floor(Math.random() * 10000)).toString();
-            part2 = "0".repeat(4 - part2.length) + part2;
-            var ID = part1 + '-' + part2;
+            let ID = (Math.floor(Math.random() * 1000000000)).toString();
+            ID = "0".repeat(9 - ID.length) + part1;
 
             const exists = await checkIDExists(ID);
 

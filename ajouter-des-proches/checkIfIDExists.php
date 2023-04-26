@@ -3,7 +3,7 @@
 require('../../galaDBConfig.php');
 
 $id = file_get_contents('php://input');
-$id = str_replace('-','',$id);
+
 
 $sql = "SELECT COUNT(*) FROM `preinscriptions` WHERE `id`='$id';";
 
