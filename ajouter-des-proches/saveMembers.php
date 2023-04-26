@@ -9,7 +9,7 @@ $info = json_decode($string, true);
 
 $_SESSION['members'] = $info;
 
-http_response_code(203);
+http_response_code(205);
 exit();
 
 ?>
