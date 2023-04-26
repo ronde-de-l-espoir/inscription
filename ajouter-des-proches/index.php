@@ -90,6 +90,8 @@
                 <button type="submit" onclick="sendData(false)">Retour</button>
             </div>
 
+            <p id="response-error-text"></p>
+
             <form id="member-info-form" unblur class="hidden" oninput="allowMemberFormContinue()" onsubmit="return false">
                 <h4 unblur>Informations sur ce membre</h4>
                 <div class="field" unblur>

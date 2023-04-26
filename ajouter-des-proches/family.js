@@ -16,16 +16,16 @@ async function checkIDExists(ID) {
         });
 
         if (response.status === 205) {
-            return false; // If response code is 205, ID does not exist
+            return false;
         } else if (response.status === 405) {
-            return true; // If response code is 405, ID exists
+            return true;
         } else {
             console.error("Unexpected response from server");
-            return false; // Return false for unexpected response
+            return false;
         }
     } catch (error) {
         console.error(error);
-        return false; // Return false for any errors
+        return false;
     }
 }
 
@@ -176,14 +176,22 @@ function validateMemberForm() {
 }
 
 function sendData(proceed) {
-    fetch('./data.php', {
+    fetch('./saveMembers.php', {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(info)
     }).then(response => {
-        return response.text()
-    }).then(text => {
-        console.log(text)
+        if (response.status == 205){
+            if (proceed){
+                window.location = '../confirmation'
+            } else if (!proceed){
+                window.location = '../informations'
+            }
+        } else {
+            setTimeout(function(){
+                document.getElementById('response-error-text').innerText = "Une erreur innattendue est survenue..."
+            }, 1000)
+        }
     }).catch(error => {
         console.error(error)
     })
