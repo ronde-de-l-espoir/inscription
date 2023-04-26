@@ -86,8 +86,8 @@
             </div> -->
 
             <div class="buttons">
-                <button type="submit" onclick="sendData(true)">Continuer</button>
-                <button type="submit" onclick="sendData(false)">Retour</button>
+                <button type="submit" onclick="sendData(true)" value="continue">Continuer</button>
+                <button type="submit" onclick="sendData(false)" value="goback">Retour</button>
             </div>
 
             <p id="response-error-text"></p>
