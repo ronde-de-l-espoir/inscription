@@ -45,8 +45,8 @@ function createID(){
     });
 }
 
-function addPersonBlock(){
-    memberID = createID();
+async function addPersonBlock(){
+    memberID = await createID();
     const personBlock = `
     <div class="person" id="${memberID}">
         <span class="person-name">Personne inconnue</span>
@@ -151,7 +151,7 @@ function validateMemberForm() {
     }
     if (errors.length === 0){
         memberID = memberInfoForm.getAttribute('for')
-        var memberPos = Object.values(info.table).findIndex(subObj => subObj.member === memberID);
+        var memberPos = Object.values(info.table).findIndex(subObj => subObj.id === memberID);
         if (memberPos === -1){
             var memberData = {
                 'id': memberID,

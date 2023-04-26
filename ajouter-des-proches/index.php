@@ -53,8 +53,7 @@
                         <span class="material-symbols-rounded delete">delete_forever</span>
                     </div>
                 </div>
-            </div>
-            <?php
+                <?php
                 if (isset($_SESSION['members'])){
                     for ($i=0; $i < count($table); $i++) {
                         $memberID = $table[$i]['id'];
@@ -72,7 +71,8 @@
                         echo $block;
                     }
                 }
-            ?>
+                ?>
+            </div>
             <div id="add-member" onclick="addPersonBlock()">
                 <span class="material-symbols-outlined add-person">person_add</span>
                 <span>Ajouter quelqu'un</span>
