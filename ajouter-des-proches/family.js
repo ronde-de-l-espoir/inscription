@@ -7,8 +7,16 @@ const ageInput = document.getElementsByName('age')[0]
 const fnameInput = document.getElementsByName('fname')[0]
 let memberID = ''
 
+function createID(){
+    let part1 = (Math.floor(Math.random() * 100000)).toString()
+    part1 = "0".repeat(5 - part1.length) + part1
+    let part2 = (Math.floor(Math.random() * 10000)).toString()
+    part2 = "0".repeat(4 - part2.length) + part2
+    return part1 + '-' + part2
+}
+
 function addPersonBlock(){
-    memberID = crypto.randomUUID()
+    memberID = createID();
     const personBlock = `
     <div class="person" id="${memberID}">
         <span class="person-name">Personne inconnue</span>
@@ -48,7 +56,7 @@ function editPerson(memberID){
 }
 
 function getValues(memberID) {
-    var memberPos = Object.values(info.table).findIndex(subObj => subObj.member === memberID);
+    var memberPos = Object.values(info.table).findIndex(subObj => subObj.id === memberID);
     if (memberPos === -1){
         return ['', '', '']
     } else {
@@ -116,7 +124,7 @@ function validateMemberForm() {
         var memberPos = Object.values(info.table).findIndex(subObj => subObj.member === memberID);
         if (memberPos === -1){
             var memberData = {
-                'member': memberID,
+                'id': memberID,
                 'lname': lname,
                 'fname': fname,
                 'age': age
@@ -124,7 +132,7 @@ function validateMemberForm() {
             info.table.push(memberData)
         } else {
             info.table[memberPos] = {
-                'member': memberID,
+                'id': memberID,
                 'lname': lname,
                 'fname': fname,
                 'age': age

@@ -57,7 +57,7 @@
             <?php
                 if (isset($_SESSION['members'])){
                     for ($i=0; $i < count($table); $i++) {
-                        $memberID = $table[$i]['member'];
+                        $memberID = $table[$i]['id'];
                         $fname = $table[$i]['fname'];
                         $lname = $table[$i]['lname'];
                         $block = <<<EOD
