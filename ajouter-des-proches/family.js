@@ -9,7 +9,7 @@ let memberID = ''
 
 async function checkIDExists(ID) {
     try {
-        const response = await fetch('./checkIfIDExists.php', {
+        const response = await fetch('../modules/checkIfIDExists.php', {
             method: "POST",
             headers: {'Content-Type': 'text/plain'},
             body: ID
