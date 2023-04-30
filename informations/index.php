@@ -3,6 +3,16 @@
         session_start();
     }
 
+    
+    do {
+        $id = strval(str_pad(rand(0, 999999999), 9, '0', STR_PAD_LEFT));
+        require('../../galaDBConfig.php');
+        $sql = "SELECT COUNT(*) FROM `preinscriptions` WHERE `id`='$id';";
+        $xResults = mysqli_fetch_all(mysqli_query($conn, $sql))[0][0];
+    } while ($xResults != 0);
+
+    $_SESSION['id'] = $id;
+
 
     $fieldErrors = [];
 
