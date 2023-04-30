@@ -26,6 +26,15 @@
         return $part1 . " " . $part2;
     }
 
+
+    if (isset($_POST['action'])){
+        if ($_POST['action'] == 'continue'){
+            header('Location: ../modalites');
+        } else {
+            header('Location: ../ajouter-des-proches');
+        }
+    }
+
 ?>
 
 
@@ -50,30 +59,32 @@
     <main>
         <h2>Récapitulatif</h2>
         <p>Votre total s'élève à : <span id="total"><?= $total ?></span> €</p>
-        <br>
         <div id="details">
-            <p>Avec le détail suivant :</p>
+            <p id="text">Avec le détail suivant :</p>
             <div id="current-buyer">
-                Vous, <?= $_SESSION['fname'] . " " . $_SESSION['lname']; ?> , avec les informations suivantes :
+                <p>Vous, <span class="data"><?= $_SESSION['fname'] . " " . $_SESSION['lname']; ?></span> , avec les informations suivantes :</p>
                 <ul>
                     <li>Age : <span class="data"><?= $_SESSION['age'] ?></span></li>
                     <li>Email : <span class="data"><?= $_SESSION['email'] ?></span></li>
                     <li>Numéro de téléphone : <span class="data"><?= $_SESSION['phone'] ?></span></li>
-                    <li>Numéro de ticket : <span class="data"><?= spaceUpID($_SESSION['phone']) ?></span></li>
                 </ul>
             </div>
             <div id="members">
                 <p>Vous êtes accompagnés de :</p>
                 <ul>
                 <?php foreach($members as $member) : ?>
-                    <li><span class="data"><?= $member['fname'] . " " . $member['lname'] ?></span>, qui a <span class="data"><?= $member['age'] ?></span> ans et pour numéro d'identification <span class="data"><?= spaceUpID($member['id']) ?></span></li>
+                    <li><span class="data"><?= $member['fname'] . " " . $member['lname'] ?></span>, qui a <span class="data"><?= $member['age'] ?></span> ans (ticket n°<span class="data"><?= spaceUpID($member['id']) ?></span>)</li>
                 <?php endforeach ?>
                 </ul>
             </div>
+            <p id="text">Quelque chose ne va pas ?<br>Cliquer le bouton 'Retour' ci-après et corrigez les informations.</p>
         </div>
 
         <form action="./" method="post">
-            
+            <div id="buttons">
+                <button type="submit" name="action" value="continue">Continuer</button>
+                <button type="submit" name="action" value="goback">Retour</button>
+            </div>
         </form>
     </main>
 </body>
