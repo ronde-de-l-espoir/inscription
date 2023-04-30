@@ -19,6 +19,7 @@
     foreach($members as $member){
         sumUpTotal($member['age']);
     }
+    $_SESSION['price'] = $total;
 
     function spaceUpID($ID){
         $part1 = str_split($ID, 5)[0];
