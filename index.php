@@ -3,8 +3,17 @@
         session_start();
     }
 
-    if (isset($_POST['start'])){
-        header('Location: ./informations');
+    if (isset($_POST['action'])){
+        if ($_POST['action'] == 'book'){
+            $_SESSION['action'] = 'book';
+            header('Location: ./informations');
+        } elseif ($_POST['action'] == 'cancel'){
+            $_SESSION['action'] == 'cancel';
+            header('Location: ./somwhere-over-the-rainbow');
+        } elseif ($_POST['action'] == 'view'){
+            $_SESSION['action'] == 'view';
+            header('Location: ./another-place-over-the-rainbow');
+        }
     }
 ?>
 
@@ -33,7 +42,9 @@
             <p>Cette plateforme vous permet de vous préinscrire pour le Gala du 2 juin 2023</p>
         </div>
         <form action="./" method="post">
-            <button name="start" id="gala-btn" value="start">C'est parti !</button>
+            <button name="action" class="gala-btn" value="book">Je réserve !</button>
+            <button name="action" class="gala-btn" value="book">J'ai perdu mon ticket</button>
+            <button name="action" class="gala-btn" value="book">Je souhaite annuler...</button>
         </form>
     </main>
 </body>
