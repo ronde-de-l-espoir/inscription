@@ -7,7 +7,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-$currentID = $_GET['id'];
+$requestID = $_GET['id'];
 
 $IDs = array (
     $_SESSION['id']
@@ -20,20 +20,20 @@ if ($_SESSION['action'] == 'book'){
 }
 
 
-if (in_array($currentID, $IDs)){
+if (in_array($requestID, $IDs)){
     
     $dompdf = new Dompdf();
 
     ob_start();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<link rel="stylesheet" href="./pdf.css">
-<body>
-    <p>hello <?= $_SESSION['fname'] . $_SESSION['lname'] ?></p>
-</body>
-</html>
+    <!DOCTYPE html>
+    <html lang="en">
+    <link rel="stylesheet" href="./pdf.css">
+    <body>
+        <p>hello <?= $_SESSION['fname'] . $_SESSION['lname'] ?></p>
+    </body>
+    </html>
 
 <?php
 
@@ -41,17 +41,17 @@ if (in_array($currentID, $IDs)){
     $dompdf->setPaper('A4');
     $dompdf->render();
 
-    $dompdf->stream("hello.pdf", array("Attachment" => false));
+    $dompdf->stream("gala-LRDE-$requestID.pdf", array("Attachment" => false));
 } else {
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<link rel="stylesheet">
-<body>
-    <p>une erreur ? pas d'accès à ce ticket></p>
-</body>
-</html>
+    <!DOCTYPE html>
+    <html lang="en">
+    <link rel="stylesheet">
+    <body>
+        <p>une erreur ? pas d'accès à ce ticket></p>
+    </body>
+    </html>
 
 <?php
 }
