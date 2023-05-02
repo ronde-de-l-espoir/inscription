@@ -60,6 +60,23 @@ foreach ($_SESSION['members']['table'] as $person) {
 }
 
 
+require_once '../lib/dompdf/autoload.inc.php';
+use Dompdf\Dompdf;
+
+function generatePDF($ID) {
+    $dompdf = new Dompdf();
+
+    require('./pdf.php');
+
+
+    $dompdf->loadHtml($html);
+    $dompdf->setPaper('A4');
+    $dompdf->render();
+
+    $dompdf->stream("hello.pdf", array("Attachment" => false));
+}
+
+
 
 ?>
 
@@ -89,19 +106,6 @@ foreach ($_SESSION['members']['table'] as $person) {
         <h2>Terminé !</h2>
 
     
-
-        <form action="./" method="post">
-            <div id="confirmation-input">
-                <label>
-                    <input type="checkbox" name="anonymous" value="1" onclick="toggleSubmit(this)">
-                    <span id="chkbx-text">Je reconnais avoir pris connaissance de ces conditions.</span>
-                </label>
-            </div>
-            <div id="buttons">
-                <button type="submit" name="action" value="continue" disabled>Valider</button>
-                <button type="submit" name="action" value="goback">Retour</button>
-            </div>
-        </form>
     </main>
 </body>
 
