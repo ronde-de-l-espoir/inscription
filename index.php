@@ -43,8 +43,8 @@
         </div>
         <form action="./" method="post">
             <button name="action" class="gala-btn" value="book">Je réserve !</button>
-            <button name="action" class="gala-btn" value="book">J'ai perdu mon ticket</button>
-            <button name="action" class="gala-btn" value="book">Je souhaite annuler...</button>
+            <button name="action" class="gala-btn" value="lost">J'ai perdu mon ticket</button>
+            <button name="action" class="gala-btn" value="cancel">Je souhaite annuler...</button>
         </form>
     </main>
 </body>

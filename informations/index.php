@@ -19,7 +19,9 @@
     if (isset($_POST['action'])){
         
         foreach ($_POST as $key => $fieldValue) {
-            $_SESSION[$key] = $fieldValue;
+            if ($key != 'action'){
+                $_SESSION[$key] = $fieldValue;
+            }
             $fieldErrors[$key] = '';
         }
 
