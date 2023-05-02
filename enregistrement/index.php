@@ -3,35 +3,35 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-require('../../galaDBConfig.php');
+// require('../../galaDBConfig.php');
 
 
-$buyerID = $_SESSION['id'];
-$buyerLname = $_SESSION['lname'];
-$buyerFname = $_SESSION['fname'];
-$buyerAge = $_SESSION['age'];
-$buyerEmail = $_SESSION['email'];
-$buyerPhone = $_SESSION['phone'];
-$buyerPrice = $_SESSION['price'];
-$buyerHasPaid = 0;
-$buyerParentNode = '0';
-$nChildren = count($_SESSION['members']['table']);
+// $buyerID = $_SESSION['id'];
+// $buyerLname = $_SESSION['lname'];
+// $buyerFname = $_SESSION['fname'];
+// $buyerAge = $_SESSION['age'];
+// $buyerEmail = $_SESSION['email'];
+// $buyerPhone = $_SESSION['phone'];
+// $buyerPrice = $_SESSION['price'];
+// $buyerHasPaid = 0;
+// $buyerParentNode = '0';
+// $nChildren = count($_SESSION['members']['table']);
 
 
-$sql = "INSERT INTO preinscriptions(id, fname, lname, age, email, phone, price, hasPaid, parentNode, nChildren) VALUES(
-    '$buyerID',
-    '$buyerFname',
-    '$buyerLname',
-    '$buyerAge',
-    '$buyerEmail',
-    '$buyerPhone',
-    '$buyerPrice',
-    '$buyerHasPaid',
-    '$buyerParentNode',
-    '$nChildren'
-    )";
+// $sql = "INSERT INTO preinscriptions(id, fname, lname, age, email, phone, price, hasPaid, parentNode, nChildren) VALUES(
+//     '$buyerID',
+//     '$buyerFname',
+//     '$buyerLname',
+//     '$buyerAge',
+//     '$buyerEmail',
+//     '$buyerPhone',
+//     '$buyerPrice',
+//     '$buyerHasPaid',
+//     '$buyerParentNode',
+//     '$nChildren'
+//     )";
 
-mysqli_query($conn, $sql);
+// mysqli_query($conn, $sql);
 
 foreach ($_SESSION['members']['table'] as $person) {
     $personID = $person['id'];
@@ -58,24 +58,6 @@ foreach ($_SESSION['members']['table'] as $person) {
     )";
     mysqli_query($conn, $sql);
 }
-
-
-require_once '../lib/dompdf/autoload.inc.php';
-use Dompdf\Dompdf;
-
-function generatePDF($ID) {
-    $dompdf = new Dompdf();
-
-    require('./pdf.php');
-
-
-    $dompdf->loadHtml($html);
-    $dompdf->setPaper('A4');
-    $dompdf->render();
-
-    $dompdf->stream("hello.pdf", array("Attachment" => false));
-}
-
 
 
 ?>
