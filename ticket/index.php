@@ -1,58 +1,101 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
 
-require_once '../lib/dompdf/autoload.inc.php';
-use Dompdf\Dompdf;
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LRDE -- Terminé</title>
+    <link rel="stylesheet" href="../common.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
 
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+<body>
+    <?php
+    $prefix = "../";
+    include('../modules/nav/nav.php');
+    ?>
+    <main>
+        <?php
 
-$requestID = $_GET['id'];
+        require_once '../lib/dompdf/autoload.inc.php';
 
-$IDs = array (
-    $_SESSION['id']
-);
+        use Dompdf\Dompdf;
+        use Dompdf\Options;
 
-if ($_SESSION['action'] == 'book'){
-    foreach ($_SESSION['members']['table'] as $person){
-        array_push($IDs, $person['id']);
-    }
-}
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $requestID = $_GET['id'];
+
+        $IDs = array(
+            $_SESSION['id']
+        );
+
+        if ($_SESSION['action'] == 'book') {
+            foreach ($_SESSION['members']['table'] as $person) {
+                array_push($IDs, $person['id']);
+            }
+        }
 
 
-if (in_array($requestID, $IDs)){
-    
-    $dompdf = new Dompdf();
+        if (in_array($requestID, $IDs)) {
+            $options = new Options();
+            $options->set('isRemoteEnabled', true);
+            $dompdf = new Dompdf($options);
 
-    ob_start();
-?>
+            // A few settings
+            $image = '../ptit-bg.png';
 
-    <!DOCTYPE html>
-    <html lang="en">
-    <link rel="stylesheet" href="./pdf.css">
-    <body>
-        <p>hello <?= $_SESSION['fname'] . $_SESSION['lname'] ?></p>
-    </body>
-    </html>
+            // Read image path, convert to base64 encoding
+            $imageData = base64_encode(file_get_contents($image));
 
-<?php
+            // Format the image SRC:  data:{mime};base64,{data};
+            $src = 'data:'.mime_content_type($image).';base64,'.$imageData;
 
-    $dompdf->loadHtml(ob_get_clean());
-    $dompdf->setPaper('A4');
-    $dompdf->render();
 
-    $dompdf->stream("gala-LRDE-$requestID.pdf", array("Attachment" => false));
-} else {
-?>
+            ob_start();
 
-    <!DOCTYPE html>
-    <html lang="en">
-    <link rel="stylesheet">
-    <body>
-        <p>une erreur ? pas d'accès à ce ticket></p>
-    </body>
-    </html>
+            
+        ?>
 
-<?php
-}
-?>
+            <!DOCTYPE html>
+            <html lang="en">
+            <link rel="stylesheet" href="./pdf.css">
+
+            <body>
+                <p>hello <?= $_SESSION['fname'] . $_SESSION['lname'] ?></p>
+                <img src="<?php echo $src ?>" alt="ilage" style="width: 50%;">
+            </body>
+
+            </html>
+
+        <?php
+            $dompdf->loadHtml(ob_get_clean());
+            $dompdf->setPaper('A4');
+            try {
+                $dompdf->render();
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
+        ?>
+        <div style="width: 50vw">
+            <?php 
+                 
+                // $dompdf->stream("gala-LRDE-$requestID.pdf", array("Attachment" => false)); 
+                $pdf = $dompdf->output();
+                // ob_clean();
+                $pdfDataUri = 'data:application/pdf;base64,' . base64_encode($pdf);
+            ?>
+            <iframe src="<?php echo $pdfDataUri; ?>" width="600" height="400"></iframe>
+        </div>
+        <?php
+        } else {
+            header('Location: ../');
+        }
+        ?>
+    </main>
+</body>
+
+</html>
