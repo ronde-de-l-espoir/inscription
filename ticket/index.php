@@ -1,101 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LRDE -- Terminé</title>
-    <link rel="stylesheet" href="../common.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-</head>
+require_once '../lib/dompdf/autoload.inc.php';
 
-<body>
-    <?php
-    $prefix = "../";
-    include('../modules/nav/nav.php');
-    ?>
-    <main>
-        <?php
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
-        require_once '../lib/dompdf/autoload.inc.php';
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
-        use Dompdf\Dompdf;
-        use Dompdf\Options;
+$requestID = $_GET['id'];
 
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
+$IDs = array(
+    $_SESSION['id']
+);
 
-        $requestID = $_GET['id'];
-
-        $IDs = array(
-            $_SESSION['id']
-        );
-
-        if ($_SESSION['action'] == 'book') {
-            foreach ($_SESSION['members']['table'] as $person) {
-                array_push($IDs, $person['id']);
-            }
-        }
+if ($_SESSION['action'] == 'book') {
+    foreach ($_SESSION['members']['table'] as $person) {
+        array_push($IDs, $person['id']);
+    }
+}
 
 
-        if (in_array($requestID, $IDs)) {
-            $options = new Options();
-            $options->set('isRemoteEnabled', true);
-            $dompdf = new Dompdf($options);
+if (in_array($requestID, $IDs)) {
+    $options = new Options();
+    $options->set('isRemoteEnabled', true);
+    $dompdf = new Dompdf();
+    $dompdf->setOptions($options);
 
-            // A few settings
-            $image = '../ptit-bg.png';
+    // $dompdf->add_info('Title', 'Your meta title');
 
-            // Read image path, convert to base64 encoding
-            $imageData = base64_encode(file_get_contents($image));
+    // A few settings
+    $image = '../ptit-bg.png';
 
-            // Format the image SRC:  data:{mime};base64,{data};
-            $src = 'data:'.mime_content_type($image).';base64,'.$imageData;
+    // Read image path, convert to base64 encoding
+    $imageData = base64_encode(file_get_contents($image));
+
+    // Format the image SRC:  data:{mime};base64,{data};
+    $src = 'data:' . mime_content_type($image) . ';base64,' . $imageData;
 
 
-            ob_start();
+    $css = base64_encode(file_get_contents('./pdf.css'));
+    $cssSrc = 'data:' . mime_content_type('./pdf.css') . ';base64,' . $css;
 
-            
-        ?>
+    ob_start();
 
-            <!DOCTYPE html>
-            <html lang="en">
-            <link rel="stylesheet" href="./pdf.css">
 
-            <body>
-                <p>hello <?= $_SESSION['fname'] . $_SESSION['lname'] ?></p>
-                <img src="<?php echo $src ?>" alt="ilage" style="width: 50%;">
-            </body>
+?>
 
-            </html>
+    <!DOCTYPE html>
+    <html lang="en">
+    <link rel="stylesheet" href="<?= $cssSrc ?>">
 
-        <?php
-            $dompdf->loadHtml(ob_get_clean());
-            $dompdf->setPaper('A4');
-            try {
-                $dompdf->render();
-            } catch (Exception $e) {
-                echo $e->getMessage();
-            }
-        ?>
-        <div style="width: 50vw">
-            <?php 
-                 
-                // $dompdf->stream("gala-LRDE-$requestID.pdf", array("Attachment" => false)); 
-                $pdf = $dompdf->output();
-                // ob_clean();
-                $pdfDataUri = 'data:application/pdf;base64,' . base64_encode($pdf);
-            ?>
-            <iframe src="<?php echo $pdfDataUri; ?>" width="600" height="400"></iframe>
+    <body>
+        <div id="title-block">
+            <h1>La Ronde de l'Espoir</h1>
         </div>
-        <?php
-        } else {
-            header('Location: ../');
-        }
-        ?>
-    </main>
-</body>
+        <img src="https://chart.googleapis.com/chart?cht=qr&chl=<?= $requestID ?>&chs=258" alt="ilage" style="width: 50%;">
+    </body>
 
-</html>
+    </html>
+
+<?php
+    $dompdf->loadHtml(ob_get_clean());
+    $dompdf->setPaper('A4');
+    try {
+        $dompdf->render();
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+
+    // $dompdf->stream("gala-LRDE-$requestID.pdf", array("Attachment" => false)); 
+    $pdf = $dompdf->output();
+    header("Content-type: application/pdf");
+    header("Content-Disposition: inline; filename=ticket.pdf");
+    header("Content-Description: PDF Ticket");
+    echo $pdf;
+} else {
+    header('Location: ../');
+}
+?>
+<script>
+  // Update the title of the page
+  document.title = 'My Custom Title';
+</script>
