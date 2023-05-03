@@ -1,6 +1,6 @@
 <?php
 
-require_once '../lib/dompdf/autoload.inc.php';
+require_once '../dompdf/autoload.inc.php';
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -25,8 +25,12 @@ if ($_SESSION['action'] == 'book') {
 if (in_array($requestID, $IDs)) {
     $options = new Options();
     $options->set('isRemoteEnabled', true);
+    $options->set('defaultMediaType', 'all');
+    $options->set('isFontSubsettingEnabled', true);
+    $options->set('defaultFont', 'Helvetica');
     $dompdf = new Dompdf();
     $dompdf->setOptions($options);
+    $dompdf->setBasePath($_SERVER['DOCUMENT_ROOT']);
 
     // $dompdf->add_info('Title', 'Your meta title');
 
@@ -45,23 +49,8 @@ if (in_array($requestID, $IDs)) {
 
     ob_start();
 
+    include('./pdf.php');
 
-?>
-
-    <!DOCTYPE html>
-    <html lang="en">
-    <link rel="stylesheet" href="<?= $cssSrc ?>">
-
-    <body>
-        <div id="title-block">
-            <h1>La Ronde de l'Espoir</h1>
-        </div>
-        <img src="https://chart.googleapis.com/chart?cht=qr&chl=<?= $requestID ?>&chs=258" alt="ilage" style="width: 50%;">
-    </body>
-
-    </html>
-
-<?php
     $dompdf->loadHtml(ob_get_clean());
     $dompdf->setPaper('A4');
     try {
@@ -80,7 +69,3 @@ if (in_array($requestID, $IDs)) {
     header('Location: ../');
 }
 ?>
-<script>
-  // Update the title of the page
-  document.title = 'My Custom Title';
-</script>
