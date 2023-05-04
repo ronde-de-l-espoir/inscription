@@ -16,8 +16,16 @@
         <div>
             <div>
                 <h2 id="ticket-announcement">Ticket n°<?= $requestID ?> pour :</h2>
-                <h3 style="text-transform: uppercase;"><?= $_SESSION['lname'] . " " . $_SESSION['fname'] ?></h3>
-            </div>
+                <h3 style="text-transform: uppercase;"><?= $person['lname'] . " " . $person['fname'] ?></h3>
+                <?php if (!empty($parent)) : ?>
+                <p>Child of <?= $parent['fname'] . " " . $parent['lname'] . " (email: " . $parent['email'] . ")" ?></p>
+                <?php endif ?>
+                <p><?php 
+                    echo count($children);
+                    foreach ($children as $child){
+                        echo $child['fname'] . " " . $child['lname'];
+                    }
+                ?></p>
         </div>
         <!-- <tr>
             <td>hello</td>
@@ -26,7 +34,7 @@
         </tr> -->
     </table>
     
-    <!-- <img src="https://chart.googleapis.com/chart?cht=qr&chl=<?= $requestID ?>&chs=258" alt="ilage" style="width: 50%;"> -->
+    <img src="https://chart.googleapis.com/chart?cht=qr&chl=<?= $requestID ?>&chs=258" alt="ilage" style="width: 50%;">
 </body>
 
 </html>
