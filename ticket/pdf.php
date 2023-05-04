@@ -4,13 +4,21 @@
 <link rel="stylesheet" href="<?= $cssSrc ?>">
 
 <body>
-    <table style="width: 100%;">
-        <tr style="background-image: url('<?= 'data:image/' . mime_content_type('./assets/gradient.png') . ';base64,' . base64_encode(file_get_contents('./assets/gradient.png')); ?>'); width: 100%">
-            <td id="title">La Ronde de l'Espoir</td>
-        </tr>
-        <tr>
-            <td>Ticket du gala du vendredi 2 juin à 19h.</td>
-        </tr>
+    <main style="width: 100%;">
+        <div style="background-image: url('<?= 'data:image/' . mime_content_type('./assets/gradient.png') . ';base64,' . base64_encode(file_get_contents('./assets/gradient.png')); ?>'); width: 100%">
+            <div id="title">
+                <span>Gala - Ronde de l'Espoir</span>
+                <br>
+                <span style="font-size: 80%;">2 juin 2023</span>
+            </div>
+        </div>
+        <div class="spacer" style="height: 50px;"></div>
+        <div>
+            <div>
+                <h2 id="ticket-announcement">Ticket n°<?= $requestID ?> pour :</h2>
+                <h3 style="text-transform: uppercase;"><?= $_SESSION['lname'] . " " . $_SESSION['fname'] ?></h3>
+            </div>
+        </div>
         <!-- <tr>
             <td>hello</td>
             <td>hi</td>
@@ -18,7 +26,7 @@
         </tr> -->
     </table>
     
-    <img src="https://chart.googleapis.com/chart?cht=qr&chl=<?= $requestID ?>&chs=258" alt="ilage" style="width: 50%;">
+    <!-- <img src="https://chart.googleapis.com/chart?cht=qr&chl=<?= $requestID ?>&chs=258" alt="ilage" style="width: 50%;"> -->
 </body>
 
 </html>

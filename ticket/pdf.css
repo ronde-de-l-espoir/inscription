@@ -13,18 +13,36 @@
     position: relative;
     color: black;
     width: 100%;
-    font-size: 250%;
+    display: block;
+    font-size: 200%;
     color: white;
     font-weight: bolder;
     text-align: center;
-    vertical-align: middle;
-    height: 10%;
-    box-sizing: border-box;
+    height: fit-content;
+    box-sizing: content-box;
     column-span: all;
+}
+
+#ticket-announcement {
+    text-align: center;
+    text-decoration: underline;
 }
 
 html,
 body {
     width: 21cm;
     height: 29.7cm;
+}
+
+/* body {
+    background: filter();
+    background-position: center;
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #fdfdfd;
+} */
+
+.spacer {
+    height: 25px;
 }
