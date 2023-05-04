@@ -24,6 +24,8 @@
                     <div><?= $person['age'] ?> ans</div>
                     <div><?= $person['email'] ?></div>
                     <div><?= $person['phone'] ?></div>
+                    <br>
+                    <div>Vous devrez payer <span style="font-size: 175%; font-weight: 400; text-decoration: underline;"><?= $person['price'] ?></span> € à votre entrée</div>
                 </div>
                 <br>
                 <br>
@@ -42,16 +44,11 @@
                 <?php endif ?>
         </div>
 
-        <!-- <tr>
-            <td>hello</td>
-            <td>hi</td>
-            <td>goodbye</td>
-        </tr> -->
+        <div class="center-contents">
+            <img src="https://chart.googleapis.com/chart?cht=qr&chl=<?= $requestID ?>&chs=258" alt="ilage" style="width: 40%;" id="qr">
+        </div>
     </main>
-    
-    <div class="center-contents">
-        <img src="https://chart.googleapis.com/chart?cht=qr&chl=<?= $requestID ?>&chs=258" alt="ilage" style="width: 50%;" id="qr">
-    </div>
+
 
     <footer>
         <p>Ticket Gala La Merci Littoral - 2 juin 2023 <br> Généré par https://inscription.ronde-de-l-espoir.fr le <?= date('d-m-Y') ?> à <?= date('H:i:s') ?></p>
