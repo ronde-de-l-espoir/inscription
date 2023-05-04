@@ -32,16 +32,57 @@ if (in_array($requestID, $IDs)) {
     $dompdf->setOptions($options);
     $dompdf->setBasePath($_SERVER['DOCUMENT_ROOT']);
 
-    // $dompdf->add_info('Title', 'Your meta title');
+    // $image = '../ptit-bg.png';
+    // $imageData = base64_encode(file_get_contents($image));
+    // $src = 'data:' . mime_content_type($image) . ';base64,' . $imageData;
 
-    // A few settings
-    $image = '../ptit-bg.png';
+    require('../../db_config.php');
+    $personSQL = "SELECT * FROM `preinscriptions` WHERE `id`='$requestID'";
+    $personResult = mysqli_query($conn, $personSQL);
+    $person = mysqli_fetch_assoc($personResult);
 
-    // Read image path, convert to base64 encoding
-    $imageData = base64_encode(file_get_contents($image));
+    if ($person['nChildren'] > 0){
+        $childrenSQL = "SELECT * FROM `preinscriptions` WHERE `parentNode`='$requestID'";
+        $childrenResult = mysqli_query($conn, $childrenSQL);
+        $result = $conn->query($childrenSQL);
+        $children = array();
+        while($child = $result->fetch_assoc()) {
+            $children[] = $child;
+        }
+        print_r($children);
+    } else {
+        $children = array();
+    }
+    
+    if ($person['parentNode'] != ''){
+        $parentID = $person['parentNode'];
+        $parentSQL = "SELECT * FROM `preinscriptions` WHERE `id`='$parentID'";
+        $parentResult = mysqli_query($conn, $parentSQL);
+        $parent = mysqli_fetch_assoc($parentResult);
+    } else {
+        // $parent = [
+        //     'id'=>'123456789',
+        //     'fname'=>'allo',
+        //     'lname'=>'coucou',
+        //     'age'=>'45',
+        //     'email'=>'test@gmail.com',
+        //     'phone'=>'23457951',
+        //     'price'=>'15',
+        // ];
+        $parent = array();
+    }
 
-    // Format the image SRC:  data:{mime};base64,{data};
-    $src = 'data:' . mime_content_type($image) . ';base64,' . $imageData;
+
+    // $details = [
+    //     'id'=>$person['id'],
+    //     'fname'=>$person['fname'],
+    //     'lname'=>$person['lname'],
+    //     'age'=>$person['age'],
+    //     'email'=>$person['email'],
+    //     'phone'=>$person['phone'],
+    //     'price'=>$person['price'],
+    //     'lname'=>$person['lname']
+    // ]
 
 
     $css = base64_encode(file_get_contents('./pdf.css'));
