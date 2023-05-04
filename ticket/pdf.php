@@ -4,35 +4,50 @@
 <link rel="stylesheet" href="<?= $cssSrc ?>">
 
 <body>
-    <main style="width: 100%;">
-        <div style="background-image: url('<?= 'data:image/' . mime_content_type('./assets/gradient.png') . ';base64,' . base64_encode(file_get_contents('./assets/gradient.png')); ?>'); width: 100%">
-            <div id="title">
-                <span>Gala - Ronde de l'Espoir</span>
-                <br>
-                <span style="font-size: 80%;">2 juin 2023</span>
-            </div>
+    <header style="background-image: url('<?= 'data:image/' . mime_content_type('./assets/gradient.png') . ';base64,' . base64_encode(file_get_contents('./assets/gradient.png')); ?>'); width: 100%">
+        <div id="title">
+            <span>Gala - Ronde de l'Espoir</span>
+            <br>
+            <span style="font-size: 80%;">2 juin 2023</span>
         </div>
+    </header>
+    <main>
+        
         <div class="spacer" style="height: 50px;"></div>
         <div>
             <div>
-                <h2 id="ticket-announcement">Ticket n°<?= $requestID ?> pour :</h2>
-                <h3 style="text-transform: uppercase;"><?= $person['lname'] . " " . $person['fname'] ?></h3>
-                <?php if (!empty($parent)) : ?>
-                <p>Child of <?= $parent['fname'] . " " . $parent['lname'] . " (email: " . $parent['email'] . ")" ?></p>
+                <div id="ticket-announcement">Ticket de préinscription n°<?= $requestID ?> pour :</div>
+                <br>
+                <br>
+                <div id="person-info">
+                    <div style="text-transform: uppercase; font-size: 1.4em"><?= $person['lname'] . " " . $person['fname'] ?></div>
+                    <div><?= $person['age'] ?> ans</div>
+                    <div><?= $person['email'] ?></div>
+                    <div><?= $person['phone'] ?></div>
+                </div>
+                <br>
+                <br>
+                <?php if (count($children) > 0) : ?>
+                <div id="dependents">
+                    <p><?= count($children) ?> inscrits dépendant de vous :</p>
+                    <ul>
+                        <?php 
+                        foreach ($children as $child) :
+                        ?>
+                        <li><span style="text-transform: uppercase;"><?= $child['lname'] . " " . $child['fname'] ?></span> qui a <?= $child['age'] ?> ans et doit payer <?= $child['price'] ?> €</li>
+
+                        <?php endforeach ?>
+                    </ul>
+                </div>
                 <?php endif ?>
-                <p><?php 
-                    echo count($children);
-                    foreach ($children as $child){
-                        echo $child['fname'] . " " . $child['lname'];
-                    }
-                ?></p>
         </div>
+
         <!-- <tr>
             <td>hello</td>
             <td>hi</td>
             <td>goodbye</td>
         </tr> -->
-    </table>
+    </main>
     
     <div class="center-contents">
         <img src="https://chart.googleapis.com/chart?cht=qr&chl=<?= $requestID ?>&chs=258" alt="ilage" style="width: 50%;" id="qr">

@@ -3,9 +3,11 @@
     src: url(Montserrat.ttf) format('truetype');
 } */
 
+@page {
+    margin: 0 0;
+}
+
 * {
-    margin: 0;
-    padding: 0;
     font-family: 'Helvetica';
 }
 
@@ -24,15 +26,23 @@
 }
 
 #ticket-announcement {
+    font-size: 1.4em;
     text-align: center;
     text-decoration: underline;
 }
 
-html,
+#person-info {
+    text-align: center;
+    font-size: 1.3em;
+}
+
+
+
+/* html,
 body {
     width: 21cm;
     height: 29.7cm;
-}
+} */
 
 /* body {
     background: filter();
@@ -43,6 +53,39 @@ body {
     background-color: #fdfdfd;
 } */
 
+main {
+    margin: 0 2cm;
+}
+
 .spacer {
     height: 25px;
+}
+
+#qr {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.center-contents {
+    text-align: center;
+}
+
+ul {
+    list-style-type: circle;
+}
+
+footer {
+    background-color: #4f9ac6;
+    position: fixed; 
+    bottom: 0cm; 
+    left: 0cm; 
+    right: 0cm;
+    height: 2cm;
+    color: white;
+    text-align: center;
+}
+
+footer p {
+    line-height: 8mm;
 }
