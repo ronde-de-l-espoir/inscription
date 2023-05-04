@@ -34,7 +34,13 @@
         </tr> -->
     </table>
     
-    <img src="https://chart.googleapis.com/chart?cht=qr&chl=<?= $requestID ?>&chs=258" alt="ilage" style="width: 50%;">
+    <div class="center-contents">
+        <img src="https://chart.googleapis.com/chart?cht=qr&chl=<?= $requestID ?>&chs=258" alt="ilage" style="width: 50%;" id="qr">
+    </div>
+
+    <footer>
+        <p>Ticket Gala La Merci Littoral - 2 juin 2023 <br> Généré par https://inscription.ronde-de-l-espoir.fr le <?= date('d-m-Y') ?> à <?= date('H:i:s') ?></p>
+    </footer>
 </body>
 
 </html>
