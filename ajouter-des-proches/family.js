@@ -5,6 +5,8 @@ const memberInfoForm = document.getElementById('member-info-form')
 const lnameInput = document.getElementsByName('lname')[0]
 const ageInput = document.getElementsByName('age')[0]
 const fnameInput = document.getElementsByName('fname')[0]
+const emailInput = document.getElementsByName('email')[0]
+const phoneInput = document.getElementsByName('phone')[0]
 let memberID = ''
 
 async function checkIDExists(ID) {
@@ -82,15 +84,17 @@ function editPerson(memberID){
     document.getElementsByName('lname')[0].value = getValues(memberID)[0]
     document.getElementsByName('fname')[0].value = getValues(memberID)[1]
     document.getElementsByName('age')[0].value = getValues(memberID)[2]
+    document.getElementsByName('email')[0].value = getValues(memberID)[3]
+    document.getElementsByName('phone')[0].value = getValues(memberID)[4]
     return 0
 }
 
 function getValues(memberID) {
     var memberPos = Object.values(info.table).findIndex(subObj => subObj.id === memberID);
     if (memberPos === -1){
-        return ['', '', '']
+        return ['', '', '', '', '']
     } else {
-        return [info.table[memberPos].lname, info.table[memberPos].fname, info.table[memberPos].age]
+        return [info.table[memberPos].lname, info.table[memberPos].fname, info.table[memberPos].age, info.table[memberPos].email, info.table[memberPos].phone]
     }
 }
 
@@ -100,6 +104,8 @@ function closeMemberForm() {
     document.getElementsByName('lname')[0].value = ""
     document.getElementsByName('fname')[0].value = ""
     document.getElementsByName('age')[0].value = ""
+    document.getElementsByName('email')[0].value = ""
+    document.getElementsByName('phone')[0].value = ""
     hideErrors()
     const everything = document.getElementsByTagName('*')
     for (let i = 0; i < everything.length; i++) {
@@ -125,6 +131,10 @@ function showErrors(errors){
             document.getElementsByName('fname')[0].parentNode.getElementsByTagName('p')[0].innerHTML = 'Prénom invalide'
         } else if (errorRegion == 'age'){
             document.getElementsByName('age')[0].parentNode.getElementsByTagName('p')[0].innerHTML = 'Age invalide'
+        } else if (errorRegion == 'email'){
+            document.getElementsByName('email')[0].parentNode.getElementsByTagName('p')[0].innerHTML = 'Email invalide'
+        } else if (errorRegion == 'age'){
+            document.getElementsByName('phone')[0].parentNode.getElementsByTagName('p')[0].innerHTML = 'Téléphone invalide'
         }
     });
 }
@@ -133,12 +143,16 @@ function hideErrors() {
     document.getElementsByName('lname')[0].parentNode.getElementsByTagName('p')[0].innerHTML = ''
     document.getElementsByName('fname')[0].parentNode.getElementsByTagName('p')[0].innerHTML = ''
     document.getElementsByName('age')[0].parentNode.getElementsByTagName('p')[0].innerHTML = ''
+    document.getElementsByName('email')[0].parentNode.getElementsByTagName('p')[0].innerHTML = ''
+    document.getElementsByName('phone')[0].parentNode.getElementsByTagName('p')[0].innerHTML = ''
 }
 
 function validateMemberForm() {
     var lname = lnameInput.value
     var fname = fnameInput.value
     var age = ageInput.value
+    var email = emailInput.value
+    var phone = phoneInput.value
     var errors = []
     if (!(/^[a-zA-Z\-\s]+$/.test(lname))) {
         errors.push('lname')
@@ -149,6 +163,12 @@ function validateMemberForm() {
     if (!(/^(0?[1-9]|[1-9][0-9]|[1][1-9][1-9]|200)$/.test(age))){
         errors.push('age')
     }
+    if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))){
+        errors.push('email')
+    }
+    if (!(/^(0|(\+33[\s]?([0]?|[(0)]{3}?)))[1-9]([-. ]?[0-9]{2}){4}$/.test(phone))){
+        errors.push('phone')
+    }
     if (errors.length === 0){
         memberID = memberInfoForm.getAttribute('for')
         var memberPos = Object.values(info.table).findIndex(subObj => subObj.id === memberID);
@@ -157,7 +177,9 @@ function validateMemberForm() {
                 'id': memberID,
                 'lname': lname,
                 'fname': fname,
-                'age': age
+                'age': age,
+                'email': email,
+                'phone': phone
             }
             info.table.push(memberData)
         } else {
@@ -165,7 +187,9 @@ function validateMemberForm() {
                 'id': memberID,
                 'lname': lname,
                 'fname': fname,
-                'age': age
+                'age': age,
+                'email': email,
+                'phone': phone
             }
         }
         document.getElementById(memberID).getElementsByClassName('person-name')[0].innerHTML = fname + " " + lname

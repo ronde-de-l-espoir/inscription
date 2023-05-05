@@ -109,6 +109,16 @@
                     <span class="placeholder" unblur>Age</span>
                     <p class="error-text" unblur></p>
                 </div>
+                <div class="field" unblur>
+                    <input type="text" name="email" value="" placeholder=" " unblur>
+                    <span class="placeholder" unblur>Email</span>
+                    <p class="error-text" unblur></p>
+                </div>
+                <div class="field" unblur>
+                    <input type="text" name="phone" value="" placeholder=" " unblur>
+                    <span class="placeholder" unblur>Téléphone</span>
+                    <p class="error-text" unblur></p>
+                </div>
                 <div class="buttons" unblur>
                     <button id="member-form-continue" type="submit" onclick="validateMemberForm()" value="continue-form" unblur disabled>Continuer</button>
                     <button type="submit" onclick="cancelMemberForm()" value="cancel-form" unblur>Annuler</button>

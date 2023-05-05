@@ -43,14 +43,18 @@ foreach ($_SESSION['members']['table'] as $person) {
     } elseif ($personAge >= 18){
         $personPrice = 10;
     }
+    $personEmail = $person['email'];
+    $personPhone = $person['phone'];
     $personHasPaid = 0;
     $personParentNode = $buyerID;
     $personNChildren = '0';
-    $sql = "INSERT INTO preinscriptions(id, fname, lname, age, price, hasPaid, parentNode, nChildren) VALUES(
+    $sql = "INSERT INTO preinscriptions(id, fname, lname, age, email, phone, price, hasPaid, parentNode, nChildren) VALUES(
         '$personID',
         '$personFname',
         '$personLname',
         '$personAge',
+        '$personEmail',
+        '$personPhone',
         '$personPrice',
         '$personHasPaid',
         '$personParentNode',
