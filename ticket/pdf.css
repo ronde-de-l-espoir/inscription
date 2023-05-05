@@ -26,15 +26,25 @@
     column-span: all;
 }
 
+.row {
+    display: table-row;
+    /* max-width: 70%;
+    min-width: 70%;
+    width: 70%;
+    height: 7%; */
+}
+
 #ticket-announcement {
     font-size: 1.4em;
     text-align: center;
     text-decoration: underline;
+    width: 81%;
 }
 
 #person-info {
     text-align: center;
     font-size: 1.3em;
+    width: 81%;
 }
 
 
@@ -55,26 +65,35 @@ body {
 } */
 
 main {
-    margin: 0 2cm;
-}
-
-.spacer {
-    height: 25px;
+    margin: 1cm 2cm 2cm 2cm;
+    position: relative;
+    display: table;
 }
 
 #dependents {
     font-size: 115%;
+    width: 81%;
 }
 
 #qr {
-    display: block;
-    margin-right: auto;
-    margin-left: auto;
+    display: inline-block;
+    margin: 0 auto;
+    height: 250px;
+    object-fit: contain;
 }
 
 .center-contents {
+    width: 81%;
+    display: block;
     text-align: center;
+    height: fit-content;
 }
+
+/* .center-contents img {
+    object-fit: cover;
+    width: auto;
+    height: 100%;
+} */
 
 ul {
     list-style-type: circle;
@@ -82,9 +101,9 @@ ul {
 
 footer {
     background-color: #4f9ac6;
-    position: fixed; 
-    bottom: 0cm; 
-    left: 0cm; 
+    position: fixed;
+    bottom: 0cm;
+    left: 0cm;
     right: 0cm;
     height: 2cm;
     color: white;

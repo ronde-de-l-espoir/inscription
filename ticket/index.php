@@ -1,6 +1,6 @@
 <?php
 
-require_once '../lib/dompdf/autoload.inc.php';
+require_once '../vendor/autoload.php';
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -28,6 +28,7 @@ if (in_array($requestID, $IDs)) {
     $options->set('defaultMediaType', 'all');
     $options->set('isFontSubsettingEnabled', true);
     $options->set('defaultFont', 'Helvetica');
+    $options->set('isHtml5ParserEnabled', true);
     $dompdf = new Dompdf();
     $dompdf->setOptions($options);
     $dompdf->setBasePath($_SERVER['DOCUMENT_ROOT']);
@@ -49,7 +50,6 @@ if (in_array($requestID, $IDs)) {
         while($child = $result->fetch_assoc()) {
             $children[] = $child;
         }
-        print_r($children);
     } else {
         $children = array();
     }
