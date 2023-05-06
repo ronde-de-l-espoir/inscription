@@ -54,36 +54,14 @@ if (in_array($requestID, $IDs)) {
         $children = array();
     }
     
-    if ($person['parentNode'] != ''){
+    if ($person['parentNode'] != '' && $person['parentNode'] != '0'){
         $parentID = $person['parentNode'];
         $parentSQL = "SELECT * FROM `preinscriptions` WHERE `id`='$parentID'";
         $parentResult = mysqli_query($conn, $parentSQL);
         $parent = mysqli_fetch_assoc($parentResult);
     } else {
-        // $parent = [
-        //     'id'=>'123456789',
-        //     'fname'=>'allo',
-        //     'lname'=>'coucou',
-        //     'age'=>'45',
-        //     'email'=>'test@gmail.com',
-        //     'phone'=>'23457951',
-        //     'price'=>'15',
-        // ];
         $parent = array();
     }
-
-
-    // $details = [
-    //     'id'=>$person['id'],
-    //     'fname'=>$person['fname'],
-    //     'lname'=>$person['lname'],
-    //     'age'=>$person['age'],
-    //     'email'=>$person['email'],
-    //     'phone'=>$person['phone'],
-    //     'price'=>$person['price'],
-    //     'lname'=>$person['lname']
-    // ]
-
 
     $css = base64_encode(file_get_contents('./pdf.css'));
     $cssSrc = 'data:' . mime_content_type('./pdf.css') . ';base64,' . $css;

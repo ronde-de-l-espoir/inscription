@@ -84,9 +84,7 @@
                 </li>
             </ul>
         </div>
-        <?php endif ?>
-
-        <?php if(count($parent) > 0) : ?>
+        <?php elseif (count($parent) > 0) :?>
         
         <div id="info" style="width: 81%; margin-top: 2cm; font-size: 80%;">
             <p>Lors de votre entrée :</p>
@@ -101,6 +99,9 @@
                 <li>Il se peut que la personne dont vous dépendez ait déjà payé pour vous lors de leur entrée. Dans ce cas, vous n'aurez pas à payer.</li>
             </ul>
         </div>
+
+        <?php else : ?>
+        <div style="opacity: 0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum dolor eum itaque necessitatibus veritatis doloribus deleniti accusamus, nam error odit illo. Maiores magnam quisquam voluptates, libero explicabo provident quidem nam.</div>
 
         <?php endif ?>
     </main>
