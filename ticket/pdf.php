@@ -52,7 +52,15 @@
                         <?php endforeach ?>
                     </ul>
                 </div>
+            <?php 
+                endif;
+                if (count($parent) > 0) :
+            ?>
+                <div id="parents">
+                    <p style="font-size: 120%;">Vous dépendez de : <span style="text-transform: uppercase;"><?= $parent['lname'] . " " . $parent['fname'] ?></span></p>
+                </div>
             <?php endif ?>
+
         </div>
 
 
@@ -76,6 +84,24 @@
                 </li>
             </ul>
         </div>
+        <?php endif ?>
+
+        <?php if(count($parent) > 0) : ?>
+        
+        <div id="info" style="width: 81%; margin-top: 2cm; font-size: 80%;">
+            <p>Lors de votre entrée :</p>
+            <ul>
+                <li>Il y aura 2 files d'attente :
+                    <ol>
+                        <li>Pour les préinscits : cette file sera prioritaire, merci de vous y placer quand le gala sera annoncé.</li>
+                        <li>Pour les autres : si des places sont restantes ou <i>des inscrits ne sont pas présents après 15 minutes</i>, nous ferons rentrer ces personnes.</li>
+                    </ol>
+                </li>
+                <li>Le personnel scannera le QR code ci-dessus. Merci de le tenir prêt en papier ou sur votre smartphone.</li>
+                <li>Il se peut que la personne dont vous dépendez ait déjà payé pour vous lors de leur entrée. Dans ce cas, vous n'aurez pas à payer.</li>
+            </ul>
+        </div>
+
         <?php endif ?>
     </main>
 
