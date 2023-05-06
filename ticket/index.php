@@ -81,7 +81,7 @@ if (in_array($requestID, $IDs)) {
     // $dompdf->stream("gala-LRDE-$requestID.pdf", array("Attachment" => false)); 
     $pdf = $dompdf->output();
     header("Content-type: application/pdf");
-    header("Content-Disposition: inline; filename=gala-LRDE-$requestID.pdf");
+    header("Content-Disposition: inline; filename=gala-LRDE-{$person['fname']}-{$person['lname']}-$requestID.pdf");
     header("Content-Description: PDF Ticket");
     echo $pdf;
 } else {
