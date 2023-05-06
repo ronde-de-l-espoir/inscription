@@ -10,6 +10,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 $requestID = $_GET['id'];
+$mode = $_GET['mode'];
 
 $IDs = array(
     $_SESSION['id']
@@ -78,12 +79,15 @@ if (in_array($requestID, $IDs)) {
         echo $e->getMessage();
     }
 
-    // $dompdf->stream("gala-LRDE-$requestID.pdf", array("Attachment" => false)); 
     $pdf = $dompdf->output();
-    header("Content-type: application/pdf");
-    header("Content-Disposition: inline; filename=gala-LRDE-{$person['fname']}-{$person['lname']}-$requestID.pdf");
-    header("Content-Description: PDF Ticket");
-    echo $pdf;
+    if ($mode == 'view'){
+        header("Content-type: application/pdf");
+        header("Content-Disposition: inline; filename=gala-LRDE-{$person['fname']}-{$person['lname']}-$requestID.pdf");
+        header("Content-Description: PDF Ticket");
+        echo $pdf;
+    } elseif ($mode == "dl"){
+        $dompdf->stream("gala-LRDE-{$person['fname']}-{$person['lname']}-$requestID.pdf", array("Attachment" => true)); 
+    }
 } else {
     header('Location: ../');
 }
