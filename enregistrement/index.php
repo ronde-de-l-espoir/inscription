@@ -64,6 +64,31 @@ foreach ($_SESSION['members']['table'] as $person) {
 }
 
 
+$_GET['mode'] = 'raw';
+$tickets = array();
+
+$_GET['id'] = $buyerID;
+ob_start();
+include '../ticket/index.php';
+$ticket = array (
+    'id' => $buyerID,
+    'pdf' => ob_get_clean(),
+);
+$tickets[0] = $ticket;
+
+$i = 1;
+foreach ($_SESSION['members']['table'] as $person){
+    $_GET['id'] = $person['id'];
+    ob_start();
+    include '../ticket/index.php';
+    $ticket = array (
+        'id' => $person['id'],
+        'pdf' => ob_get_clean(),
+    );
+    $tickets[$i] = $ticket;
+    $i++;
+}
+
 ?>
 
 
