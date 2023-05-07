@@ -87,6 +87,8 @@ if (in_array($requestID, $IDs)) {
         echo $pdf;
     } elseif ($mode == "dl"){
         $dompdf->stream("gala-LRDE-{$person['fname']}-{$person['lname']}-$requestID.pdf", array("Attachment" => true)); 
+    } elseif ($mode == "raw"){
+        echo $pdf;
     }
 } else {
     header('Location: ../');
