@@ -1,4 +1,7 @@
 <?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -72,7 +75,7 @@ ob_start();
 include '../ticket/index.php';
 $ticket = array (
     'id' => $buyerID,
-    'pdf' => ob_get_clean(),
+    'pdf' => ob_get_clean()
 );
 $tickets[0] = $ticket;
 
@@ -83,11 +86,46 @@ foreach ($_SESSION['members']['table'] as $person){
     include '../ticket/index.php';
     $ticket = array (
         'id' => $person['id'],
-        'pdf' => ob_get_clean(),
+        'pdf' => ob_get_clean()
     );
     $tickets[$i] = $ticket;
     $i++;
 }
+
+function createMailInterface() {
+    $mail = new PHPMailer();
+    $mail->isSMTP();
+    $mail->Host = 'ronde-de-l-espoir.fr';
+    $mail->Port = 465;
+    $mail->SMTPAuth = true;
+    $mail->Username = 'no-reply@ronde-de-l-espoir.fr';
+    $mail->Password = 'Delta43theta!';
+    $mail->SMTPSecure = "ssl";
+    $mail->setFrom('no-reply@ronde-de-l-espoir.fr', "Ne Pas Répondre - Ronde de l'Espoir");
+    return $mail;
+}
+
+function createMailBody($person, $children, $parent) {
+    ob_start();
+    include "./mail.php";
+    return ob_get_clean();
+}
+
+foreach ($tickets as $ticket){
+    $mail = createMailInterface();
+    $mail->Subject = 'Email Subject';
+    $mail->isHTML(true);
+    $requestID = $ticket['id'];
+    require('../modules/getDataFromSQL.php');
+    $mail->Body = createMailBody($person, $children, $parent);
+    $mail->addStringAttachment($ticket['pdf'], "gala-LRDE-{$person['fname']}-{$person['lname']}-$requestID.pdf", 'base64', 'application/pdf');
+    $mail->addAddress($person['email']);
+    if (!$mail->send()) {
+        echo 'Mailer Error: ' . $mail->ErrorInfo;
+    }
+}
+
+
 
 ?>
 
