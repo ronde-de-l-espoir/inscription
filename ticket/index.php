@@ -40,12 +40,12 @@ if (in_array($requestID, $IDs)) {
 
     require('../modules/getDataFromSQL.php');
 
-    $css = base64_encode(file_get_contents('./pdf.css'));
-    $cssSrc = 'data:' . mime_content_type('./pdf.css') . ';base64,' . $css;
+    $css = base64_encode(file_get_contents(__DIR__ . '/pdf.css'));
+    $cssSrc = 'data:' . mime_content_type(__DIR__ . '/pdf.css') . ';base64,' . $css;
 
     ob_start();
 
-    include('./pdf.php');
+    include(__DIR__ . '/pdf.php');
 
     $dompdf->loadHtml(ob_get_clean());
     $dompdf->setPaper('A4');

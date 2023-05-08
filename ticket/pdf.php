@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="<?= $cssSrc ?>">
 
 <body>
-    <header style="background-image: url('<?= 'data:image/' . mime_content_type('./assets/gradient.png') . ';base64,' . base64_encode(file_get_contents('./assets/gradient.png')); ?>'); width: 100%;">
+    <header style="background-image: url('<?= 'data:image/' . mime_content_type(__DIR__ . '/assets/gradient.png') . ';base64,' . base64_encode(file_get_contents(__DIR__ . '/assets/gradient.png')); ?>'); width: 100%;">
         <div id="title">
             <span>Gala - Ronde de l'Espoir</span>
             <br>
