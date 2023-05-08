@@ -21,50 +21,50 @@ $buyerParentNode = '0';
 $nChildren = count($_SESSION['members']['table']);
 
 
-$sql = "INSERT INTO preinscriptions(id, fname, lname, age, email, phone, price, hasPaid, parentNode, nChildren) VALUES(
-    '$buyerID',
-    '$buyerFname',
-    '$buyerLname',
-    '$buyerAge',
-    '$buyerEmail',
-    '$buyerPhone',
-    '$buyerPrice',
-    '$buyerHasPaid',
-    '$buyerParentNode',
-    '$nChildren'
-    )";
+// $sql = "INSERT INTO preinscriptions(id, fname, lname, age, email, phone, price, hasPaid, parentNode, nChildren) VALUES(
+//     '$buyerID',
+//     '$buyerFname',
+//     '$buyerLname',
+//     '$buyerAge',
+//     '$buyerEmail',
+//     '$buyerPhone',
+//     '$buyerPrice',
+//     '$buyerHasPaid',
+//     '$buyerParentNode',
+//     '$nChildren'
+//     )";
 
-mysqli_query($conn, $sql);
+// mysqli_query($conn, $sql);
 
-foreach ($_SESSION['members']['table'] as $person) {
-    $personID = $person['id'];
-    $personFname = $person['fname'];
-    $personLname = $person['lname'];
-    $personAge = $person['age'];
-    if ($personAge < 18){
-        $personPrice = 5;
-    } elseif ($personAge >= 18){
-        $personPrice = 10;
-    }
-    $personEmail = $person['email'];
-    $personPhone = $person['phone'];
-    $personHasPaid = 0;
-    $personParentNode = $buyerID;
-    $personNChildren = '0';
-    $sql = "INSERT INTO preinscriptions(id, fname, lname, age, email, phone, price, hasPaid, parentNode, nChildren) VALUES(
-        '$personID',
-        '$personFname',
-        '$personLname',
-        '$personAge',
-        '$personEmail',
-        '$personPhone',
-        '$personPrice',
-        '$personHasPaid',
-        '$personParentNode',
-        '$personNChildren'
-    )";
-    mysqli_query($conn, $sql);
-}
+// foreach ($_SESSION['members']['table'] as $person) {
+//     $personID = $person['id'];
+//     $personFname = $person['fname'];
+//     $personLname = $person['lname'];
+//     $personAge = $person['age'];
+//     if ($personAge < 18){
+//         $personPrice = 5;
+//     } elseif ($personAge >= 18){
+//         $personPrice = 10;
+//     }
+//     $personEmail = $person['email'];
+//     $personPhone = $person['phone'];
+//     $personHasPaid = 0;
+//     $personParentNode = $buyerID;
+//     $personNChildren = '0';
+//     $sql = "INSERT INTO preinscriptions(id, fname, lname, age, email, phone, price, hasPaid, parentNode, nChildren) VALUES(
+//         '$personID',
+//         '$personFname',
+//         '$personLname',
+//         '$personAge',
+//         '$personEmail',
+//         '$personPhone',
+//         '$personPrice',
+//         '$personHasPaid',
+//         '$personParentNode',
+//         '$personNChildren'
+//     )";
+//     mysqli_query($conn, $sql);
+// }
 
 
 $_GET['mode'] = 'raw';
@@ -73,13 +73,9 @@ $tickets = array();
 $_GET['id'] = $buyerID;
 ob_start();
 include '../ticket/index.php';
-$ticket = array (
-    'id' => $buyerID,
-    'pdf' => ob_get_clean()
-);
-$tickets[0] = $ticket;
+$buyerPDF = ob_get_clean();
 
-$i = 1;
+$i = 0;
 foreach ($_SESSION['members']['table'] as $person){
     $_GET['id'] = $person['id'];
     ob_start();
@@ -111,18 +107,32 @@ function createMailBody($person, $children, $parent) {
     return ob_get_clean();
 }
 
+$buyerMail = createMailInterface();
+$buyerMail->Subject = 'Vos tickets du Gala - La Merci';
+$buyerMail->isHTML(true);
+$requestID = $buyerID;
+require('../modules/getDataFromSQL.php');
+$buyerMail->Body = createMailBody($person, $children, $parent);
+$buyerMail->addAddress($buyerEmail);
+$buyerMail->addStringAttachment($buyerPDF, "gala-LRDE-{$person['fname']}-{$person['lname']}-$requestID.pdf", 'base64', 'application/pdf');
+
 foreach ($tickets as $ticket){
     $mail = createMailInterface();
-    $mail->Subject = 'Email Subject';
+    $mail->Subject = 'Vos tickets du Gala - La Merci';
     $mail->isHTML(true);
     $requestID = $ticket['id'];
     require('../modules/getDataFromSQL.php');
     $mail->Body = createMailBody($person, $children, $parent);
     $mail->addStringAttachment($ticket['pdf'], "gala-LRDE-{$person['fname']}-{$person['lname']}-$requestID.pdf", 'base64', 'application/pdf');
+    $buyerMail->addStringAttachment($ticket['pdf'], "gala-LRDE-{$person['fname']}-{$person['lname']}-$requestID.pdf", 'base64', 'application/pdf');
     $mail->addAddress($person['email']);
     if (!$mail->send()) {
         echo 'Mailer Error: ' . $mail->ErrorInfo;
     }
+}
+
+if (!$buyerMail->send()) {
+    echo 'Mailer Error: ' . $mail->ErrorInfo;
 }
 
 
