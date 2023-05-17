@@ -158,7 +158,7 @@ function createMailInterface() {
     $mail->Port = 465;
     $mail->SMTPAuth = true;
     $mail->Username = 'no-reply@ronde-de-l-espoir.fr';
-    $mail->Password = 'Delta43theta!';
+    $mail->Password = 'NoReplyEmail2023!';
     $mail->SMTPSecure = "ssl";
     $mail->setFrom('no-reply@ronde-de-l-espoir.fr', "Ne Pas Répondre - Ronde de l'Espoir");
     return $mail;
