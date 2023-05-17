@@ -9,10 +9,10 @@
             header('Location: ./informations');
         } elseif ($_POST['action'] == 'cancel'){
             $_SESSION['action'] == 'cancel';
-            header('Location: ./somwhere-over-the-rainbow');
+            header('Location: ./verif-email');
         } elseif ($_POST['action'] == 'view'){
             $_SESSION['action'] == 'view';
-            header('Location: ./another-place-over-the-rainbow');
+            header('Location: ./verif-email');
         }
     }
 ?>

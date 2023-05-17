@@ -1,0 +1,1 @@
+<div>here is your code : <?= $_SESSION['code'] ?></div>
