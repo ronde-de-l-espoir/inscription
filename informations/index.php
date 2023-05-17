@@ -6,7 +6,7 @@
     
     do {
         $id = strval(str_pad(rand(0, 999999999), 9, '0', STR_PAD_LEFT));
-        require('../../galaDBConfig.php');
+        require('../../db_config.php');
         $sql = "SELECT COUNT(*) FROM `preinscriptions` WHERE `id`='$id';";
         $xResults = mysqli_fetch_all(mysqli_query($conn, $sql))[0][0];
     } while ($xResults != 0);
