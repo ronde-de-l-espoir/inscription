@@ -66,7 +66,13 @@
             if ($_POST['action'] == 'continue'){
                 if (isset($_POST['code'])){
                     if (md5($_POST['code']) == $_COOKIE['code']){
-                        header('Location: ../somewhere');
+                        unset($_COOKIE['code']); 
+                        setcookie('code', null, -1, '/'); 
+                        if ($_SESSION['action'] == 'lost'){
+                            header('Location: ../revoir');
+                        } elseif ($_SESSION['action'] == 'cancel'){
+                            header('Location: ../annulation');
+                        }
                     } else {
                         echo 'code invalide';
                     }
