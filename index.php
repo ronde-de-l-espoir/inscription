@@ -7,11 +7,11 @@
         if ($_POST['action'] == 'book'){
             $_SESSION['action'] = 'book';
             header('Location: ./informations');
-        } elseif ($_POST['action'] == 'cancel'){
-            $_SESSION['action'] == 'cancel';
+        } elseif ($_POST['action'] = 'lost'){
+            $_SESSION['action'] = 'lost';
             header('Location: ./verif-email');
-        } elseif ($_POST['action'] == 'view'){
-            $_SESSION['action'] == 'view';
+        } elseif ($_POST['action'] == 'cancel'){
+            $_SESSION['action'] = 'cancel';
             header('Location: ./verif-email');
         }
     }
