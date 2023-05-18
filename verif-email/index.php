@@ -11,7 +11,7 @@
         $_SESSION['emailStep'] = 1;
     }
 
-    function sendmail($email, $conn) {
+    function sendmail($email) {
         $mail = new PHPMailer();
         $mail->CharSet = "UTF-8";
         $mail->isSMTP();
@@ -24,12 +24,6 @@
         $mail->setFrom('no-reply@ronde-de-l-espoir.fr', "Ne Pas Répondre - Ronde de l'Espoir");
         $mail->Subject = "Code de sécurité - Ronde de l'Espoir";
         $mail->isHTML(true);
-        $SQL = "SELECT * FROM `preinscriptions` WHERE `email`='" . $email . "'";
-        $result = $conn->query($SQL);
-        $IDs = array();
-        while($ID = $result->fetch_assoc()) {
-            $IDs[] = $ID;
-        }
         ob_start();
         include "./mail.php";
         $mail->Body = ob_get_clean();
@@ -50,7 +44,7 @@
                     require('../../db_config.php');
                     $SQL = "SELECT COUNT(*) FROM `preinscriptions` WHERE `email`='" . $_POST['email'] . "'";
                     if (intval(mysqli_fetch_all(mysqli_query($conn, $SQL))[0][0]) > 0 ? true : false){
-                        if (!sendmail($_SESSION['email'], $conn)->send()) {
+                        if (!sendmail($_SESSION['email'])->send()) {
                             echo 'Mailer Error: ' . $mail->ErrorInfo;
                         } else {
                             $_SESSION['emailStep'] = 2;
@@ -77,8 +71,7 @@
                         echo 'code invalide';
                     }
                 } else {
-                    require('../../db_config.php');
-                    if (!sendmail($_SESSION['email'], $conn)->send()) {
+                    if (!sendmail($_SESSION['email'])->send()) {
                         echo 'Mailer Error: ' . $mail->ErrorInfo;
                     }
                 }
