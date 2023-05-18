@@ -14,7 +14,11 @@ while ($ID = $result->fetch_assoc()) {
     $IDs[] = $ID;
 }
 
-print_r($IDs)
+$_SESSION['allowed'] = [];
+foreach ($IDs as $person){
+    array_push($_SESSION['allowed'], $person['id']);
+}
+
 
 ?>
 
