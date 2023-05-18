@@ -1,7 +1,7 @@
-main {
+/* main {
     width: 45vw;
     margin: 100px 27.5vw;
-}
+} */
 
 h2 {
     text-align: center;
@@ -92,6 +92,13 @@ main .edit {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+@media only screen and (max-width: 630px){
+    #member-info-form {
+        width: 70vw;
+        text-align: center;
+    }
 }
 
 #member-info-form h4 {

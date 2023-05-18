@@ -36,7 +36,7 @@ if (isset($_POST['action'])) {
     ?>
 
     <main>
-        <h2>Récapitulatif</h2>
+        <h2>Modalités</h2>
 
         <p id="text">Merci de lire ce texte attentivement.</p>
         <p>A la page suivante, les tickets d'entrée seront générés.</p>
