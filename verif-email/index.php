@@ -69,7 +69,7 @@
                         unset($_COOKIE['code']); 
                         setcookie('code', null, -1, '/'); 
                         if ($_SESSION['action'] == 'lost'){
-                            header('Location: ../revoir');
+                            header('Location: ../perdu');
                         } elseif ($_SESSION['action'] == 'cancel'){
                             header('Location: ../annulation');
                         }
