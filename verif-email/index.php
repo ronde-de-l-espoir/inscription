@@ -61,10 +61,11 @@
             }
         } elseif ($_SESSION['emailStep'] == 2){
             if ($_POST['action'] == 'continue'){
-                if ($_POST['code'] == $_SESSION['code']){
-                    header('Location: ../somewhere');
-                } else {
-                    echo 'code invalide';
+                if (isset($_POST['code'])){
+                    if (md5($_POST['code']) == $_COOKIE['code']){
+                        header('Location: ../somewhere');
+                    } else {
+                        echo 'code invalide';
                 }
             } elseif ($_POST['action'] == 'goback'){
                 $_SESSION['emailStep'] = 1;
