@@ -12,14 +12,16 @@ if (session_status() == PHP_SESSION_NONE) {
 $requestID = $_GET['id'];
 $mode = $_GET['mode'];
 
-$IDs = array(
-    $_SESSION['id']
-);
 
 if ($_SESSION['action'] == 'book') {
+    $IDs = array(
+        $_SESSION['id']
+    );
     foreach ($_SESSION['members']['table'] as $person) {
         array_push($IDs, $person['id']);
     }
+} elseif ($_SESSION['action'] == 'lost'){
+    $IDs = $_SESSION['allowed'];
 }
 
 
