@@ -3,6 +3,11 @@
         session_start();
     }
 
+    require '../db_config.php';
+    $sql = "SELECT * FROM `preinscriptions`";
+    $result = mysqli_query($conn, $sql);
+    $placesLeft = 250 - mysqli_num_rows($result);
+
     if (isset($_POST['action'])){
         if ($_POST['action'] == 'book'){
             $_SESSION['action'] = 'book';
@@ -40,9 +45,12 @@
         <div id="welcome">
             <h2>Bonjour !</h2>
             <p>Cette plateforme vous permet de vous préinscrire pour le Gala du 2 juin 2023</p>
+            <p>Dépêchez-vous ! Il ne reste que <span id="placesLeft"><?= $placesLeft ?></span> places !</p>
         </div>
         <form action="./" method="post">
+            <?php if ($placesLeft > 0) : ?>
             <button name="action" class="gala-btn" value="book">Je réserve !</button>
+            <?php endif ?>
             <button name="action" class="gala-btn" value="lost">J'ai perdu mon ticket</button>
             <button name="action" class="gala-btn" value="cancel">Je souhaite annuler...</button>
         </form>
