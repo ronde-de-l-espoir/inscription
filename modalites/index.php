@@ -50,14 +50,7 @@ if (isset($_POST['action'])) {
         <p>Si les membres n'ont pas leur ticket, ils doivent impérativement rentrer avec vous; le cas échéant ils ne seront pas admis.</p>
         <p>Lors de votre entrée :</p>
         <ul>
-            <li>Il y aura 2 files d'attente :
-                <ol>
-                    <li>Pour les préinscits : cette file sera prioritaire, merci de vous y placer quand le gala sera annoncé.</li>
-                    <li>Pour les autres : si des places sont restantes ou <i>des inscrits ne sont pas présents après 15 minutes</i>, nous ferons rentrer ces personnes.
-
-                    </li>
-                </ol>
-            </li>
+            <li>Placez-vous dans la file d'attente dès 19h30 : à 20h, nous ferons rentrer des non-préinscrits</li>
             <li>Le personnel scannera le QR code présent sur votre ticket. Merci de le tenir visible en papier ou sur votre smartphone.</li>
             <li>Si des membres ont été inscrits à la page précédente, alors le personnel vous demandera pour quel membre vous souhaitez payer :
                 <ul>
