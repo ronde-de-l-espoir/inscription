@@ -1,5 +1,5 @@
 const timerElement = document.getElementById('time')
-var left = 10
+var left = 1800
 
 function updateTimer() {
     timerElement.innerText = Math.ceil(left/60)
