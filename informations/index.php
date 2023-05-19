@@ -31,14 +31,14 @@
             
             if (empty($_SESSION['lname'])){
                 $fieldErrors['lname'] = 'Un nom est requis';
-            } elseif (!preg_match('/^[a-zA-Z]+$/', $_SESSION['lname'])){
+            } elseif (!preg_match('/^[a-zA-Z\-\s]+$/', $_SESSION['lname'])){
                 $fieldErrors['lname'] = 'Nom non valide';
             } else {
                 $fieldErrors['lname'] = '';
             }
             if (empty($_SESSION['fname'])){
                 $fieldErrors['fname'] = 'Un prénom est requis';
-            } elseif (!preg_match('/^[a-zA-Z]+$/', $_SESSION['fname'])){
+            } elseif (!preg_match('/^[a-zA-Z\-\s]+$/', $_SESSION['fname'])){
                 $fieldErrors['fname'] = 'Prénom non valide';
             } else {
                 $fieldErrors['fname'] = '';
