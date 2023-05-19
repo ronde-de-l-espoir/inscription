@@ -78,6 +78,7 @@ if (
     && isset($_SESSION['email'])
     && isset($_SESSION['phone'])
     && isset($_SESSION['price'])
+    && isset($_SESSION['hasReadModalites'])
 ) {
     $buyerID = $_SESSION['id'];
     $buyerLname = $_SESSION['lname'];
@@ -209,10 +210,10 @@ if (
     if (!$buyerMail->send()) {
         echo 'Mailer Error: ' . $mail->ErrorInfo;
     }
-} else if ($_SESSION['connected'] == 1 && $_SESSION['action'] == 'book') {
-    header('../informations/');
+} else if ($_SESSION['action'] == 'book') {
+    header('Location: ../informations/');
 } else {
-    header('../');
+    header('Location: ../');
 }
 
 ?>

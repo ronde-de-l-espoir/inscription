@@ -3,8 +3,13 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+if (!isset($_SESSION['hasConfirmed']) || !$_SESSION['hasConfirmed']){
+    header('Location: ../confirmation');
+}
+
 if (isset($_POST['action'])) {
     if ($_POST['action'] == 'continue') {
+        $_SESSION['hasReadModalites'] = true;
         header('Location: ../enregistrement');
     } else {
         header('Location: ../confirmation');
