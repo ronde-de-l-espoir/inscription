@@ -6,79 +6,6 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 600)) {
-    session_destroy();
-    session_unset();
-    header('Location: ../');
-}
-$_SESSION['LAST_ACTIVITY'] = time();
-
-ob_start();
-
-?>
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LRDE -- Terminé</title>
-    <link rel="stylesheet" href="../common.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="./enregistrement.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <script src="./timer.js" defer></script>
-</head>
-
-<body>
-    <?php
-    $prefix = "../";
-    include('../modules/nav/nav.php');
-    ?>
-
-    <main>
-        <h2>Terminé !</h2>
-        <p>Les tickets sont disponibles ci-dessous.</p>
-        <p>Vous pouvez les visionner en cliquant sur <span class="material-symbols-rounded" style="vertical-align: text-bottom;">visibility</span> ou les télécharger directement en cliquant sur <span class="material-symbols-rounded" style="vertical-align: text-bottom;">download</span></p>
-        <div id="tickets">
-            <div class="ticket">
-                <span><?= "gala-LRDE-" . $_SESSION['fname'] . "-" . $_SESSION['lname'] . "-" . $_SESSION['id'] . ".pdf" ?></span>
-                <div class="actions">
-                    <a href="../ticket/view/<?= $_SESSION['id'] ?>" target="_blank" style="color: inherit;"><span class="material-symbols-rounded">visibility</span></a>
-                    <a href="../ticket/dl/<?= $_SESSION['id'] ?>" target="_blank" style="color: inherit;"><span class="material-symbols-rounded">download</span></a>
-                </div>
-            </div>
-            <?php foreach ($_SESSION['members']['table'] as $member) : ?>
-            
-            <div class="ticket">
-                <span><?= "gala-LRDE-" . $member['fname'] . "-" . $member['lname'] . "-" . $member['id'] . ".pdf" ?></span>
-                <div class="actions">
-                    <a href="../ticket/view/<?= $member['id'] ?>" target="_blank" style="color: inherit;"><span class="material-symbols-rounded">visibility</span></a>
-                    <a href="../ticket/dl/<?= $member['id'] ?>" target="_blank" style="color: inherit;"><span class="material-symbols-rounded">download</span></a>
-                </div>
-            </div>
-
-            <?php endforeach ?>
-        </div>
-        <div id="expiration">
-            <p>Cette session expirera automatiquement dans <span id="time"></span> minutes.</p>
-            <p>Vous pourrez aller voir vos tickets avec l'option <i>J'ai perdu mon ticket</i> sur la page d'accueil</p>
-        </div>
-    </main>
-</body>
-
-</html>
-
-
-<?php
-
-ob_end_flush();
-flush();
-
 require('../../db_config.php');
 
 if (
@@ -91,6 +18,15 @@ if (
     && isset($_SESSION['price'])
     && isset($_SESSION['hasReadModalites'])
 ) {
+
+    header('Refresh: 1800; URL=../');
+
+    if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1785)) {
+        session_destroy();
+        session_unset();
+    }
+    $_SESSION['LAST_ACTIVITY'] = time();
+    
     $buyerID = $_SESSION['id'];
     $buyerLname = $_SESSION['lname'];
     $buyerFname = $_SESSION['fname'];
@@ -222,6 +158,7 @@ if (
     if (!$buyerMail->send()) {
         echo 'Mailer Error: ' . $mail->ErrorInfo;
     }
+
 } else if ($_SESSION['action'] == 'book') {
     header('Location: ../informations/');
 } else {
@@ -230,3 +167,58 @@ if (
 
 ?>
 
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LRDE -- Terminé</title>
+    <link rel="stylesheet" href="../common.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="./enregistrement.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="./timer.js" defer></script>
+</head>
+
+<body>
+    <?php
+    $prefix = "../";
+    include('../modules/nav/nav.php');
+    ?>
+
+    <main>
+        <h2>Terminé !</h2>
+        <p>Les tickets sont disponibles ci-dessous.</p>
+        <p>Vous pouvez les visionner en cliquant sur <span class="material-symbols-rounded" style="vertical-align: text-bottom;">visibility</span> ou les télécharger directement en cliquant sur <span class="material-symbols-rounded" style="vertical-align: text-bottom;">download</span></p>
+        <div id="tickets">
+            <div class="ticket">
+                <span><?= "gala-LRDE-" . $_SESSION['fname'] . "-" . $_SESSION['lname'] . "-" . $_SESSION['id'] . ".pdf" ?></span>
+                <div class="actions">
+                    <a href="../ticket/view/<?= $_SESSION['id'] ?>" target="_blank" style="color: inherit;"><span class="material-symbols-rounded">visibility</span></a>
+                    <a href="../ticket/dl/<?= $_SESSION['id'] ?>" target="_blank" style="color: inherit;"><span class="material-symbols-rounded">download</span></a>
+                </div>
+            </div>
+            <?php foreach ($_SESSION['members']['table'] as $member) : ?>
+            
+            <div class="ticket">
+                <span><?= "gala-LRDE-" . $member['fname'] . "-" . $member['lname'] . "-" . $member['id'] . ".pdf" ?></span>
+                <div class="actions">
+                    <a href="../ticket/view/<?= $member['id'] ?>" target="_blank" style="color: inherit;"><span class="material-symbols-rounded">visibility</span></a>
+                    <a href="../ticket/dl/<?= $member['id'] ?>" target="_blank" style="color: inherit;"><span class="material-symbols-rounded">download</span></a>
+                </div>
+            </div>
+
+            <?php endforeach ?>
+        </div>
+        <div id="expiration">
+            <p>Cette session expirera automatiquement dans <span id="time"></span> minutes.</p>
+            <p>Vous pourrez aller voir vos tickets avec l'option <i>J'ai perdu mon ticket</i> sur la page d'accueil</p>
+        </div>
+    </main>
+</body>
+
+</html>
