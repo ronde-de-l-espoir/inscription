@@ -81,132 +81,152 @@ flush();
 
 require('../../db_config.php');
 
+if (
+    isset($_SESSION['id'])
+    && isset($_SESSION['lname'])
+    && isset($_SESSION['fname'])
+    && isset($_SESSION['age'])
+    && isset($_SESSION['email'])
+    && isset($_SESSION['phone'])
+    && isset($_SESSION['price'])
+    && isset($_SESSION['hasReadModalites'])
+) {
+    $buyerID = $_SESSION['id'];
+    $buyerLname = $_SESSION['lname'];
+    $buyerFname = $_SESSION['fname'];
+    $buyerAge = $_SESSION['age'];
+    $buyerEmail = $_SESSION['email'];
+    $buyerPhone = $_SESSION['phone'];
+    $buyerPrice = $_SESSION['price'];
+    $buyerEvent = "Gala";
+    $buyerHasPaid = 0;
+    $buyerParentNode = '0';
+    $nChildren = count($_SESSION['members']['table']);
 
-$buyerID = $_SESSION['id'];
-$buyerLname = $_SESSION['lname'];
-$buyerFname = $_SESSION['fname'];
-$buyerAge = $_SESSION['age'];
-$buyerEmail = $_SESSION['email'];
-$buyerPhone = $_SESSION['phone'];
-$buyerPrice = $_SESSION['price'];
-$buyerHasPaid = 0;
-$buyerParentNode = '0';
-$nChildren = count($_SESSION['members']['table']);
+
+    $sql = "INSERT INTO preinscriptions(id, fname, lname, age, email, phone, price, hasPaid, parentNode, nChildren, eventInfo) VALUES(
+        '$buyerID',
+        '$buyerFname',
+        '$buyerLname',
+        '$buyerAge',
+        '$buyerEmail',
+        '$buyerPhone',
+        '$buyerPrice',
+        '$buyerHasPaid',
+        '$buyerParentNode',
+        '$nChildren',
+        '$buyerEvent'
+        )";
 
 
-$sql = "INSERT INTO preinscriptions(id, fname, lname, age, email, phone, price, hasPaid, parentNode, nChildren) VALUES(
-    '$buyerID',
-    '$buyerFname',
-    '$buyerLname',
-    '$buyerAge',
-    '$buyerEmail',
-    '$buyerPhone',
-    '$buyerPrice',
-    '$buyerHasPaid',
-    '$buyerParentNode',
-    '$nChildren'
-    )";
-
-mysqli_query($conn, $sql);
-
-foreach ($_SESSION['members']['table'] as $person) {
-    $personID = $person['id'];
-    $personFname = $person['fname'];
-    $personLname = $person['lname'];
-    $personAge = $person['age'];
-    if ($personAge < 18){
-        $personPrice = 5;
-    } elseif ($personAge >= 18){
-        $personPrice = 10;
-    }
-    $personEmail = $person['email'];
-    $personPhone = $person['phone'];
-    $personHasPaid = 0;
-    $personParentNode = $buyerID;
-    $personNChildren = '0';
-    $sql = "INSERT INTO preinscriptions(id, fname, lname, age, email, phone, price, hasPaid, parentNode, nChildren) VALUES(
-        '$personID',
-        '$personFname',
-        '$personLname',
-        '$personAge',
-        '$personEmail',
-        '$personPhone',
-        '$personPrice',
-        '$personHasPaid',
-        '$personParentNode',
-        '$personNChildren'
-    )";
     mysqli_query($conn, $sql);
-}
+
+    foreach ($_SESSION['members']['table'] as $person) {
+        $personID = $person['id'];
+        $personFname = $person['fname'];
+        $personLname = $person['lname'];
+        $personAge = $person['age'];
+        if ($personAge < 18){
+            $personPrice = 5;
+        } elseif ($personAge >= 18){
+            $personPrice = 10;
+        }
+        $personEmail = $person['email'];
+        $personPhone = $person['phone'];
+        $personHasPaid = 0;
+        $personParentNode = $buyerID;
+        $personNChildren = '0';
+        $personEvent = "Gala";
+        $sql = "INSERT INTO preinscriptions(id, fname, lname, age, email, phone, price, hasPaid, parentNode, nChildren, eventInfo) VALUES(
+            '$personID',
+            '$personFname',
+            '$personLname',
+            '$personAge',
+            '$personEmail',
+            '$personPhone',
+            '$personPrice',
+            '$personHasPaid',
+            '$personParentNode',
+            '$personNChildren',
+            '$personEvent'
+        )";
+        mysqli_query($conn, $sql);
+    }
 
 
-$_GET['mode'] = 'raw';
-$tickets = array();
+    $_GET['mode'] = 'raw';
+    $tickets = array();
 
-$_GET['id'] = $buyerID;
-ob_start();
-include '../ticket/index.php';
-$buyerPDF = ob_get_clean();
-
-$i = 0;
-foreach ($_SESSION['members']['table'] as $person){
-    $_GET['id'] = $person['id'];
+    $_GET['id'] = $buyerID;
     ob_start();
     include '../ticket/index.php';
-    $ticket = array (
-        'id' => $person['id'],
-        'pdf' => ob_get_clean()
-    );
-    $tickets[$i] = $ticket;
-    $i++;
-}
+    $buyerPDF = ob_get_clean();
 
-function createMailInterface() {
-    $mail = new PHPMailer();
-    $mail->CharSet = "UTF-8";
-    $mail->isSMTP();
-    $mail->Host = 'ronde-de-l-espoir.fr';
-    $mail->Port = 465;
-    $mail->SMTPAuth = true;
-    $mail->Username = 'no-reply@ronde-de-l-espoir.fr';
-    $mail->Password = 'NoReplyEmail2023!';
-    $mail->SMTPSecure = "ssl";
-    $mail->setFrom('no-reply@ronde-de-l-espoir.fr', "Ne Pas Répondre - Ronde de l'Espoir");
-    return $mail;
-}
+    $i = 0;
+    foreach ($_SESSION['members']['table'] as $person){
+        $_GET['id'] = $person['id'];
+        ob_start();
+        include '../ticket/index.php';
+        $ticket = array (
+            'id' => $person['id'],
+            'pdf' => ob_get_clean()
+        );
+        $tickets[$i] = $ticket;
+        $i++;
+    }
 
-function createMailBody($person, $children, $parent) {
-    ob_start();
-    include "./mail.php";
-    return ob_get_clean();
-}
+    function createMailInterface() {
+        $mail = new PHPMailer();
+        $mail->CharSet = "UTF-8";
+        $mail->isSMTP();
+        $mail->Host = 'ronde-de-l-espoir.fr';
+        $mail->Port = 465;
+        $mail->SMTPAuth = true;
+        $mail->Username = 'no-reply@ronde-de-l-espoir.fr';
+        $mail->Password = 'NoReplyEmail2023!';
+        $mail->SMTPSecure = "ssl";
+        $mail->setFrom('no-reply@ronde-de-l-espoir.fr', "Ne Pas Répondre - Ronde de l'Espoir");
+        return $mail;
+    }
 
-$buyerMail = createMailInterface();
-$buyerMail->Subject = 'Vos tickets du Gala - La Merci';
-$buyerMail->isHTML(true);
-$requestID = $buyerID;
-require('../modules/getDataFromSQL.php');
-$buyerMail->Body = createMailBody($person, $children, $parent);
-$buyerMail->addAddress($buyerEmail);
-$buyerMail->addStringAttachment($buyerPDF, "gala-LRDE-{$person['fname']}-{$person['lname']}-$requestID.pdf", 'base64', 'application/pdf');
+    function createMailBody($person, $children, $parent) {
+        ob_start();
+        include "./mail.php";
+        return ob_get_clean();
+    }
 
-foreach ($tickets as $ticket){
-    $mail = createMailInterface();
-    $mail->Subject = 'Vos tickets du Gala - La Merci';
-    $mail->isHTML(true);
-    $requestID = $ticket['id'];
+    $buyerMail = createMailInterface();
+    $buyerMail->Subject = 'Vos tickets du Gala - La Merci';
+    $buyerMail->isHTML(true);
+    $requestID = $buyerID;
     require('../modules/getDataFromSQL.php');
-    $mail->Body = createMailBody($person, $children, $parent);
-    $mail->addStringAttachment($ticket['pdf'], "gala-LRDE-{$person['fname']}-{$person['lname']}-$requestID.pdf", 'base64', 'application/pdf');
-    $buyerMail->addStringAttachment($ticket['pdf'], "gala-LRDE-{$person['fname']}-{$person['lname']}-$requestID.pdf", 'base64', 'application/pdf');
-    $mail->addAddress($person['email']);
-    if (!$mail->send()) {
+    $buyerMail->Body = createMailBody($person, $children, $parent);
+    $buyerMail->addAddress($buyerEmail);
+    $buyerMail->addStringAttachment($buyerPDF, "gala-LRDE-{$person['fname']}-{$person['lname']}-$requestID.pdf", 'base64', 'application/pdf');
+
+    foreach ($tickets as $ticket){
+        $mail = createMailInterface();
+        $mail->Subject = 'Vos tickets du Gala - La Merci';
+        $mail->isHTML(true);
+        $requestID = $ticket['id'];
+        require('../modules/getDataFromSQL.php');
+        $mail->Body = createMailBody($person, $children, $parent);
+        $mail->addStringAttachment($ticket['pdf'], "gala-LRDE-{$person['fname']}-{$person['lname']}-$requestID.pdf", 'base64', 'application/pdf');
+        $buyerMail->addStringAttachment($ticket['pdf'], "gala-LRDE-{$person['fname']}-{$person['lname']}-$requestID.pdf", 'base64', 'application/pdf');
+        $mail->addAddress($person['email']);
+        if (!$mail->send()) {
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
+        }
+    }
+
+    if (!$buyerMail->send()) {
         echo 'Mailer Error: ' . $mail->ErrorInfo;
     }
-}
-
-if (!$buyerMail->send()) {
-    echo 'Mailer Error: ' . $mail->ErrorInfo;
+} else if ($_SESSION['action'] == 'book') {
+    header('Location: ../informations/');
+} else {
+    header('Location: ../');
 }
 
 ?>
+

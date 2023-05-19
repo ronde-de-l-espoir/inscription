@@ -3,6 +3,16 @@
         session_start();
     }
 
+    if (
+        !isset($_SESSION['lname'])
+        || !isset($_SESSION['fname'])
+        || !isset($_SESSION['age'])
+        || !isset($_SESSION['email'])
+        || !isset($_SESSION['phone'])
+    ) {
+        header('Location: ../informations');
+    }
+
     $members = $_SESSION['members']['table'];
     $total = 0;
 
@@ -31,6 +41,7 @@
 
     if (isset($_POST['action'])){
         if ($_POST['action'] == 'continue'){
+            $_SESSION['hasConfirmed'] = true;
             header('Location: ../modalites');
         } else {
             header('Location: ../ajouter-des-proches');
