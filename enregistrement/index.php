@@ -68,7 +68,7 @@ ob_start();
 ob_end_flush();
 flush();
 
-require('../../galaDBConfig.php');
+require('../../db_config.php');
 
 
 $buyerID = $_SESSION['id'];
