@@ -85,7 +85,7 @@
             </div>
             <div id="add-member" onclick="addPersonBlock()">
                 <span class="material-symbols-outlined add-person">person_add</span>
-                <span>Ajouter quelqu'un</span>
+                <span style="padding-left: 10px;">Ajouter quelqu'un</span>
             </div>
             <!-- <p>Venez avec de votre petit•e frère/sœur, et faites-lui économiser jusqu'à 5€ !</p>
             <label><input type="checkbox" name="withSibling" value="true" oninput="updateTotal()">Oui, je souhaite l'accompagner !</label>

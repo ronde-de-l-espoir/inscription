@@ -18,6 +18,7 @@ h2 {
 }
 
 #add-member {
+    padding-top: 20px;
     display: flex;
     flex-direction: row;
     justify-content: start;
