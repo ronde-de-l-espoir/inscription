@@ -1,2 +1,2 @@
 RewriteEngine On
-RewriteRule ^ticket/([a-z]*)/([0-9]{9})$ /ticket/?id=$2&mode=$1 [L,QSA,P]
+RewriteRule ^ticket/([a-z]*)/([0-9]{9})$ /ticket/?id=$2&mode=$1 [L,QSA]
