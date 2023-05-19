@@ -4,7 +4,7 @@
     }
 
     require '../db_config.php';
-    $sql = "SELECT * FROM `preinscriptions`";
+    $sql = "SELECT * FROM `preinscriptions` WHERE `eventInfo`!='Test'";
     $result = mysqli_query($conn, $sql);
     $placesLeft = 250 - mysqli_num_rows($result);
 
