@@ -4,13 +4,11 @@
     }
 
     if (
-        !isset($_SESSION['id'])
-        || !isset($_SESSION['lname'])
+        !isset($_SESSION['lname'])
         || !isset($_SESSION['fname'])
         || !isset($_SESSION['age'])
         || !isset($_SESSION['email'])
         || !isset($_SESSION['phone'])
-        || !isset($_SESSION['price'])
     ) {
         header('Location: ../informations');
     }
