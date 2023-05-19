@@ -1,10 +1,18 @@
 main {
     display: grid;
-    grid-template-rows: 1fr 2fr;
+    grid-template-rows: 1fr 1.5fr;
 }
 
 #welcome {
     text-align: center;
+}
+
+#placesLeft {
+    font-size: 160%;
+    background: rgb(63,94,251);
+    background: linear-gradient(355deg, rgb(38, 65, 201) 19%, rgb(189, 52, 80) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 form {
