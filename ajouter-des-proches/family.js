@@ -118,7 +118,7 @@ function closeMemberForm() {
 function cancelMemberForm() {
     memberID = memberInfoForm.getAttribute('for')
     if (getValues(memberID)[0] == ''){
-        removePerson(memberID)
+        document.getElementById(memberID).remove()
     }
     closeMemberForm()
 }
