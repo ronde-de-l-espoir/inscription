@@ -52,7 +52,7 @@
             <button name="action" class="gala-btn" value="book">Je réserve !</button>
             <?php endif ?>
             <button name="action" class="gala-btn" value="lost">J'ai perdu mon ticket</button>
-            <button name="action" class="gala-btn" value="cancel">Je souhaite annuler...</button>
+            <!-- <button name="action" class="gala-btn" value="cancel">Je souhaite annuler...</button> -->
         </form>
     </main>
 </body>
