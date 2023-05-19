@@ -6,6 +6,13 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {
+    session_destroy();
+    session_unset();
+    header('Location: ../');
+}
+$_SESSION['LAST_ACTIVITY'] = time();
+
 ob_start();
 
 ?>
@@ -24,6 +31,7 @@ ob_start();
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="./enregistrement.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="./timer.js" defer></script>
 </head>
 
 <body>
@@ -56,7 +64,10 @@ ob_start();
 
             <?php endforeach ?>
         </div>
-    
+        <div id="expiration">
+            <p>Cette session expirera automatiquement dans <span id="time"></span> minutes.</p>
+            <p>Vous pourrez aller voir vos tickets avec l'option <i>J'ai perdu mon ticket</i> sur la page d'accueil</p>
+        </div>
     </main>
 </body>
 
