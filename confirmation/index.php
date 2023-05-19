@@ -83,12 +83,14 @@
                 </ul>
             </div>
             <div id="members">
+                <?php if (count($members) > 0) : ?>
                 <p>Vous êtes accompagnés de :</p>
                 <ul>
                 <?php foreach($members as $member) : ?>
                     <li><span class="data"><?= $member['fname'] . " " . $member['lname'] ?></span>, qui a <span class="data"><?= $member['age'] ?></span> ans (ticket n°<span class="data"><?= spaceUpID($member['id']) ?></span>)</li>
                 <?php endforeach ?>
                 </ul>
+                <?php endif ?>
             </div>
             <p id="text">Quelque chose ne va pas ?<br>Cliquer le bouton 'Retour' ci-après et corrigez les informations.</p>
         </div>
