@@ -65,9 +65,6 @@ ob_start();
 
 <?php
 
-print_r($_SESSION);
-
-
 ob_end_flush();
 flush();
 
