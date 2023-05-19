@@ -3,6 +3,16 @@
         session_start();
     }
 
+    if (
+        !isset($_SESSION['lname'])
+        || !isset($_SESSION['fname'])
+        || !isset($_SESSION['age'])
+        || !isset($_SESSION['email'])
+        || !isset($_SESSION['phone'])
+    ) {
+        header('Location: ../informations');
+    }
+
     if (isset($_SESSION['members'])){
         $table = $_SESSION['members']['table'];
     }
