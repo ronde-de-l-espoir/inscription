@@ -12,7 +12,7 @@
         if ($_POST['action'] == 'book'){
             $_SESSION['action'] = 'book';
             header('Location: ./informations');
-        } elseif ($_POST['action'] = 'lost'){
+        } elseif ($_POST['action'] == 'lost'){
             $_SESSION['action'] = 'lost';
             header('Location: ./verif-email');
         } elseif ($_POST['action'] == 'cancel'){
