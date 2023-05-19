@@ -133,7 +133,7 @@ function showErrors(errors){
             document.getElementsByName('age')[0].parentNode.getElementsByTagName('p')[0].innerHTML = 'Age invalide'
         } else if (errorRegion == 'email'){
             document.getElementsByName('email')[0].parentNode.getElementsByTagName('p')[0].innerHTML = 'Email invalide'
-        } else if (errorRegion == 'age'){
+        } else if (errorRegion == 'phone'){
             document.getElementsByName('phone')[0].parentNode.getElementsByTagName('p')[0].innerHTML = 'Téléphone invalide'
         }
     });
