@@ -1,11 +1,15 @@
 const timerElement = document.getElementById('time')
-var left = 600
-timerElement.innerText = left/60
+var left = 10
+
+function updateTimer() {
+    timerElement.innerText = Math.ceil(left/60)
+}
 
 
 function decreaseTimer() {
     left--
-    timerElement.innerText = Math.ceil(left/60)
+    updateTimer()
 }
 
+updateTimer()
 var timer = setInterval(decreaseTimer, 1000)
