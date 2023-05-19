@@ -1,5 +1,5 @@
 const timerElement = document.getElementById('time')
-var left = 1800
+var left = 600
 timerElement.innerText = left/60
 
 
