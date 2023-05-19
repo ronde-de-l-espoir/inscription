@@ -1,6 +1,6 @@
 <?php
 
-require('../../galaDBConfig.php');
+require('../../db_config.php');
 
 $id = file_get_contents('php://input');
 

@@ -12,7 +12,7 @@
             header('Location: ./verif-email');
         } elseif ($_POST['action'] == 'cancel'){
             $_SESSION['action'] = 'cancel';
-            header('Location: ./verif-email');
+            header('Location: ./cancel');
         }
     }
 ?>
