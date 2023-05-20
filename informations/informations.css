@@ -24,6 +24,22 @@ form {
     align-items: center;
 }
 
+.field p {
+    text-align: center;
+}
+
+.field label {
+    display: block;
+    padding-bottom: 10px;
+}
+
+input[type='radio'] {
+    height: 15px;
+    width: 15px;
+    vertical-align: middle;
+    accent-color: #0099D7;
+}
+
 #buttons {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(100px, 50%));
