@@ -45,7 +45,7 @@
             }
             if (empty($_SESSION['age'])){
                 $fieldErrors['age'] = 'Un age est requis';
-            } elseif (!(intval($_SESSION['age']) > 11 && intval($_SESSION['age'] < 100))){
+            } elseif ($_SESSION['age'] != 'minor' && $_SESSION['age'] != 'major'){
                 $fieldErrors['age'] = 'Age non valide';
             } else {
                 $fieldErrors['age'] = '';
@@ -110,9 +110,17 @@
                     <p class="error-text"><?php echo array_key_exists('fname', $fieldErrors) ? $fieldErrors['fname'] : '' ?></p>
                 </div>
                 <div class="field">
-                    <input type="number" name="age" min="0" value="<?php echo array_key_exists('age', $_SESSION) ? $_SESSION['age'] : null ?>" placeholder=" ">
+                    <p>Vous êtes :</p>
+                    <!-- <input type="number" name="age" min="0" value="<?php echo array_key_exists('age', $_SESSION) ? $_SESSION['age'] : null ?>" placeholder=" ">
                     <span class="placeholder">Age</span>
-                    <p class="error-text"><?php echo array_key_exists('age', $fieldErrors) ? $fieldErrors['age'] : '' ?></p>
+                    <p class="error-text"><?php echo array_key_exists('age', $fieldErrors) ? $fieldErrors['age'] : '' ?></p> -->
+                    <!-- <select name="age" id="age">
+                        <option value="null">Veuillez sélectionner</option>
+                        <option value="minor">Mineur</option>
+                        <option value="major">Majeur</option>
+                    </select> -->
+                    <label><input type="radio" name="age" value="minor" <?= $_SESSION['age'] == 'minor' ? 'checked' : '' ?>>Mineur</label>
+                    <label><input type="radio" name="age" value="major" <?= $_SESSION['age'] == 'major' ? 'checked' : '' ?>>Majeur</label>
                 </div>
             </div>
             <div id="separator" style="background-color: #888;"></div>
