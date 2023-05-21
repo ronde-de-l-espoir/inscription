@@ -110,17 +110,18 @@
                     <p class="error-text"><?php echo array_key_exists('fname', $fieldErrors) ? $fieldErrors['fname'] : '' ?></p>
                 </div>
                 <div class="field">
-                    <p>Vous êtes :</p>
+                    <p id="vous-etes">Vous êtes :</p>
                     <!-- <input type="number" name="age" min="0" value="<?php echo array_key_exists('age', $_SESSION) ? $_SESSION['age'] : null ?>" placeholder=" ">
                     <span class="placeholder">Age</span>
-                    <p class="error-text"><?php echo array_key_exists('age', $fieldErrors) ? $fieldErrors['age'] : '' ?></p> -->
+                     -->
                     <!-- <select name="age" id="age">
                         <option value="null">Veuillez sélectionner</option>
                         <option value="minor">Mineur</option>
                         <option value="major">Majeur</option>
                     </select> -->
-                    <label><input type="radio" name="age" value="minor" <?= $_SESSION['age'] == 'minor' ? 'checked' : '' ?>>Mineur</label>
-                    <label><input type="radio" name="age" value="major" <?= $_SESSION['age'] == 'major' ? 'checked' : '' ?>>Majeur</label>
+                    <label><input type="radio" name="age" value="minor" <?= array_key_exists('age', $_SESSION) && $_SESSION['age'] == 'minor' ? 'checked' : '' ?>>Mineur</label>
+                    <label><input type="radio" name="age" value="major" <?= array_key_exists('age', $_SESSION) && $_SESSION['age'] == 'major' ? 'checked' : '' ?>>Majeur</label>
+                    <p class="error-text"><?php echo array_key_exists('age', $fieldErrors) ? $fieldErrors['age'] : '' ?></p>
                 </div>
             </div>
             <div id="separator" style="background-color: #888;"></div>

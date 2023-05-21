@@ -3,7 +3,7 @@ const addPeopleBtn = document.getElementById('add-member')
 const membersDiv = document.getElementById('members')
 const memberInfoForm = document.getElementById('member-info-form')
 const lnameInput = document.getElementsByName('lname')[0]
-const ageInput = document.getElementsByName('age')[0]
+const ageInput = document.querySelector('input[name="age"]:checked').value;
 const fnameInput = document.getElementsByName('fname')[0]
 const emailInput = document.getElementsByName('email')[0]
 const phoneInput = document.getElementsByName('phone')[0]
@@ -142,7 +142,7 @@ function showErrors(errors){
 function hideErrors() {
     document.getElementsByName('lname')[0].parentNode.getElementsByTagName('p')[0].innerHTML = ''
     document.getElementsByName('fname')[0].parentNode.getElementsByTagName('p')[0].innerHTML = ''
-    document.getElementsByName('age')[0].parentNode.getElementsByTagName('p')[0].innerHTML = ''
+    document.getElementsByName('age')[0].parentNode.parentNode.getElementsByClassName('error-text')[0].innerHTML = ''
     document.getElementsByName('email')[0].parentNode.getElementsByTagName('p')[0].innerHTML = ''
     document.getElementsByName('phone')[0].parentNode.getElementsByTagName('p')[0].innerHTML = ''
 }
@@ -160,7 +160,7 @@ function validateMemberForm() {
     if (!(/^[a-zA-Z\-\s]+$/).test(fname)) {
         errors.push('fname')
     }
-    if (!(/^(0?[1-9]|[1-9][0-9]|[1][1-9][1-9]|200)$/.test(age))){
+    if (!(/^(major)|(minor)$/.test(age))){
         errors.push('age')
     }
     if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))){
