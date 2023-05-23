@@ -23,7 +23,6 @@
             <br>
             <div id="person-info">
                 <div style="text-transform: uppercase; font-size: 1.4em"><?= $person['lname'] . " " . $person['fname'] ?></div>
-                <div><?= $person['age'] ?> ans</div>
                 <div><?= $person['email'] ?></div>
                 <div><?= $person['phone'] ?></div>
                 <br>
