@@ -3,7 +3,7 @@ const addPeopleBtn = document.getElementById('add-member')
 const membersDiv = document.getElementById('members')
 const memberInfoForm = document.getElementById('member-info-form')
 const lnameInput = document.getElementsByName('lname')[0]
-const ageInput = document.querySelector('input[name="age"]:checked').value;
+const ageInputs = document.querySelectorAll('input[name="age"]');
 const fnameInput = document.getElementsByName('fname')[0]
 const emailInput = document.getElementsByName('email')[0]
 const phoneInput = document.getElementsByName('phone')[0]
@@ -83,7 +83,11 @@ function editPerson(memberID){
     memberInfoForm.setAttribute('for', memberID)
     document.getElementsByName('lname')[0].value = getValues(memberID)[0]
     document.getElementsByName('fname')[0].value = getValues(memberID)[1]
-    document.getElementsByName('age')[0].value = getValues(memberID)[2]
+    ageInputs.forEach(ageInput => {
+        if (getValues(memberID)[2] == ageInput.value){
+            ageInput.checked = true
+        }
+    });
     document.getElementsByName('email')[0].value = getValues(memberID)[3]
     document.getElementsByName('phone')[0].value = getValues(memberID)[4]
     return 0
@@ -103,7 +107,11 @@ function closeMemberForm() {
     memberInfoForm.removeAttribute('for')
     document.getElementsByName('lname')[0].value = ""
     document.getElementsByName('fname')[0].value = ""
-    document.getElementsByName('age')[0].value = ""
+    ageInputs.forEach(ageInput => {
+        if (ageInput.checked){
+            ageInput.checked = false
+        }
+    });
     document.getElementsByName('email')[0].value = ""
     document.getElementsByName('phone')[0].value = ""
     hideErrors()
@@ -130,7 +138,7 @@ function showErrors(errors){
         } else if (errorRegion == 'fname'){
             document.getElementsByName('fname')[0].parentNode.getElementsByTagName('p')[0].innerHTML = 'Prénom invalide'
         } else if (errorRegion == 'age'){
-            document.getElementsByName('age')[0].parentNode.getElementsByTagName('p')[0].innerHTML = 'Age invalide'
+            ageInputs[0].parentNode.parentNode.getElementsByTagName('p')[1].innerHTML = 'Age invalide'
         } else if (errorRegion == 'email'){
             document.getElementsByName('email')[0].parentNode.getElementsByTagName('p')[0].innerHTML = 'Email invalide'
         } else if (errorRegion == 'phone'){
@@ -142,7 +150,7 @@ function showErrors(errors){
 function hideErrors() {
     document.getElementsByName('lname')[0].parentNode.getElementsByTagName('p')[0].innerHTML = ''
     document.getElementsByName('fname')[0].parentNode.getElementsByTagName('p')[0].innerHTML = ''
-    document.getElementsByName('age')[0].parentNode.parentNode.getElementsByClassName('error-text')[0].innerHTML = ''
+    ageInputs[0].parentNode.parentNode.getElementsByClassName('error-text')[0].innerHTML = ''
     document.getElementsByName('email')[0].parentNode.getElementsByTagName('p')[0].innerHTML = ''
     document.getElementsByName('phone')[0].parentNode.getElementsByTagName('p')[0].innerHTML = ''
 }
@@ -150,7 +158,15 @@ function hideErrors() {
 function validateMemberForm() {
     var lname = lnameInput.value
     var fname = fnameInput.value
-    var age = ageInput.value
+    var age = (function () {
+        var selectedAge = null;
+        ageInputs.forEach(ageInput => {
+            if (ageInput.checked) {
+                selectedAge = ageInput.value;
+            }
+        });
+        return selectedAge;
+    })();
     var email = emailInput.value
     var phone = phoneInput.value
     var errors = []
