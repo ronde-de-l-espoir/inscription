@@ -18,9 +18,9 @@
 
     function sumUpTotal($age) {
         global $total;
-        if ($age < 18){
+        if ($age == 'minor'){
             $total = $total + 5;
-        } elseif ($age >= 18){
+        } elseif ($age == 'major'){
             $total = $total + 10;
         }
     }
