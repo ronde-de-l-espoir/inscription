@@ -64,9 +64,9 @@ if (
             $personFname = $person['fname'];
             $personLname = $person['lname'];
             $personAge = $person['age'];
-            if ($personAge < 18){
+            if ($personAge = 'minor'){
                 $personPrice = 5;
-            } elseif ($personAge >= 18){
+            } elseif ($personAge = 'major'){
                 $personPrice = 10;
             }
             $personEmail = $person['email'];
