@@ -88,7 +88,7 @@
                 <p>Vous êtes accompagnés de :</p>
                 <ul>
                 <?php foreach($members as $member) : ?>
-                    <li><span class="data"><?= $member['fname'] . " " . $member['lname'] ?></span> avec les information suivantes :
+                    <li><span class="data"><?= $member['fname'] . " " . $member['lname'] ?></span> avec les informations suivantes :
                         <ul>
                             <li>Age : <span class="data"><?= $member['age'] == 'minor' ? 'mineur' : ($member['age'] == 'major' ? 'majeur' : '')  ?></span></li>
                             <li>Email : <span class="data"><?= $member['email'] ?></span></li>
