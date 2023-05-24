@@ -119,8 +119,8 @@
                         <option value="minor">Mineur</option>
                         <option value="major">Majeur</option>
                     </select> -->
-                    <label><input type="radio" name="age" value="minor" <?= $_SESSION['age'] == 'minor' ? 'checked' : '' ?>>Mineur</label>
-                    <label><input type="radio" name="age" value="major" <?= $_SESSION['age'] == 'major' ? 'checked' : '' ?>>Majeur</label>
+                    <label><input type="radio" name="age" value="minor" <?= isset($_SESSION['age']) && $_SESSION['age'] == 'minor' ? 'checked' : '' ?>>Mineur</label>
+                    <label><input type="radio" name="age" value="major" <?= isset($_SESSION['age']) && $_SESSION['age'] == 'major' ? 'checked' : '' ?>>Majeur</label>
                 </div>
             </div>
             <div id="separator" style="background-color: #888;"></div>
