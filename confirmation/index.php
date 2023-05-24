@@ -77,7 +77,7 @@
             <div id="current-buyer">
                 <p>Vous, <span class="data"><?= $_SESSION['fname'] . " " . $_SESSION['lname']; ?></span> , avec les informations suivantes :</p>
                 <ul>
-                    <li>Age : <span class="data"><?= $_SESSION['age'] ?></span></li>
+                    <li>Age : <span class="data"><?= $_SESSION['age'] == 'minor' ? 'mineur' : ($_SESSION['age'] == 'major' ? 'majeur' : '')  ?></span></li>
                     <li>Email : <span class="data"><?= $_SESSION['email'] ?></span></li>
                     <li>Numéro de téléphone : <span class="data"><?= $_SESSION['phone'] ?></span></li>
                 </ul>
@@ -87,7 +87,7 @@
                 <p>Vous êtes accompagnés de :</p>
                 <ul>
                 <?php foreach($members as $member) : ?>
-                    <li><span class="data"><?= $member['fname'] . " " . $member['lname'] ?></span>, qui a <span class="data"><?= $member['age'] ?></span> ans (ticket n°<span class="data"><?= spaceUpID($member['id']) ?></span>)</li>
+                    <li><span class="data"><?= $member['fname'] . " " . $member['lname'] ?></span>, qui est <span class="data"><?= $member['age'] == 'minor' ? 'mineur' : ($member['age'] == 'major' ? 'majeur' : '')  ?></span> (ticket n°<span class="data"><?= spaceUpID($member['id']) ?></span>)</li>
                 <?php endforeach ?>
                 </ul>
                 <?php endif ?>
