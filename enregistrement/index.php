@@ -94,78 +94,78 @@ if (
         $_SESSION['inserted'] = true;
     }
 
-    // if (!isset($_SESSION['sentEmails']) && !$_SESSION['sentEmails'] && false){
-    //     $_GET['mode'] = 'raw';
-    //     $tickets = array();
+    if (!isset($_SESSION['sentEmails']) && !$_SESSION['sentEmails'] && false){
+        $_GET['mode'] = 'raw';
+        $tickets = array();
     
-    //     $_GET['id'] = $buyerID;
-    //     ob_start();
-    //     include '../ticket/index.php';
-    //     $buyerPDF = ob_get_clean();
+        $_GET['id'] = $buyerID;
+        ob_start();
+        include '../ticket/index.php';
+        $buyerPDF = ob_get_clean();
     
-    //     $i = 0;
-    //     foreach ($_SESSION['members']['table'] as $person){
-    //         $_GET['id'] = $person['id'];
-    //         ob_start();
-    //         include '../ticket/index.php';
-    //         $ticket = array (
-    //             'id' => $person['id'],
-    //             'pdf' => ob_get_clean()
-    //         );
-    //         $tickets[$i] = $ticket;
-    //         $i++;
-    //     }
+        $i = 0;
+        foreach ($_SESSION['members']['table'] as $person){
+            $_GET['id'] = $person['id'];
+            ob_start();
+            include '../ticket/index.php';
+            $ticket = array (
+                'id' => $person['id'],
+                'pdf' => ob_get_clean()
+            );
+            $tickets[$i] = $ticket;
+            $i++;
+        }
     
-    //     function createMailInterface() {
-    //         $mail = new PHPMailer();
-    //         $mail->CharSet = "UTF-8";
-    //         $mail->isSMTP();
-    //         $mail->Host = 'ronde-de-l-espoir.fr';
-    //         $mail->Port = 465;
-    //         $mail->SMTPAuth = true;
-    //         $mail->Username = 'no-reply@ronde-de-l-espoir.fr';
-    //         $mail->Password = '***REMOVED***';
-    //         $mail->SMTPSecure = "ssl";
-    //         $mail->setFrom('no-reply@ronde-de-l-espoir.fr', "Ne Pas Répondre - Ronde de l'Espoir");
-    //         return $mail;
-    //     }
+        function createMailInterface() {
+            $mail = new PHPMailer();
+            $mail->CharSet = "UTF-8";
+            $mail->isSMTP();
+            $mail->Host = 'ronde-de-l-espoir.fr';
+            $mail->Port = 465;
+            $mail->SMTPAuth = true;
+            $mail->Username = 'no-reply@ronde-de-l-espoir.fr';
+            $mail->Password = '***REMOVED***';
+            $mail->SMTPSecure = "ssl";
+            $mail->setFrom('no-reply@ronde-de-l-espoir.fr', "Ne Pas Répondre - Ronde de l'Espoir");
+            return $mail;
+        }
     
-    //     function createMailBody($person, $children, $parent) {
-    //         ob_start();
-    //         include "./mail.php";
-    //         return ob_get_clean();
-    //     }
+        function createMailBody($person, $children, $parent) {
+            ob_start();
+            include "./mail.php";
+            return ob_get_clean();
+        }
     
-    //     $buyerMail = createMailInterface();
-    //     $buyerMail->Subject = 'Vos tickets du Gala - La Merci';
-    //     $buyerMail->isHTML(true);
-    //     $requestID = $buyerID;
-    //     require('../modules/getDataFromSQL.php');
-    //     $buyerMail->Body = createMailBody($person, $children, $parent);
-    //     $buyerMail->addAddress($buyerEmail);
-    //     $buyerMail->addStringAttachment($buyerPDF, "gala-LRDE-{$person['fname']}-{$person['lname']}-$requestID.pdf", 'base64', 'application/pdf');
+        $buyerMail = createMailInterface();
+        $buyerMail->Subject = 'Vos tickets du Gala - La Merci';
+        $buyerMail->isHTML(true);
+        $requestID = $buyerID;
+        require('../modules/getDataFromSQL.php');
+        $buyerMail->Body = createMailBody($person, $children, $parent);
+        $buyerMail->addAddress($buyerEmail);
+        $buyerMail->addStringAttachment($buyerPDF, "gala-LRDE-{$person['fname']}-{$person['lname']}-$requestID.pdf", 'base64', 'application/pdf');
     
-    //     foreach ($tickets as $ticket){
-    //         $mail = createMailInterface();
-    //         $mail->Subject = 'Vos tickets du Gala - La Merci';
-    //         $mail->isHTML(true);
-    //         $requestID = $ticket['id'];
-    //         require('../modules/getDataFromSQL.php');
-    //         $mail->Body = createMailBody($person, $children, $parent);
-    //         $mail->addStringAttachment($ticket['pdf'], "gala-LRDE-{$person['fname']}-{$person['lname']}-$requestID.pdf", 'base64', 'application/pdf');
-    //         $buyerMail->addStringAttachment($ticket['pdf'], "gala-LRDE-{$person['fname']}-{$person['lname']}-$requestID.pdf", 'base64', 'application/pdf');
-    //         $mail->addAddress($person['email']);
-    //         if (!$mail->send()) {
-    //             echo 'Mailer Error: ' . $mail->ErrorInfo;
-    //         }
-    //     }
+        foreach ($tickets as $ticket){
+            $mail = createMailInterface();
+            $mail->Subject = 'Vos tickets du Gala - La Merci';
+            $mail->isHTML(true);
+            $requestID = $ticket['id'];
+            require('../modules/getDataFromSQL.php');
+            $mail->Body = createMailBody($person, $children, $parent);
+            $mail->addStringAttachment($ticket['pdf'], "gala-LRDE-{$person['fname']}-{$person['lname']}-$requestID.pdf", 'base64', 'application/pdf');
+            $buyerMail->addStringAttachment($ticket['pdf'], "gala-LRDE-{$person['fname']}-{$person['lname']}-$requestID.pdf", 'base64', 'application/pdf');
+            $mail->addAddress($person['email']);
+            if (!$mail->send()) {
+                echo 'Mailer Error: ' . $mail->ErrorInfo;
+            }
+        }
     
-    //     if (!$buyerMail->send()) {
-    //         echo 'Mailer Error: ' . $mail->ErrorInfo;
-    //     }
+        if (!$buyerMail->send()) {
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
+        }
     
-    //     $_SESSION['sentEmails'] = true;
-    // }
+        $_SESSION['sentEmails'] = true;
+    }
 
 } else if ($_SESSION['action'] == 'book') {
     header('Location: ../informations/');
