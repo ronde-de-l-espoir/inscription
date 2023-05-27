@@ -22,6 +22,8 @@ if ($_SESSION['action'] == 'book') {
     }
 } elseif ($_SESSION['action'] == 'lost'){
     $IDs = $_SESSION['allowed'];
+} else {
+    $IDs = $_SESSION['allowed'];
 }
 
 

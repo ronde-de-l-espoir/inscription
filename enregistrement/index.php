@@ -27,7 +27,7 @@ if (
     }
     $_SESSION['LAST_ACTIVITY'] = time();
     
-    if (!isset($_SESSION['inserted']) || true){
+    if (!isset($_SESSION['inserted'])){
 
         $buyerID = $_SESSION['id'];
         $buyerLname = $_SESSION['lname'];
@@ -94,7 +94,7 @@ if (
         $_SESSION['inserted'] = true;
     }
 
-    if (!isset($_SESSION['sentEmails']) && !$_SESSION['sentEmails'] && false){
+    if (!isset($_SESSION['sentEmails'])){
         $_GET['mode'] = 'raw';
         $tickets = array();
     
