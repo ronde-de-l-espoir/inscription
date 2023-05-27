@@ -74,7 +74,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 require('../../db_config.php');
 
-$sql = "SELECT * FROM `preinscriptions` WHERE date='2023-05-26' AND time < CAST('19:03:00' as time)";
+$sql = "SELECT * FROM `preinscriptions` WHERE date='2023-05-25' AND time > CAST('19:25:00' as time)";
 
 $result = mysqli_query($conn, $sql);
 
