@@ -1,3 +1,10 @@
+<?php
+
+$requestID = $_GET['id'];
+require('../modules/getDataFromSQL.php');
+
+?>
+
 <main>
     <p>Bonjour <span><?= $person['fname'] . " " . $person['lname'] ?> !</span></p>
 
