@@ -47,7 +47,7 @@
                         <?php
                         foreach ($children as $child) :
                         ?>
-                            <li><span style="text-transform: uppercase;"><?= $child['lname'] . " " . $child['fname'] ?></span> qui est <?= $child['age'] ?> et doit payer <?= $child['price'] ?> €</li>
+                            <li><span style="text-transform: uppercase;"><?= $child['lname'] . " " . $child['fname'] ?></span> qui est <?= $child['age'] == 'minor' ? 'mineur' : ($child['age'] == 'major' ? 'majeur' : '') ?> et doit payer <?= $child['price'] ?> €</li>
 
                         <?php endforeach ?>
                     </ul>
