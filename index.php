@@ -54,6 +54,7 @@
             <button name="action" class="gala-btn" value="lost">J'ai perdu mon ticket</button>
             <!-- <button name="action" class="gala-btn" value="cancel">Je souhaite annuler...</button> -->
         </form>
+        <p style="text-align: center;">Vous rencontrz un problème ?<br>Nos adresses mail sont disponibles <a href="https://ronde-de-l-espoir.fr/contact" target="_blank">ici</a></a></p>
     </main>
 </body>
 </html>
