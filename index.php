@@ -6,7 +6,7 @@
     require '../db_config.php';
     $sql = "SELECT * FROM `preinscriptions` WHERE `eventInfo`!='Test'";
     $result = mysqli_query($conn, $sql);
-    $placesLeft = 250 - mysqli_num_rows($result);
+    $placesLeft = 280 - mysqli_num_rows($result);
 
     if (isset($_POST['action'])){
         if ($_POST['action'] == 'book'){
