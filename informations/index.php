@@ -5,11 +5,14 @@
 
     
     do {
-        $id = strval(str_pad(rand(0, 999999999), 9, '0', STR_PAD_LEFT));
+        $id = strval(str_pad(rand(0, 999999999), 9, '0', STR_PAD_LEFT)); // creates a random 9-digit id (this will become the ticket id)
         require('../../db_config.php');
-        $sql = "SELECT COUNT(*) FROM `preinscriptions` WHERE `id`='$id';";
-        $xResults = mysqli_fetch_all(mysqli_query($conn, $sql))[0][0];
-    } while ($xResults != 0);
+        $sql = "SELECT COUNT(*) FROM `preinscriptions` WHERE `id`='$id';"; // gets the rows where the id is the same
+        $xResults = mysqli_fetch_all(mysqli_query($conn, $sql))[0][0]; // counts the number of result rows
+    } while ($xResults != 0); // if the number of rows if 0, proceed, else, generate a new id
+
+    // this makes sure the id is unique by checking if any other db entries have the same one
+    // this does not protect against 2 people booking at the same time, and they both get the same id...but that's *very* unlikely
 
     $_SESSION['id'] = $id;
 
@@ -20,9 +23,12 @@
         
         foreach ($_POST as $key => $fieldValue) {
             if ($key != 'action'){
+                // loops through the posted keys and saves each of them in the session (except for the current-page action)
                 $_SESSION[$key] = $fieldValue;
             }
-            $fieldErrors[$key] = '';
+
+            // fieldErrors is an array containing the errors to display to user
+            $fieldErrors[$key] = ''; // inits the fieldErrors key for each field
         }
 
         if ($_POST['action'] == 'goback'){
@@ -30,12 +36,13 @@
         } elseif ($_POST['action'] == 'continue'){
             
             if (empty($_SESSION['lname'])){
-                $fieldErrors['lname'] = 'Un nom est requis';
+                $fieldErrors['lname'] = 'Un nom est requis'; // if it's empty
             } elseif (!preg_match('/^[a-zA-Z\-\s]+$/', $_SESSION['lname'])){
-                $fieldErrors['lname'] = 'Nom non valide';
+                $fieldErrors['lname'] = 'Nom non valide'; // if it doesn't match the regex
             } else {
-                $fieldErrors['lname'] = '';
+                $fieldErrors['lname'] = ''; // if everything is fine
             }
+            // same comments for each block below :
             if (empty($_SESSION['fname'])){
                 $fieldErrors['fname'] = 'Un prénom est requis';
             } elseif (!preg_match('/^[a-zA-Z\-\s]+$/', $_SESSION['fname'])){
@@ -65,7 +72,7 @@
                 $fieldErrors['phone'] = '';
             }
 
-            if (empty(array_filter($fieldErrors))){
+            if (empty(array_filter($fieldErrors))){ // if all the keys of $fieldErrors are ''
                 header('Location: ../ajouter-des-proches');
                 die();
             }
@@ -100,10 +107,11 @@
         <form action="./" method="post">
             <div class="column">
                 <div class="field">
-                    <input type="text" name="lname" value="<?php echo array_key_exists('lname', $_SESSION) ? $_SESSION['lname'] : null ?>" placeholder=" ">
+                    <input type="text" name="lname" value="<?php echo array_key_exists('lname', $_SESSION) ? $_SESSION['lname'] : null // this sets a saved session var if it exists ?>" placeholder=" ">
                     <span class="placeholder">Nom</span>
-                    <p class="error-text"><?php echo array_key_exists('lname', $fieldErrors) ? $fieldErrors['lname'] : '' ?></p>
+                    <p class="error-text"><?php echo array_key_exists('lname', $fieldErrors) ? $fieldErrors['lname'] : '' // this shows the key-corresponding error ?></p>
                 </div>
+                <!-- same comments for all fields below -->
                 <div class="field">
                     <input type="text" name="fname" value="<?php echo array_key_exists('fname', $_SESSION) ? $_SESSION['fname'] : null ?>" placeholder=" ">
                     <span class="placeholder">Prénom</span>
@@ -139,6 +147,7 @@
             <div id="buttons">
                 <button type="submit" name="action" value="continue">Continuer</button>
                 <button type="submit" name="action" value="goback">Retour</button>
+                <!-- the buttons are in this order so that the Enter key triggers continue and not goback -->
             </div>
         </form>
     </main>
