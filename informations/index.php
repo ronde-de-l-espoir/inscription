@@ -5,7 +5,7 @@
 
     
     do {
-        $id = strval(str_pad(rand(0, 999999999), 9, '0', STR_PAD_LEFT)); // creates a random 9-digit id (this will become the ticket id)
+        $id = strval(str_pad(rand(0, 999999999), 9, '0', STR_PAD_LEFT)); // creates a random 9-digit id (this will become the BUYER's ticket id)
         require('../../db_config.php');
         $sql = "SELECT COUNT(*) FROM `preinscriptions` WHERE `id`='$id';"; // gets the rows where the id is the same
         $xResults = mysqli_fetch_all(mysqli_query($conn, $sql))[0][0]; // counts the number of result rows
