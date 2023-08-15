@@ -1,3 +1,5 @@
+// THIS IS UNUSED AS IT IS IMPLEMENTED IN THE NEXT PAGE
+
 const totalBox = document.getElementById('total')
 const siblingCheck = document.getElementsByName('withSibling')[0]
 
