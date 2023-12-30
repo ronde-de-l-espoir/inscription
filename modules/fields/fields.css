@@ -1,3 +1,8 @@
+/** 
+    GOOGLE STYLE TEXT INPUT BOXES
+    (moving label)
+**/
+
 .field {
     position: relative;
     margin-bottom: 10px;
@@ -30,6 +35,7 @@
 .field input:not(:placeholder-shown) + .placeholder {
     transform: scale(0.8) translateY(-30px) translateX(-3px);
     background-color: #e5e9ec;
+    /* when you click or use `tab` into the textbox, the pseudo-placeholder moves up above onto the box's border and hides it */
 }
 
 .field input:focus{
