@@ -1,9 +1,15 @@
 <?php 
 
-$code = rand(10000, 99999);
-setcookie('code', md5($code), time()+900, "/"); 
+$code = rand(10000, 99999); // generates a random 5-digit code
+setcookie('code', md5($code), time()+900, "/");
+// the cookie is set to the *md5* sum of the code for security reasons
+// the code cannot be found from the md5
+// but the md5 of the same code is the same md5
+// 🙂
 
 ?>
+
+<!-- simple email HTML -->
 
 <main style="text-align: center;font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">
     <p>Bonjour,<br>Vous avez demandé un code de confirmation pour <a href="https://inscription.ronde-de-l-espoir.fr">inscription.ronde-de-l-espoir.fr</a></p>
