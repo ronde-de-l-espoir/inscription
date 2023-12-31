@@ -1,5 +1,10 @@
 <?php 
 
+/**
+ * JUST A TEST WITH THE EMAILS
+ * this shouldn't be here
+ */
+
 use PHPMailer\PHPMailer\PHPMailer;
 
 
@@ -24,7 +29,7 @@ $mail->setFrom('no-reply@ronde-de-l-espoir.fr', "Ne Pas Répondre - Ronde de l'E
 $mail->Subject = 'Email Subject';
 $mail->isHTML(true);
 $mail->Body = '<html><body><h1>Hello, World!</h1><p>This is an HTML email.</p></body></html>';
-$mail->addAddress('elias.kirkwood@gmail.com');
+$mail->addAddress('elias.kirkwood@gmail.com'); // you can contact me at this address if you want 🥲
 if (!$mail->send()) {
     echo 'Mailer Error: ' . $mail->ErrorInfo;
 } else {

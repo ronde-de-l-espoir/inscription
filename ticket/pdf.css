@@ -1,3 +1,11 @@
+/*
+    THIS MUST BE CSS 2.1
+    for dompdf to work
+
+    so no flexboxes, no grids...beware, it's awfully annoying
+*/
+
+
 /* @font-face {
     font-family: Montserrat;
     src: url(Montserrat.ttf) format('truetype');
