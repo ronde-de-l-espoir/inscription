@@ -41,3 +41,7 @@ button:hover {
     border-width: 3px 0 0;
     cursor: pointer;
 }
+
+a {
+    color: black;
+}
