@@ -36,11 +36,9 @@ There are thus 3 types of nodes, defined by the values of 2 database fields :
 These node types are exclusive, meaning that a node cannot be of 2 types at once (sorry Schrödinger...).
 So, a parent node cannot have a parent itself, and a child node cannot have children itself.
 
-## Practical explanation of the graph
-
 When a user adds someone on the `/ajouter-des-proches` page, he is changing from an independent node to a parent node
 
-Every time ha adds a new person, he is :
+Every time he adds a new person, he is :
 * spawning a new child node that will have the user's ID as `parentNode`
 * incrementing his `nChildren` by 1
 
@@ -51,3 +49,22 @@ Please note that node types don't actually exist for the code : the final `/enre
 Maybe you should consider adding the type as an actual property to make things clearer.
 
 This system isn't only useful when booking : its main purpose is on the D-Day ; much more on that in [app-www](https://github.com/ronde-de-l-espoir/app-www/README.md).
+
+## Libraries used
+
+All PHP libraries are imported/managed by Composer (PHP's `pip`)
+
+## PDFs
+
+The best PHP library to generate a PDF from HTML is DomPDF.
+It's the best of its kind, but definitely not the best tool to work with...
+
+It uses CSS2.0 and not 3.3 (as of 2023), so alignement features such as `flex` and `grid` don't work...
+Which makes creating a nice PDF *extremely* complicated. Anyway...
+
+## Emails
+
+Currently using PHPMailer as the library.
+It's quick, efficient, so I suggest you keep it like it is.
+
+The SMTP password is saved in the `root/..` directory.
