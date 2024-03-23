@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="./pdf.css">
-<link rel="stylesheet" href="<?= $cssSrc ?>">
+<link rel="stylesheet" href="./pdf.css"> <!-- useless, I guess... -->
+<link rel="stylesheet" href="<?= $cssSrc ?>"> <!-- feeds it the base64 of the pdf.css -->
 
 <body>
+    <!-- again, base64 is needed -->
     <header style="background-image: url('<?= 'data:image/' . mime_content_type(__DIR__ . '/assets/gradient.png') . ';base64,' . base64_encode(file_get_contents(__DIR__ . '/assets/gradient.png')); ?>'); width: 100%;">
         <div id="title">
             <span>Gala - Ronde de l'Espoir</span>
             <br>
-            <span style="font-size: 80%;">2 juin 2023</span>
+            <span style="font-size: 80%;">2 juin 2023</span> <!-- sorry for the inline style -->
         </div>
     </header>
     <footer>
         <p>Ticket Gala La Merci Littoral - 2 juin 2023 <br> Généré par https://inscription.ronde-de-l-espoir.fr le <?= date('d-m-Y') ?> à <?= date('H:i:s') ?></p>
     </footer>
+    <!-- header AND footer must be the first elements of body because otherwise it puts it on the next page (I think) -->
 
     <main>
 
@@ -74,7 +76,7 @@
                 <li>Le personnel vous demandera si vous souhaitez payer pour un des membres ci-dessus :
                     <ul>
                         <li>les membres pour lequels vous payez n'auront pas à payer lors de leur entrée (ils devront tout de même présenter leur ticket)</li>
-                        <li>les membres pour lequels nous <i>ne payez pas</i> devront payer leur entrée</li>
+                        <li>les membres pour lequels vous <i>ne payez pas</i> devront payer leur entrée</li>
                     </ul>
                 </li>
             </ul>
@@ -92,7 +94,7 @@
 
         <?php else : ?>
         <div style="opacity: 0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum dolor eum itaque necessitatibus veritatis doloribus deleniti accusamus, nam error odit illo. Maiores magnam quisquam voluptates, libero explicabo provident quidem nam.</div>
-
+        <!-- Welcome to CSSTips ! If you need some spacing, just do a Lorem Ipsum and reduce the opacity ! This is the end of today's CSSTips ! -->
         <?php endif ?>
     </main>
 

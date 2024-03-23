@@ -3,7 +3,7 @@
         session_start();
     }
 
-    if (
+    if ( // checks if all information that should have been entered on the previous page is present
         !isset($_SESSION['lname'])
         || !isset($_SESSION['fname'])
         || !isset($_SESSION['age'])
@@ -14,7 +14,7 @@
     }
 
     if (isset($_SESSION['members'])){
-        $table = $_SESSION['members']['table'];
+        $table = $_SESSION['members']['table']; // loads a session-saved members table if exists
     }
 ?>
 
@@ -38,9 +38,11 @@
     <script src="./price.js" defer></script> -->
     <script src="./family.js" defer></script>
     <script>
+        // gives the members data to the JS as info
         var info = <?php echo array_key_exists('members' ,$_SESSION) && $_SESSION['members'] != null ? json_encode($_SESSION['members']) : json_encode('{"table": []}') ?>;
+        // if members doesn't exist or is empty, then give the JS and empty array table, else, give it members
         if (typeof info === 'string'){
-            info = JSON.parse(info)
+            info = JSON.parse(info) // makes ure we are working with JSON
         }
     </script>
 </head>
@@ -57,12 +59,13 @@
             <p>Liste des personnes inscrites :</p>
             <div id="members">
                 <div class="person" id="current-buyer">
-                    <span><?php echo $_SESSION['fname'] . " " . $_SESSION['lname'] ?> (Vous)</span>
+                    <span><?php echo $_SESSION['fname'] . " " . $_SESSION['lname'] // inserts the current buyer's names ?> (Vous)</span>
                     <div id="actions">
                         <span class="material-symbols-rounded edit">edit</span>
                         <span class="material-symbols-rounded delete">delete_forever</span>
                     </div>
                 </div>
+                <!-- above is the current-buyer block, and now the PHP will dynamically insert the other people in the table members -->
                 <?php
                 if (isset($_SESSION['members'])){
                     for ($i=0; $i < count($table); $i++) {
@@ -98,11 +101,13 @@
             <div class="buttons">
                 <button type="submit" onclick="sendData(true)" value="continue">Continuer</button>
                 <button type="submit" onclick="sendData(false)" value="goback">Retour</button>
+                <!-- Both buttons send data to server to save using the sendData. What the boolean parmater does is it defines if it should redirect forwards or backwards -->
             </div>
 
             <p id="response-error-text"></p>
 
             <form id="member-info-form" unblur class="hidden" oninput="allowMemberFormContinue()" onsubmit="return false">
+                <!-- All parents and children of #member-info-form must have the unblur attribute -->
                 <h4 unblur>Informations sur ce membre</h4>
                 <div class="field" unblur>
                     <input type="text" name="lname" value="" placeholder=" " unblur>

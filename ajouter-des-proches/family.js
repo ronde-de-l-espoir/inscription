@@ -1,5 +1,6 @@
+// inits all the variables conatining references to useful DOM elements
+
 const addPeopleBtn = document.getElementById('add-member')
-// const editPeopleBtn = document.getElementById
 const membersDiv = document.getElementById('members')
 const memberInfoForm = document.getElementById('member-info-form')
 const lnameInput = document.getElementsByName('lname')[0]
@@ -7,6 +8,7 @@ const ageInputs = document.querySelectorAll('input[name="age"]');
 const fnameInput = document.getElementsByName('fname')[0]
 const emailInput = document.getElementsByName('email')[0]
 const phoneInput = document.getElementsByName('phone')[0]
+
 let memberID = ''
 
 async function checkIDExists(ID) {
@@ -16,10 +18,14 @@ async function checkIDExists(ID) {
             headers: {'Content-Type': 'text/plain'},
             body: ID
         });
+        // sends a POST request to the server with ID as body
+        // this checks if the ID is already in the db
 
         if (response.status === 205) {
+            // 205 means unique, non-existing
             return false;
         } else if (response.status === 405) {
+            // 405 means existing
             return true;
         } else {
             console.error("Unexpected response from server");
@@ -34,8 +40,8 @@ async function checkIDExists(ID) {
 function createID(){
     return new Promise(async (resolve) => {
         while (true) {
-            let ID = (Math.floor(Math.random() * 1000000000)).toString();
-            ID = "0".repeat(9 - ID.length) + ID;
+            let ID = (Math.floor(Math.random() * 1000000000)).toString(); // creates a random number
+            ID = "0".repeat(9 - ID.length) + ID; // pads it to 9 digits with 0s
 
             const exists = await checkIDExists(ID);
 
@@ -48,7 +54,7 @@ function createID(){
 }
 
 async function addPersonBlock(){
-    memberID = await createID();
+    memberID = await createID(); // creates an ID for this new person
     const personBlock = `
     <div class="person" id="${memberID}">
         <span class="person-name">Personne inconnue</span>
@@ -58,17 +64,17 @@ async function addPersonBlock(){
         </div>
     </div>
     `
-    membersDiv.innerHTML += personBlock
-    editPerson(memberID)
+    membersDiv.innerHTML += personBlock // adds this html to the membersDiv element
+    editPerson(memberID) // fires the person-editing
 }
 
 function removePerson(memberID){
     try {
-        var memberPos = Object.values(info.table).findIndex(subObj => subObj.member === memberID);
-        info.table.splice(memberPos, 1)
-        delete info.table[memberPos]
+        var memberPos = Object.values(info.table).findIndex(subObj => subObj.member === memberID); // finds the index of the person with id property = memberID within the info table
+        info.table.splice(memberPos, 1) // removes the person (using its  index)
+        delete info.table[memberPos] // extra thing needed to delete completely
     } finally {
-        document.getElementById(memberID).remove()
+        document.getElementById(memberID).remove() // remove the block in the membersDiv
     }
 }
 
@@ -76,11 +82,11 @@ function editPerson(memberID){
     const everything = document.getElementsByTagName('*')
     for (let i = 0; i < everything.length; i++) {
         if (!(everything[i].hasAttribute('unblur'))) {
-            everything[i].classList.add('blurred')
+            everything[i].classList.add('blurred') // blurrs everything on page except the elemnts with the unblur attribute
         }
     }
-    memberInfoForm.classList.remove('hidden')
-    memberInfoForm.setAttribute('for', memberID)
+    memberInfoForm.classList.remove('hidden') // shows the memberInfoForm
+    memberInfoForm.setAttribute('for', memberID) // its attribute for's use has been changed : it stores the member's ID
     document.getElementsByName('lname')[0].value = getValues(memberID)[0]
     document.getElementsByName('fname')[0].value = getValues(memberID)[1]
     ageInputs.forEach(ageInput => {
@@ -90,21 +96,26 @@ function editPerson(memberID){
     });
     document.getElementsByName('email')[0].value = getValues(memberID)[3]
     document.getElementsByName('phone')[0].value = getValues(memberID)[4]
+    // sets all the inputs' values in the form to be equally to some data returned by getValues()
     return 0
 }
 
 function getValues(memberID) {
-    var memberPos = Object.values(info.table).findIndex(subObj => subObj.id === memberID);
+    var memberPos = Object.values(info.table).findIndex(subObj => subObj.id === memberID); // tries to find the position of the subobject where the id = memberID
     if (memberPos === -1){
+        // if it doesn't exist
+        // this is the case of a new person the user is adding
         return ['', '', '', '', '']
     } else {
+        // this is the case of an existing person the user is editing
         return [info.table[memberPos].lname, info.table[memberPos].fname, info.table[memberPos].age, info.table[memberPos].email, info.table[memberPos].phone]
     }
 }
 
 function closeMemberForm() {
-    memberInfoForm.classList.add('hidden')
+    memberInfoForm.classList.add('hidden') // hides the form
     memberInfoForm.removeAttribute('for')
+    // empties all the inputs
     document.getElementsByName('lname')[0].value = ""
     document.getElementsByName('fname')[0].value = ""
     ageInputs.forEach(ageInput => {
@@ -121,18 +132,21 @@ function closeMemberForm() {
             everything[i].classList.remove('blurred')
         }
     }
+    // unblur everything that was blurred, which means everything without the unblur attribute
 }
 
 function cancelMemberForm() {
     memberID = memberInfoForm.getAttribute('for')
     if (getValues(memberID)[0] == ''){
+        // if the values are empty, completely remove the div in membersDiv
         document.getElementById(memberID).remove()
     }
-    closeMemberForm()
+    closeMemberForm() // then run closeMemberFormm()
 }
 
 function showErrors(errors){
     errors.forEach(errorRegion => {
+        // errorRegion is the current element
         if (errorRegion == 'lname'){
             document.getElementsByName('lname')[0].parentNode.getElementsByTagName('p')[0].innerHTML = 'Nom invalide'
         } else if (errorRegion == 'fname'){
@@ -144,10 +158,12 @@ function showErrors(errors){
         } else if (errorRegion == 'phone'){
             document.getElementsByName('phone')[0].parentNode.getElementsByTagName('p')[0].innerHTML = 'Téléphone invalide'
         }
+        // all these above set the errors under the inputs
     });
 }
 
 function hideErrors() {
+    // empties all the error p
     document.getElementsByName('lname')[0].parentNode.getElementsByTagName('p')[0].innerHTML = ''
     document.getElementsByName('fname')[0].parentNode.getElementsByTagName('p')[0].innerHTML = ''
     ageInputs[0].parentNode.parentNode.getElementsByClassName('error-text')[0].innerHTML = ''
@@ -169,7 +185,9 @@ function validateMemberForm() {
     })();
     var email = emailInput.value
     var phone = phoneInput.value
-    var errors = []
+    // collects all the values in the form
+    var errors = [] // inits an empty errors array
+    // for all the following, it tests the values agaibst some regex; if one doesn't match, it keeps in the errors array the name of the input where the error occured
     if (!(/^[a-zA-Z\-\s]+$/.test(lname))) {
         errors.push('lname')
     }
@@ -186,10 +204,12 @@ function validateMemberForm() {
         errors.push('phone')
     }
     if (errors.length === 0){
+        // if there aren't any errors
         memberID = memberInfoForm.getAttribute('for')
-        var memberPos = Object.values(info.table).findIndex(subObj => subObj.id === memberID);
+        var memberPos = Object.values(info.table).findIndex(subObj => subObj.id === memberID); // tries to find person subobj where id = memberID
         if (memberPos === -1){
-            var memberData = {
+            // if nothing exists
+            var memberData = { // memberData is JSON
                 'id': memberID,
                 'lname': lname,
                 'fname': fname,
@@ -197,9 +217,11 @@ function validateMemberForm() {
                 'email': email,
                 'phone': phone
             }
-            info.table.push(memberData)
+            info.table.push(memberData) // add to table memberData
         } else {
-            info.table[memberPos] = {
+            // if it already exists
+            // (this means editing)
+            info.table[memberPos] = { // change directly at the correct memberPos
                 'id': memberID,
                 'lname': lname,
                 'fname': fname,
@@ -208,9 +230,10 @@ function validateMemberForm() {
                 'phone': phone
             }
         }
-        document.getElementById(memberID).getElementsByClassName('person-name')[0].innerHTML = fname + " " + lname
+        document.getElementById(memberID).getElementsByClassName('person-name')[0].innerHTML = fname + " " + lname // sets the correct name in the membersDiv
         closeMemberForm()
     } else {
+        // if there are some errors, show them, and do nothing else
         showErrors(errors)
     }
 }
@@ -219,9 +242,10 @@ function sendData(proceed) {
     fetch('./saveMembers.php', {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(info)
+        body: JSON.stringify(info) // send the members table to the server using a POST request to saveMembers.php
     }).then(response => {
         if (response.status == 205){
+            // 205 is a good response
             if (proceed){
                 window.location = '../confirmation'
             } else if (!proceed){
@@ -230,7 +254,7 @@ function sendData(proceed) {
         } else {
             setTimeout(function(){
                 document.getElementById('response-error-text').innerText = "Une erreur innattendue est survenue..."
-            }, 1000)
+            }, 1000) // wait 1 second before showing the error message (UX effect)
         }
     }).catch(error => {
         console.error(error)
@@ -238,7 +262,7 @@ function sendData(proceed) {
 }
 
 function allowMemberFormContinue() {
-    document.getElementById('member-form-continue').removeAttribute('disabled')
+    document.getElementById('member-form-continue').removeAttribute('disabled') // ungreys the continue button of the member form
 }
 
-addPeopleBtn.addEventListener('doubleclick', function(){addPersonBlock()})
+addPeopleBtn.addEventListener('doubleclick', function(){addPersonBlock()}) // run addPersonBlock() on double-click of the addPeopleBtn

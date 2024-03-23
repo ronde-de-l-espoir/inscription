@@ -1,2 +1,5 @@
 RewriteEngine On
 RewriteRule ^ticket/([a-z]*)/([0-9]{9})$ /ticket/?id=$2&mode=$1 [L,QSA]
+# This here is to parse the URI path into GET arguments
+# It uses the Apache Rewrite Mod and regex to redirect the request without changing the URI in the client's URL bar
+# for example, /ticket/dl/123456789 would redirect to /ticket/?id=123456789&mode=dl

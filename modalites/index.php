@@ -38,6 +38,7 @@ if (isset($_POST['action'])) {
     <?php
     $prefix = "../";
     include('../modules/nav/nav.php');
+    // includes the nav bar
     ?>
 
     <main>
@@ -65,7 +66,7 @@ if (isset($_POST['action'])) {
         <form action="./" method="post">
             <div id="confirmation-input">
                 <label>
-                    <input type="checkbox" name="anonymous" value="1" onclick="toggleSubmit(this)">
+                    <input type="checkbox" name="anonymous" value="1" onclick="toggleSubmit(this)"> <!-- see modalites.js for explanation -->
                     <span id="chkbx-text">Je reconnais avoir pris connaissance de ces conditions.</span>
                 </label>
             </div>
