@@ -54,7 +54,7 @@ This system isn't only useful when booking : its main purpose is on the D-Day ; 
 
 All PHP libraries are imported/managed by Composer (PHP's `pip`)
 
-## PDFs
+### PDFs
 
 The best PHP library to generate a PDF from HTML is DomPDF.
 It's the best of its kind, but definitely not the best tool to work with...
@@ -62,9 +62,16 @@ It's the best of its kind, but definitely not the best tool to work with...
 It uses CSS2.0 and not 3.3 (as of 2023), so alignement features such as `flex` and `grid` don't work...
 Which makes creating a nice PDF *extremely* complicated. Anyway...
 
-## Emails
+### Emails
 
 Currently using PHPMailer as the library.
 It's quick, efficient, so I suggest you keep it like it is.
 
 The SMTP password is saved in the `root/..` directory.
+
+## Cancellation
+
+We haven't had time in 2023 to create the cancellation page, but it sure was necessary, because so many people booked extra tickets by mistake, and wanted to cancel one of them, we had to send them emails asking which one to delete...
+
+So please create the cancellation system ; use the basically the same page as `/perdu`, and replace the view and download buttons by a delete button.
+Also, I think you should reuse the `/verif-email` page, because it works well.

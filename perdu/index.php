@@ -17,7 +17,7 @@ while ($ID = $result->fetch_assoc()) {
 $_SESSION['allowed'] = [];
 foreach ($IDs as $person){
     array_push($_SESSION['allowed'], $person['id']); // sets all the ticket IDs the user is allowed to view
-    // show rather be using a security token here probably...
+    // should rather be using a security token here probably...
 }
 
 
