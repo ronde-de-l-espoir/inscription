@@ -6,7 +6,7 @@
     require '../db_config.php';
     $sql = "SELECT * FROM `preinscriptions` WHERE `eventInfo`!='Test'"; // this sql gets all rows from the db preinscriptions if the eventInfo column is different than 'Test' (the normal value is 'Gala')
     $result = mysqli_query($conn, $sql);
-    $placesLeft = 250 - mysqli_num_rows($result); // counts the number of rows and deducts it from a set max number of people
+    $placesLeft = 280 - mysqli_num_rows($result);
 
     if (isset($_POST['action'])){
         // 'action' will become a very broad SESSION var : it defines the global action you want to achieve using the site
@@ -57,6 +57,7 @@
             <!-- <button name="action" class="gala-btn" value="cancel">Je souhaite annuler...</button> -->
             <!-- Cancel button is commented because it hasn't been done -->
         </form>
+        <p style="text-align: center;"><a href="https://ronde-de-l-espoir.fr/contact" target="_blank">Vous rencontrez un problème ?<br>Cliquez ici pour nous contacter</a></a></p>
     </main>
 </body>
 </html>

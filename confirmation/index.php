@@ -18,9 +18,9 @@
 
     function sumUpTotal($age) {
         global $total;
-        if ($age < 18){
+        if ($age == 'minor'){
             $total = $total + 5;
-        } elseif ($age >= 18){
+        } elseif ($age == 'major'){
             $total = $total + 10;
         }
     }
@@ -77,9 +77,10 @@
             <div id="current-buyer">
                 <p>Vous, <span class="data"><?= $_SESSION['fname'] . " " . $_SESSION['lname']; ?></span> , avec les informations suivantes :</p>
                 <ul>
-                    <li>Age : <span class="data"><?= $_SESSION['age'] ?></span></li>
+                    <li>Age : <span class="data"><?= $_SESSION['age'] == 'minor' ? 'mineur' : ($_SESSION['age'] == 'major' ? 'majeur' : '')  ?></span></li>
                     <li>Email : <span class="data"><?= $_SESSION['email'] ?></span></li>
                     <li>Numéro de téléphone : <span class="data"><?= $_SESSION['phone'] ?></span></li>
+                    <li>Numéro de ticket : <span class="data"><?= spaceUpID($_SESSION['id']) ?></span></li>
                 </ul>
             </div>
             <div id="members">
@@ -87,7 +88,13 @@
                 <p>Vous êtes accompagnés de :</p>
                 <ul>
                 <?php foreach($members as $member) : ?>
-                    <li><span class="data"><?= $member['fname'] . " " . $member['lname'] ?></span>, qui a <span class="data"><?= $member['age'] ?></span> ans (ticket n°<span class="data"><?= spaceUpID($member['id']) ?></span>)</li>
+                    <li><span class="data"><?= $member['fname'] . " " . $member['lname'] ?></span> avec les informations suivantes :
+                        <ul>
+                            <li>Age : <span class="data"><?= $member['age'] == 'minor' ? 'mineur' : ($member['age'] == 'major' ? 'majeur' : '')  ?></span></li>
+                            <li>Email : <span class="data"><?= $member['email'] ?></span></li>
+                            <li>Téléphone : <span class="data"><?= $member['phone'] ?></span></li>
+                            <li>Numéro de ticket : <span class="data"><?= spaceUpID($member['id']) ?></span></li>
+                        </ul>
                 <?php endforeach ?>
                 </ul>
                 <?php endif ?>

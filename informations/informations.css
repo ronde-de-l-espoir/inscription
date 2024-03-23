@@ -24,12 +24,12 @@ form {
     align-items: center;
 }
 
-.field p {
+#vous-etes {
     text-align: center;
 }
 
 .field label {
-    display: block;
+    display: inline-block;
     padding-bottom: 10px;
 }
 

@@ -120,8 +120,13 @@
                     <p class="error-text" unblur></p>
                 </div>
                 <div class="field" unblur>
-                    <input type="text" name="age" value="" placeholder=" " unblur>
+                    <!-- <input type="text" name="age" value="" placeholder=" " unblur>
                     <span class="placeholder" unblur>Age</span>
+                    <p class="error-text" unblur></p> -->
+                    <p unblur>Cette personne est :</p>
+                    <label unblur><input type="radio" name="age" value="minor" unblur>Mineur</label>
+                    <label unblur><input type="radio" name="age" value="major" unblur>Majeur</label>
+                    <!-- <label unblur><input type="radio" name="age" value="null" unblur style="display: none;" checked></label> -->
                     <p class="error-text" unblur></p>
                 </div>
                 <div class="field" unblur>
