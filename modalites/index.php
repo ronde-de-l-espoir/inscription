@@ -47,7 +47,7 @@ if (isset($_POST['action'])) {
         <p id="text">Merci de lire ce texte attentivement.</p>
         <p>A la page suivante, les tickets d'entrée seront générés.</p>
         <p>Ils seront tous envoyés à <i>votre</i> adresse email (<span><?= $_SESSION['email'] ?></span>)</p>
-        <p>Les membres inscrits à la page précédente recevrons par email <i>leur</i> ticket.</p>
+        <p>Les membres inscrits à la page précédente recevront par email <i>leur</i> ticket.</p>
         <p>Si les membres n'ont pas leur ticket, ils doivent impérativement rentrer avec vous; le cas échéant ils ne seront pas admis.</p>
         <p>Lors de votre entrée :</p>
         <ul>

@@ -31,7 +31,7 @@ if (
      * DB INSERTION
      */
     
-    if (!isset($_SESSION['inserted']) && !$_SESSION['inserted']){ // if the data hasn't already been inserted
+    if (!isset($_SESSION['inserted'])){ // if the data hasn't already been inserted
 
 
         $buyerID = $_SESSION['id'];
@@ -70,9 +70,9 @@ if (
             $personFname = $person['fname'];
             $personLname = $person['lname'];
             $personAge = $person['age'];
-            if ($personAge < 18){ // should be using variables from a conf file
+            if ($personAge == 'minor'){ // should be using variables from a conf file
                 $personPrice = 5;
-            } elseif ($personAge >= 18){
+            } elseif ($personAge == 'major'){
                 $personPrice = 10;
             }
             $personEmail = $person['email'];
@@ -100,7 +100,7 @@ if (
         $_SESSION['inserted'] = true;
     }
 
-    if (!isset($_SESSION['sentEmails']) && !$_SESSION['sentEmails']){
+    if (!isset($_SESSION['sentEmails'])){
 
         /**
          * TICKET GENERATION
@@ -115,7 +115,7 @@ if (
         include '../ticket/index.php';
         $buyerPDF = ob_get_clean();
     
-        // loops through the children get their ticket and stores it in a dict whose stucture is 'ID -> PDF'
+        // loops through the children get their ticket and stores it in a dict whose structure is 'ID -> PDF'
         $i = 0;
         $tickets = array();
         foreach ($_SESSION['members']['table'] as $person){
