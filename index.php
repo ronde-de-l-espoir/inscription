@@ -3,10 +3,11 @@
         session_start();
     }
 
-    require '../db_config.php';
-    $sql = "SELECT * FROM `preinscriptions` WHERE `eventInfo`!='Test'";
-    $result = mysqli_query($conn, $sql);
-    $placesLeft = 250 - mysqli_num_rows($result);
+    // require '../db_config.php';
+    // $sql = "SELECT * FROM `preinscriptions` WHERE `eventInfo`!='Test'";
+    // $result = mysqli_query($conn, $sql);
+    // $placesLeft = 250 - mysqli_num_rows($result);
+    $placesLeft = 50;
 
     if (isset($_POST['action'])){
         if ($_POST['action'] == 'book'){
@@ -54,7 +55,7 @@
             <button name="action" class="gala-btn" value="lost">J'ai perdu mon ticket</button>
             <!-- <button name="action" class="gala-btn" value="cancel">Je souhaite annuler...</button> -->
         </form>
-        <p style="text-align: center;">Vous rencontrz un problème ?<br>Nos adresses mail sont disponibles <a href="https://ronde-de-l-espoir.fr/contact" target="_blank">ici</a></a></p>
+        <p style="text-align: center;"><a href="https://ronde-de-l-espoir.fr/contact" target="_blank">Vous rencontrez un problème ?<br>Cliquez ici pour nous contacter</a></a></p>
     </main>
 </body>
 </html>
