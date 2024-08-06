@@ -50,6 +50,32 @@ Maybe you should consider adding the type as an actual property to make things c
 
 This system isn't only useful when booking : its main purpose is on the D-Day ; much more on that in [app-www](https://github.com/ronde-de-l-espoir/app-www/README.md).
 
+So, in the end, the SQL schema is the following :
+
+```sql
+CREATE TABLE `preinscriptions` (
+  `uuid` varchar(36) NOT NULL,
+  `fname` varchar(225) NOT NULL,
+  `lname` varchar(255) NOT NULL,
+  `age` int(2) NOT NULL,
+  `email` varchar(1024) NOT NULL,
+  `phone` varchar(14) NOT NULL,
+  `price` float NOT NULL,
+  `hasPaid` tinyint(1) NOT NULL,
+  `parentNode` varchar(36) NOT NULL,
+  `hasChildren` tinyint(1) NOT NULL,
+  `date` date NOT NULL DEFAULT current_timestamp(),
+  `time` time NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 
+
+COLLATE=latin1_swedish_ci;
+
+ALTER TABLE `preinscriptions`
+  ADD PRIMARY KEY (`uuid`);
+
+COMMIT;
+```
+
 ## Libraries used
 
 All PHP libraries are imported/managed by Composer (PHP's `pip`)
