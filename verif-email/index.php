@@ -3,6 +3,8 @@
     require('../vendor/autoload.php');
     use PHPMailer\PHPMailer\PHPMailer;
 
+    require('../../db_config.php');
+
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
@@ -11,16 +13,16 @@
         $_SESSION['emailStep'] = 1;
     } // me wanting to have a multi-page site without redirects...
 
-    function sendmail($email) { // same idea as /enregistrement
+    function sendmail($email, $noreplyHost, $noreplyAddress, $noreplyPassword) { // same idea as /enregistrement
         $mail = new PHPMailer();
         $mail->CharSet = "UTF-8";
         $mail->isSMTP();
-        $mail->Host = 'ronde-de-l-espoir.fr';
-        $mail->Port = 465;
+        $mail->Host = $noreplyHost;
+        $mail->Port = 587;
         $mail->SMTPAuth = true;
-        $mail->Username = 'no-reply@ronde-de-l-espoir.fr';
-        $mail->Password = '***REMOVED***'; // get rid of this password !
-        $mail->SMTPSecure = "ssl";
+        $mail->Username = $noreplyAddress;
+        $mail->Password = $noreplyPassword; // get rid of this password !
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->setFrom('no-reply@ronde-de-l-espoir.fr', "Ne Pas Répondre - Ronde de l'Espoir");
         $mail->Subject = "Code de sécurité - Ronde de l'Espoir";
         $mail->isHTML(true);
@@ -45,7 +47,8 @@
                     require('../../db_config.php');
                     $SQL = "SELECT COUNT(*) FROM `preinscriptions` WHERE `email`='" . $_POST['email'] . "'"; // checks if that email corresponds to a booking
                     if (intval(mysqli_fetch_all(mysqli_query($conn, $SQL))[0][0]) > 0 ? true : false){ // i'm pretty sure the ternary operator isn't needed... if it ain't broke, don't fix it, as they say
-                        if (!sendmail($_SESSION['email'])->send()) {
+                        $mail = sendmail($_SESSION['email'], $noreplyHost, $noreplyAddress, $noreplyPassword);
+                        if (!$mail->send()) {
                             echo 'Mailer Error: ' . $mail->ErrorInfo;
                         } else {
                             $_SESSION['emailStep'] = 2; // go to the next step

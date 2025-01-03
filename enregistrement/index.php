@@ -31,7 +31,7 @@ if (
      * DB INSERTION
      */
     
-    if (!isset($_SESSION['inserted'])){ // if the data hasn't already been inserted
+    if (!isset($_SESSION['inserted']) or true){ // if the data hasn't already been inserted
 
 
         $buyerID = $_SESSION['id'];
@@ -100,7 +100,7 @@ if (
         $_SESSION['inserted'] = true;
     }
 
-    if (!isset($_SESSION['sentEmails'])){
+    if (!isset($_SESSION['sentEmails']) or true){
 
         /**
          * TICKET GENERATION
@@ -134,16 +134,16 @@ if (
          * EMAILS
          */
     
-        function createMailInterface() { // these are the common commands to all the emails that are sent; then extra personalisation comes to each
+        function createMailInterface($noreplyHost, $noreplyAddress, $noreplyPassword) { // these are the common commands to all the emails that are sent; then extra personalisation comes to each
             $mail = new PHPMailer();
             $mail->CharSet = "UTF-8";
             $mail->isSMTP();
-            $mail->Host = 'ronde-de-l-espoir.fr';
-            $mail->Port = 465;
+            $mail->Host = $noreplyHost;
+            $mail->Port = 587;
             $mail->SMTPAuth = true;
-            $mail->Username = 'no-reply@ronde-de-l-espoir.fr';
-            $mail->Password = '***REMOVED***'; // urgent : get rid of password...
-            $mail->SMTPSecure = "ssl";
+            $mail->Username = $noreplyAddress;
+            $mail->Password = $noreplyPassword; // urgent : get rid of password...
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->setFrom('no-reply@ronde-de-l-espoir.fr', "Ne Pas Répondre - Ronde de l'Espoir"); // this is how it'll appear in the user's mailbox
             return $mail;
         }
@@ -156,7 +156,7 @@ if (
 
 
         // PREPARES EMAIL FOR BUYER
-        $buyerMail = createMailInterface(); // the common commands
+        $buyerMail = createMailInterface($noreplyHost, $noreplyAddress, $noreplyPassword); // the common commands
         $buyerMail->Subject = 'Vos tickets du Gala - La Merci';
         $buyerMail->isHTML(true);
         $requestID = $buyerID;
@@ -167,7 +167,7 @@ if (
     
         foreach ($tickets as $ticket){
             // SENDS EMAIL TO EACH CHILD
-            $mail = createMailInterface(); // the common commands
+            $mail = createMailInterface($noreplyHost, $noreplyAddress, $noreplyPassword); // the common commands
             $mail->Subject = 'Vos tickets du Gala - La Merci';
             $mail->isHTML(true);
             $requestID = $ticket['id'];
@@ -182,7 +182,7 @@ if (
         }
     
         if (!$buyerMail->send()) { // SENDS EMAIL TO BUYER || why now ? idk...
-            echo 'Mailer Error: ' . $mail->ErrorInfo;
+            echo 'Mailer Error: ' . $buyerMail->ErrorInfo;
         }
     
         $_SESSION['sentEmails'] = true;
