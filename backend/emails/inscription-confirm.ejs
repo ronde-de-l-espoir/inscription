@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: white;
+        }
+
+        h2 {
+            margin-left: 20px;
+            color: #2570b4;
+        }
+
+        table.header-table {
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+            text-align: center;
+        }
+
+        span#booking_id {
+            font-weight: bold;
+            font-size: 120%;
+            color: #1f76c7;
+        }
+
+        span#eventName {
+            font-weight: bold;
+            font-size: 105%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <table class="header-table" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <img src="<%= base_url %>/email-logo.png" alt="" style="width: 150px; height: auto;">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h2 style="margin: 0;">Lycée La Merci Littoral</h2>
+                </td>
+            </tr>
+        </table>
+    </header>
+    <main>
+        <p>Bonjour <%= name %> <%= surname %> !</p>
+        <p>Le lycée vous remercie pour votre inscription en date du <%= date.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' }) %> à <%= date.toLocaleTimeString('fr-FR', { timeZone: 'Europe/Paris', hour: '2-digit', minute: '2-digit' }) %>.</p>
+        <p>
+            Votre numéro d'inscription pour l'évènement <span id="eventName"><%= eventName %></span> est le <span id="booking_id"><%= booking_id %></span>.
+            <br>
+            Votre ticket, que vous trouverez en pièce-jointe, devra être présenté (matériellement ou numériquement) à l'entrée de l'événement.
+            <br>
+            Les informations sur l'évènement sont disponibles sur votre ticket !
+        </p>
+        <p>A très bientôt !<br>Le lycée La Merci Littoral<br><a href="mailto:contact@amis-du-littoral.fr">contact@amis-du-littoral.fr</a></p>
+    </main>
+</body>
+</html>
