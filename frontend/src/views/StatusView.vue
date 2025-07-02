@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onBeforeMount, onUnmounted, ref } from 'vue'
-import type Event from '@/types/event';
 import { usePersonStore } from '@/stores/person';
 
 
@@ -35,9 +34,6 @@ function checkMember(member_id: string){
                 }
                 return response.json();
             }
-        })
-        .then(data => {
-            person.$patch(data);
         })
 }
 

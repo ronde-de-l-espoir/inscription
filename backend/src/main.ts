@@ -105,12 +105,7 @@ router.get("/member/:member_id", async (req, res) => {
     if (member === null) {
         res.status(404).send("Not found");
     } else {
-        res.send({
-            name: member.name,
-            surname: member.surname,
-            email: member.email,
-            phone: member.phone
-        });
+        res.status(200)
     }
 })
 
