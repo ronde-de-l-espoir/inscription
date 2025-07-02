@@ -18,12 +18,13 @@ import MemberModel from './schemas/members';
 import { Template } from '@pdfme/common';
 import { text, barcodes, rectangle, line } from '@pdfme/schemas';
 import { generate } from '@pdfme/generator';
-import { IBooking } from './types/booking';
-import { IEvent } from './types/event';
-import { customAlphabet, nanoid } from "nanoid";
+import { EventsResponse, IBooking, IEvent } from 'lml-shared';
+import { customAlphabet} from "nanoid";
 
-const envPath = process.env.NODE_ENV === 'production' ? '../.env.production' : '../.env.development';
+const envPath = process.env.NODE_ENV === 'production' ? __dirname+'/../../.env.production' : __dirname+'/../../.env.development';
 require('dotenv').config({path: envPath});
+
+console.log(process.env)
 
 const mailTransport = nodemailer.createTransport({
     pool: true,
@@ -38,12 +39,12 @@ const mailTransport = nodemailer.createTransport({
 
 const emailTemplates: { [key: string]: string } = {};
 
-fs.readdirSync(path.resolve('./emails')).forEach(file => {
-    if (fs.statSync(path.resolve('./emails', file)).isDirectory()) {
+fs.readdirSync(path.resolve(__dirname+'/emails')).forEach(file => {
+    if (fs.statSync(path.resolve(__dirname+'/emails', file)).isDirectory()) {
         return;
     }
     const templateName = file.replace('.ejs', '');
-    const templateContent = fs.readFileSync(`./emails/${file}`, 'utf-8');
+    const templateContent = fs.readFileSync(__dirname+`/emails/${file}`, 'utf-8');
     emailTemplates[templateName] = templateContent;
 });
 
@@ -96,7 +97,7 @@ router.get("/events", async (req,res) => {
             { $group: { _id: null, totalAttendants: { $sum: "$attendants" } } }
         ]).then(result => result[0]?.totalAttendants || 0);
     }));
-    res.send(events);
+    res.send(events as EventsResponse);
 })
 
 router.get("/member/:member_id", async (req, res) => {
@@ -263,7 +264,7 @@ async function saveSucceededPayment(pi?: string, pm?: string, id?: string) {
     (updateResult as any).base_url = process.env.BASE_URL;
     (updateResult as any).eventName = eventDetails!.display_name;
     mailTransport.sendMail({
-        from: 'La Merci Ne pas Répondre ne-pas-repondre@amis-du-littoral.fr',
+        from: 'La Merci Ne pas Répondre',
         to: updateResult.email,
         subject: "La Merci Littoral - Confirmation d'inscription",
         html: ejs.render(emailTemplates['inscription-confirm'], updateResult),

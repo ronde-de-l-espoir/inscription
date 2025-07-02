@@ -1,5 +1,5 @@
 import { model, Model, Schema } from "mongoose";
-import { IEvent } from "../types/event";
+import { IEvent } from "lml-shared";
 import BookingModel from "./bookings";
 
 const EventSchema: Schema<IEvent> = new Schema({

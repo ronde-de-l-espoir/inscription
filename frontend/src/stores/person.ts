@@ -1,21 +1,23 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import type Person from '@/types/person'
-import type Event from '@/types/event'
+import { IBuyer, IEvent } from 'lml-shared'
 
 export const usePersonStore = defineStore('person', {
-  state: () => (<Person>{
+  state: () => <IBuyer>({
     name: '',
     surname: '',
     birth: '',
     email: '',
     phone: '',
     attendants: 1,
-    selectedEvent: {} as Event,
-    verifiedCategories: [] as Event["price_categories"],
+    selectedEvent: {} as IEvent,
+    verifiedCategories: [] as IEvent["price_categories"],
     member_id: '',
     pi_secret: '',
-    booking_id: ''
+    booking_id: '',
+    children: [],
+    fullName: '',
+    bestPriceCategory: {} as IEvent["price_categories"][0],
   }),
   getters: {
     fullName: (state) => `${state.name} ${state.surname}`,

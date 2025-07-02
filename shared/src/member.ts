@@ -1,6 +1,4 @@
-import { Document } from "mongoose";
-
-interface IMember extends Document {
+export interface IMember {
     _id: string;
     member_id: string;
     name: string;
@@ -22,5 +20,3 @@ interface IMember extends Document {
         }
     }
 }
-
-export default IMember

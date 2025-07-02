@@ -12,8 +12,9 @@ import Help from './components/Help.vue';
   <main v-if="!isMobile.isMobile">
     <div id="header-wrapper">
       <header>
-        <img :src="Logo" alt="Logo de l'association">
-        <h1>Lycée La Merci Littoral</h1>
+        <!-- <img :src="Logo" alt="Logo de l'association"> -->
+        <!-- <h1>Lycée La Merci Littoral</h1> -->
+         <h1>Truc</h1>
       </header>
     </div>
     <div id="main-wrapper">

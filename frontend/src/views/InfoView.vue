@@ -62,7 +62,7 @@ onMounted(() => {
     <h2 :class="{ onlytitle: person.member_id == '' }">Informations personnelles</h2>
     <h4 id="member-data" v-if="person.member_id !== ''">Vos données ont été chargées car vous êtes adhérent</h4>
     <div id="info-form">
-      <div v-for="field in person.selectedEvent.info_fields">
+      <div v-for="field in person.selectedEvent.fields">
         <label for="name" v-if="field == 'name'" :key="field">
           Prénom
           <input type="text" id="name" name="name" required v-model="person.name">

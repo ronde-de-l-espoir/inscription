@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onBeforeMount, ref } from 'vue';
-import type Event from '@/types/event';
+import { EventsResponse, IEvent } from 'lml-shared';
 import Loader from '@/components/Loader.vue';
 import { usePersonStore } from '@/stores/person';
 import router from '@/router';
@@ -9,7 +9,7 @@ import { Calendar, MapPin } from 'lucide-vue-next';
 
 const person = usePersonStore();
 
-const events = ref([] as Event[]);
+const events = ref<IEvent[]>([]);
 const loadedEvents = ref(false)
 
 const nearlyClosingHrs = import.meta.env.NEARLY_CLOSING_HRS
@@ -19,9 +19,9 @@ async function getEvents(){
     return new Promise<null>((resolve, reject) => {
         fetch('/api/events')
             .then(response => response.json())
-            .then(data => {
-                events.value = data.map((event: any) => {
-                    (event.price_categories as Event["price_categories"]).sort((a, b) => {
+            .then((data: EventsResponse) => {
+                events.value = data.map((event: IEvent) => {
+                    (event.price_categories as IEvent["price_categories"]).sort((a, b) => {
                         if (a.type === 'default') return 1;
                         if (b.type === 'default') return -1;
                         return a.price - b.price;
@@ -29,11 +29,8 @@ async function getEvents(){
                     event.booking_close = new Date(event.booking_close);
                     event.booking_open = new Date(event.booking_open);
                     event.date_start = new Date(event.date_start);
-                    return {
-                        ...event,
-                        id: event._id
-                    }
-                }).sort((a: Event, b: Event) => {
+                    return event
+                }).sort((a: IEvent, b: IEvent) => {
                     const dateComparison = new Date(a.date_start).setHours(0, 0, 0, 0) - new Date(b.date_start).setHours(0, 0, 0, 0);
                     if (dateComparison !== 0) {
                         return dateComparison;
@@ -42,6 +39,10 @@ async function getEvents(){
                 });
                 resolve(null)
             })
+            .catch(error => {
+                console.error('Error fetching events:', error);
+                reject(error);
+            });
     })
 }
 
@@ -54,7 +55,7 @@ onBeforeMount(async () => {
 })
 
 function chooseEvent(eventId: string) {
-    const selectedEvent = events.value.find(event => event.id === eventId);
+    const selectedEvent = events.value.find(event => event._id === eventId);
     if (selectedEvent) {
         person.selectedEvent = selectedEvent;
         person.verifiedCategories.push(selectedEvent.price_categories.find(category => category.type === 'default')!);
@@ -73,8 +74,8 @@ function chooseEvent(eventId: string) {
     <div id="choice-wrapper">
         <h2>Choix de l'évènement</h2>
         <div id="events-list" v-if="loadedEvents">
-            <div class="event" v-for="event in events" :key="event.id" v-if="events.length > 0"
-                @click="(event.bookings_left < 0 || event.booking_close) <= new Date() ? null : chooseEvent(event.id)"
+            <div class="event" v-for="event in events" :key="event._id" v-if="events.length > 0"
+                @click="(event.bookings_left < 0 || event.booking_close) <= new Date() ? null : chooseEvent(event._id)"
                 :class="{ 'event-disabled': event.bookings_left == 0 || event.booking_close < new Date() }">
                 <h3>{{ event.display_name }}</h3>
                 <div class="info-section">

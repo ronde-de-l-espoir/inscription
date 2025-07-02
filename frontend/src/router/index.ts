@@ -9,8 +9,8 @@ const router = createRouter({
     {
       path: '/',
       name: 'landing',
-      //component: LandingView,
-      component: MaintenanceView
+      component: LandingView,
+      //component: MaintenanceView
     },
     {
       path: '/choix',

@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { IBooking } from "../types/booking";
+import { IBooking } from "lml-shared";
 
 const BookingSchema: Schema<IBooking> = new Schema({
     _id: { type: String, required: true },

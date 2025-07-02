@@ -1,5 +1,5 @@
-import mongoose, { mongo, Schema, Model } from "mongoose";
-import IMember from "../types/member";
+import mongoose, { Schema, Model } from "mongoose";
+import { IMember } from "lml-shared";
 import { customAlphabet } from "nanoid";
 
 const MemberSchema: Schema<IMember> = new Schema({

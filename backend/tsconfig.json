@@ -8,6 +8,6 @@
         "forceConsistentCasingInFileNames": true,
         "outDir": "./dist"
     },
-    "include": ["./**/*"],
+    //"include": ["./**/*", "../shared/src/booking.ts", "../shared/src/event.ts", "../shared/src/member.ts"],
     "exclude": ["node_modules", "**/*.spec.ts"]
 }

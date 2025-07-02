@@ -1,6 +1,6 @@
-import { Document } from "mongoose";
+export type EventsResponse = IEvent[];
 
-interface IEvent extends Document {
+export interface IEvent {
     display_name: string;
     date_start: Date;
     date_end: Date;
@@ -16,4 +16,5 @@ interface IEvent extends Document {
     fields: ('name' | 'surname' | 'email' | 'phone' | 'attendants')[];
     booking_open: Date;
     booking_close: Date;
+    _id: string;
 }
