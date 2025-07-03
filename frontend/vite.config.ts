@@ -3,8 +3,10 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
+import devtoolsJson from 'vite-plugin-devtools-json'
 
 import dotenv from 'dotenv'
+import VitePluginVueDevTools from 'vite-plugin-vue-devtools'
 var serverConfig = {}
 if (process.env.NODE_ENV === 'development') {
   serverConfig = {
@@ -30,6 +32,7 @@ export default defineConfig({
   plugins: [
     vue(),
     vueDevTools(),
+    VitePluginVueDevTools()
   ],
   resolve: {
     alias: {

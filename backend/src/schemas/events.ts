@@ -16,6 +16,7 @@ const EventSchema: Schema<IEvent> = new Schema({
     limit: { type: Number, required: true },
     booking_open: { type: Date, required: true },
     booking_close: { type: Date, required: true },
+    info_fields: [{type: String, required: true, enum: ['name', 'surname', 'email', 'phone', 'attendants']}],
 });
 
 const EventModel: Model<IEvent> = model("event", EventSchema, "evenement");

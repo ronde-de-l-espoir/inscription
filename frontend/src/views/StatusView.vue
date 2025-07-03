@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { onBeforeMount, onUnmounted, ref } from 'vue'
 import { usePersonStore } from '@/stores/person';
-
+import MemberCheck from '@/components/statusChecksInputs/memberCheck.vue';
+import DateCheck from '@/components/statusChecksInputs/dateCheck.vue';
+import SubmitButton from '@/components/SubmitButton.vue';
 
 const person = usePersonStore()
 const filtered_categories = person.selectedEvent.price_categories.filter(price_category => price_category.type !== 'default');
@@ -20,27 +22,7 @@ async function checkAge(birth: string){
     }
 }
 
-function checkMember(member_id: string){
-    member_id = member_id.toString(); // Ensure member_id is treated as a string
-    fetch('/api/member/' + member_id)
-        .then(response => {
-            if (response.status === 404){
-                memberInvalid.value = true;
-                person.verifiedCategories = person.verifiedCategories.filter(category => category.type !== 'member');
-            } else {
-                memberInvalid.value = false;
-                if (!person.verifiedCategories.find((category) => category.type == 'member')) {
-                    person.verifiedCategories.push(filtered_categories.find((category) => category.type == 'member')!);
-                }
-                return response.json();
-            }
-        })
-}
-
 onBeforeMount(() => {
-    if (person.member_id !== ""){
-        checkMember(person.member_id);
-    }
     if (person.birth !== ''){
         checkAge(person.birth as string);
     }
@@ -57,21 +39,18 @@ onBeforeMount(() => {
                 <div class="verif-component" v-if="price_category.type === 'member'">
                     <h3>Numéro d'adhésion à l'Association des Amis du Littoral (si vous êtes adhérent)</h3>
                     <div class="component-picker">
-                        <input type="number" v-model="person.member_id" min="0" max="999999" @input="checkMember(person.member_id.toString())" :class="{validated: memberInvalid == false, invalidated: memberInvalid == true}"/>
-                        <!-- <span v-if="!memberInvalid">Bonjour {{ person.fullName }} !</span> -->
+                        <MemberCheck :categories="person.selectedEvent.price_categories" v-model="person"/>
                     </div>
                 </div>
                 <div class="verif-element" v-if="price_category.type === 'minor'">
                     <h3>Date de naissance</h3>
                     <div class="component-picker">
-                        <input type="date" v-model="person.birth" @input="checkAge(person.birth as string)"/>
+                        <DateCheck :categories="person.selectedEvent.price_categories" v-model="person"/>
                     </div>
                 </div>
             </div>
         </div>
-        <RouterLink to="/mes-informations"><button type="submit"
-                :class="{ activated: filtered_categories.filter(price_category => price_category.type === 'minor').length === 0 || person.birth !== '' }">Continuer</button>
-        </RouterLink>
+        <SubmitButton :destination="'/mes-informations'" :active="filtered_categories.filter(price_category => price_category.type === 'minor').length === 0 || person.birth !== ''"/>
     </div>
 </template>
 
@@ -118,48 +97,6 @@ h2, #status-wrapper > p {
     justify-content: center;
     flex-direction: column;
     gap: 10px;
-}
-
-.component-picker input[type="date"] {
-    font-family: 'Lexend', sans-serif;
-    font-size: 120%;
-    padding: 5px;
-    border: 2px solid #d9dadd;
-    border-radius: 5px;
-    background-color: #2c7ba8;
-    color: white;
-    outline: none;
-}
-
-.component-picker input[type="date"]::-webkit-calendar-picker-indicator {
-    filter: invert(1);
-}
-
-.component-picker input[type="number"] {
-    font-family: 'Lexend', sans-serif;
-    font-size: 120%;
-    padding: 5px;
-    border: 2px solid #d9dadd;
-    border-radius: 5px;
-    background-color: #2c7ba8;
-    color: white;
-    outline: none;
-    width: 20%;
-}
-
-.component-picker input[type="number"]::-webkit-inner-spin-button,
-.component-picker input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-.component-picker input[type="number"].validated {
-    border-width: 3px;
-    border-color: #00d30b;
-}
-
-.component-picker input[type="number"].invalidated {
-    border-color: #be131c;
 }
 
 .separator {
