@@ -606,9 +606,6 @@ packages:
       '@pdfme/common': latest
       '@pdfme/schemas': latest
 
-  '@pdfme/pdf-lib@1.18.4':
-    resolution: {integrity: sha512-i9XGkKCCb2wHLfJC/wUZ221/58o4unG4dGvnS+Tk8kOQBVMf+DCXzIqs0SGDsF3DrEpXHIhaW2iscWNjM0qNtA==}
-
   '@pdfme/pdf-lib@6.1.2':
     resolution: {integrity: sha512-iDM554Ah3UmtcIT2OgaexntrF3ezKSDR4FjRHPofRscZzbsz27MW0hiBVlVGApdQSfel8sdANWl5Ldbaifanog==}
 
@@ -1288,10 +1285,6 @@ packages:
   color@3.2.1:
     resolution: {integrity: sha512-aBl7dZI9ENN6fUGC7mWpMTPNHmWUSNan9tuWN6ahh5ZLNk9baLJOnSMlrQkHcrfFgz2/RigjUVAjdx36VcemKA==}
 
-  color@4.2.3:
-    resolution: {integrity: sha512-1rXeuUUiGGrykh+CeBdu5Ie7OJwinCgQY0bc7GCRxy5xVHy+moaqkpL/jqQq0MtQOeYcrqEz4abc5f0KtU7W4A==}
-    engines: {node: '>=12.5.0'}
-
   color@5.0.3:
     resolution: {integrity: sha512-ezmVcLR3xAVp8kYOm4GS45ZLLgIE6SPAFoduLr6hTDajwb3KZ2F46gulK3XpcwRFb5KKGCSezCBAY4Dw4HsyXA==}
     engines: {node: '>=18'}
@@ -1711,8 +1704,8 @@ packages:
     resolution: {integrity: sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==}
     engines: {node: '>= 0.10'}
 
-  is-arrayish@0.3.2:
-    resolution: {integrity: sha512-eVRqCvVlZbuw3GrM63ovNSNAeA1K16kaR/LRY/92w0zxQ5/1YzwblUX652i4Xs9RwAGjW9d9y6X88t8OaAJfWQ==}
+  is-arrayish@0.3.4:
+    resolution: {integrity: sha512-m6UrgzFVUYawGBh1dUsWR5M2Clqic9RVXC/9f8ceNlv2IcO9j9J/z8UoCLPqtsPBFNzEpfR3xftohbfqDx8EQA==}
 
   is-binary-path@2.1.0:
     resolution: {integrity: sha512-ZMERYes6pDydyuGidse7OsHxtbI7WVeUEozgR/g7rd0xUimYNlvZRE/K2MgZTjWy725IfelLeVcEM97mmtRGXw==}
@@ -2014,9 +2007,6 @@ packages:
 
   neo-async@2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
-
-  node-html-better-parser@1.5.1:
-    resolution: {integrity: sha512-K3OUfP3UvIgoxlcoj6e9zeszeEk4MfhmiG7aiRRFEdoNqnfILCtL/AoLJ8UWFvDlRJOgKPRIECqWxbr25btnyQ==}
 
   node-html-better-parser@1.5.8:
     resolution: {integrity: sha512-t/wAKvaTSKco43X+yf9+76RiMt18MtMmzd4wc7rKj+fWav6DV4ajDEKdWlLzSE8USDF5zr/06uGj0Wr/dGAFtw==}
@@ -2578,8 +2568,8 @@ packages:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
 
-  simple-swizzle@0.2.2:
-    resolution: {integrity: sha512-JA//kQgZtbuY83m+xT+tXJkmJncGMTFT+C+g2h2R9uxkYIrE2yy9sgmcLhCnw57/WSD+Eh3J97FPEDFnbXnDUg==}
+  simple-swizzle@0.2.4:
+    resolution: {integrity: sha512-nAu1WFPQSMNr2Zn9PGSZK9AGn4t/y97lEm+MXTtUDwfP0ksAIX4nO+6ruD9Jwut4C49SB1Ws+fbXsm/yScWOHw==}
 
   simple-update-notifier@2.0.0:
     resolution: {integrity: sha512-a2B9Y0KlNXl9u/vsW6sTIu9vGEpfKu2wRV6l1H3XEas/0gUIzGzBoP/IouTcUQbm9JWZLH3COxyn03TYlFax6w==}
@@ -3460,17 +3450,9 @@ snapshots:
   '@pdfme/generator@5.4.0(@pdfme/common@5.5.10(antd@5.26.3(date-fns@4.1.0)(react-dom@16.14.0(react@16.14.0))(react@16.14.0))(form-render@2.5.3(antd@5.26.3(date-fns@4.1.0)(react-dom@16.14.0(react@16.14.0))(react@16.14.0))(react-dom@16.14.0(react@16.14.0))(react@16.14.0)))(@pdfme/schemas@5.5.10(@pdfme/common@5.5.10(antd@5.26.3(date-fns@4.1.0)(react-dom@16.14.0(react@16.14.0))(react@16.14.0))(form-render@2.5.3(antd@5.26.3(date-fns@4.1.0)(react-dom@16.14.0(react@16.14.0))(react@16.14.0))(react-dom@16.14.0(react@16.14.0))(react@16.14.0))))':
     dependencies:
       '@pdfme/common': 5.5.10(antd@5.26.3(date-fns@4.1.0)(react-dom@16.14.0(react@16.14.0))(react@16.14.0))(form-render@2.5.3(antd@5.26.3(date-fns@4.1.0)(react-dom@16.14.0(react@16.14.0))(react@16.14.0))(react-dom@16.14.0(react@16.14.0))(react@16.14.0))
-      '@pdfme/pdf-lib': 1.18.4
+      '@pdfme/pdf-lib': 6.1.2
       '@pdfme/schemas': 5.5.10(@pdfme/common@5.5.10(antd@5.26.3(date-fns@4.1.0)(react-dom@16.14.0(react@16.14.0))(react@16.14.0))(form-render@2.5.3(antd@5.26.3(date-fns@4.1.0)(react-dom@16.14.0(react@16.14.0))(react@16.14.0))(react-dom@16.14.0(react@16.14.0))(react@16.14.0)))
       fontkit: 2.0.4
-
-  '@pdfme/pdf-lib@1.18.4':
-    dependencies:
-      '@pdf-lib/standard-fonts': 1.0.0
-      '@pdf-lib/upng': 1.0.1
-      color: 4.2.3
-      node-html-better-parser: 1.5.1
-      pako: 1.0.11
 
   '@pdfme/pdf-lib@6.1.2':
     dependencies:
@@ -4268,7 +4250,7 @@ snapshots:
   color-string@1.9.1:
     dependencies:
       color-name: 1.1.4
-      simple-swizzle: 0.2.2
+      simple-swizzle: 0.2.4
 
   color-string@2.1.4:
     dependencies:
@@ -4277,11 +4259,6 @@ snapshots:
   color@3.2.1:
     dependencies:
       color-convert: 1.9.3
-      color-string: 1.9.1
-
-  color@4.2.3:
-    dependencies:
-      color-convert: 2.0.1
       color-string: 1.9.1
 
   color@5.0.3:
@@ -4719,7 +4696,7 @@ snapshots:
 
   ipaddr.js@1.9.1: {}
 
-  is-arrayish@0.3.2: {}
+  is-arrayish@0.3.4: {}
 
   is-binary-path@2.1.0:
     dependencies:
@@ -4955,10 +4932,6 @@ snapshots:
   negotiator@0.6.3: {}
 
   neo-async@2.6.2: {}
-
-  node-html-better-parser@1.5.1:
-    dependencies:
-      html-entities: 2.6.0
 
   node-html-better-parser@1.5.8:
     dependencies:
@@ -5660,9 +5633,9 @@ snapshots:
 
   signal-exit@4.1.0: {}
 
-  simple-swizzle@0.2.2:
+  simple-swizzle@0.2.4:
     dependencies:
-      is-arrayish: 0.3.2
+      is-arrayish: 0.3.4
 
   simple-update-notifier@2.0.0:
     dependencies:
