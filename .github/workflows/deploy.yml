@@ -21,7 +21,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18 
+          node-version: 22
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -79,7 +79,7 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           password: ${{ secrets.VPS_PASSWORD }}
-          target: /web/inscription-evenements/backend-new/
+          target: /web/inscription-evenements/backend/
           source: "pruned-backend/*"
           overwrite: true
           strip_components: 1
@@ -90,10 +90,10 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           password: ${{ secrets.VPS_PASSWORD }}
-          target: /web/inscription-evenements/frontend-new/
+          target: /web/inscription-evenements/frontend/
           source: "frontend/dist/*"
           overwrite: true
-          strip_components: 2 # Strips 'frontend' and 'dist', placing raw static files straight into frontend-new/
+          strip_components: 2
       
       - name: Transfer Nginx Config to VPS
         uses: appleboy/scp-action@v0.1.1
