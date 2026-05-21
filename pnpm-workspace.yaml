@@ -2,4 +2,8 @@ packages:
   - 'backend/'
   - 'frontend/'
   - 'shared/'
+allowBuilds:
+  core-js: false
+  esbuild: true
+  vue-demi: false
 nodeLinker: 'hoisted'

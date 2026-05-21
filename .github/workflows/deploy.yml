@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - v2
-  pull_request:
-    branches:
-      - v2
+  # pull_request:
+  #   branches:
+  #     - v2
   workflow_dispatch:
 
 jobs:
@@ -29,7 +29,7 @@ jobs:
         #   version: 11 # Specify your pnpm major version explicitly
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
         
       # Safer implementation using standard environment blocks to prevent log-leaks
       - name: Create .env.production file from GitHub Secrets
