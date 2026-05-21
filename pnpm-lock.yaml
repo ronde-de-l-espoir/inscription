@@ -143,9 +143,6 @@ importers:
       '@types/node':
         specifier: ^22.10.7
         version: 22.19.19
-      '@types/vue':
-        specifier: ^2.0.0
-        version: 2.0.0(typescript@5.9.3)
       '@vitejs/plugin-vue':
         specifier: ^5.2.1
         version: 5.2.4(vite@6.4.2(@types/node@22.19.19)(terser@5.47.1))(vue@3.5.34(typescript@5.9.3))
@@ -896,10 +893,6 @@ packages:
 
   '@types/trusted-types@2.0.7':
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
-
-  '@types/vue@2.0.0':
-    resolution: {integrity: sha512-WDElkBv/o4lVwu6wYHB06AXs4Xo2fwDjJUpvPRc1QQdzkUSiGFjrYuSCy8raxLE5FObgKq8ND7R5gSZTFLK60w==}
-    deprecated: This is a stub types definition for vuejs (https://github.com/vuejs/vue). vuejs provides its own type definitions, so you don't need @types/vue installed!
 
   '@types/webidl-conversions@7.0.3':
     resolution: {integrity: sha512-CiJJvcRtIgzadHCYXw7dqEnMNRjhGZlYK05Mj9OyktqV8uVT8fD2BFOB7S1uwBE3Kj2Z+4UyPmFw/Ixgw/LAlA==}
@@ -3645,12 +3638,6 @@ snapshots:
 
   '@types/trusted-types@2.0.7':
     optional: true
-
-  '@types/vue@2.0.0(typescript@5.9.3)':
-    dependencies:
-      vue: 3.5.34(typescript@5.9.3)
-    transitivePeerDependencies:
-      - typescript
 
   '@types/webidl-conversions@7.0.3': {}
 

@@ -13,7 +13,7 @@ export interface IEvent {
     order: number;
     limit: number;
     bookings_left: number;
-    fields: ('name' | 'surname' | 'email' | 'phone' | 'attendants')[];
+    info_fields: ('name' | 'surname' | 'email' | 'phone' | 'attendants')[];
     booking_open: Date;
     booking_close: Date;
     _id: string;
