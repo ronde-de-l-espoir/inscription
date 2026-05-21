@@ -67,7 +67,7 @@ jobs:
 
       # Isolates just production dependencies for the backend, omitting monorepo dev-deps
       - name: Prune Monorepo for Backend Production
-        run: pnpm --filter backend deploy pruned-backend --prod
+        run: pnpm --filter backend deploy pruned-backend --prod --legacy
 
       # Copy the .env.production into the pruned directory before transferring
       - name: Prepare Backend Bundle
@@ -115,7 +115,7 @@ jobs:
             # Safely replace the old backend folder structure
             rm -rf /web/inscription-evenements/backend-old
             [ -d /web/inscription-evenements/backend ] && mv /web/inscription-evenements/backend /web/inscription-evenements/backend-old
-            mv /web/inscription-evenements/backend-new /web/inscription-evenements/backend
+            mv /web/inscription-evenements/backend /web/inscription-evenements/backend
             
             cd /web/inscription-evenements/backend
             cp .env.production .env
@@ -137,7 +137,7 @@ jobs:
           script: |
             rm -rf /web/inscription-evenements/frontend-old
             [ -d /web/inscription-evenements/frontend ] && mv /web/inscription-evenements/frontend /web/inscription-evenements/frontend-old
-            mv /web/inscription-evenements/frontend-new /web/inscription-evenements/frontend
+            mv /web/inscription-evenements/frontend /web/inscription-evenements/frontend
             
             sudo chown -R www-data:www-data /web/inscription-evenements/frontend
             sudo chmod -R 755 /web/inscription-evenements/frontend
