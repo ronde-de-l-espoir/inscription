@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - v2
-  # pull_request:
-  #   branches:
-  #     - v2
   workflow_dispatch:
 
 jobs:
@@ -14,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: production-ionos
     steps:
-    
+
       - name: Check out repository
         uses: actions/checkout@v4
 
@@ -26,12 +23,11 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         # with:
-        #   version: 11 # Specify your pnpm major version explicitly
+        #   version: 10
 
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
-        
-      # Safer implementation using standard environment blocks to prevent log-leaks
+
       - name: Create .env.production file from GitHub Secrets
         env:
           STRIPE_PK: ${{ secrets.STRIPE_PK }}
@@ -61,15 +57,13 @@ jobs:
           echo "ADMIN_BOOKING_ID=$ADMIN_BOOKING_ID" >> .env.production
           echo "NEARLY_CLOSING_HRS=$NEARLY_CLOSING_HRS" >> .env.production
           echo "HAS_CLOSED_HRS=$HAS_CLOSED_HRS" >> .env.production
-      
+
       - name: Build
         run: NODE_ENV=production pnpm build
 
-      # Isolates just production dependencies for the backend, omitting monorepo dev-deps
       - name: Prune Monorepo for Backend Production
         run: pnpm --filter backend deploy pruned-backend --prod --legacy
 
-      # Copy the .env.production into the pruned directory before transferring
       - name: Prepare Backend Bundle
         run: cp .env.production pruned-backend/
 
@@ -94,7 +88,7 @@ jobs:
           source: "frontend/dist/*"
           overwrite: true
           strip_components: 2
-      
+
       - name: Transfer Nginx Config to VPS
         uses: appleboy/scp-action@v0.1.1
         with:
@@ -105,44 +99,33 @@ jobs:
           source: nginx.conf
           overwrite: true
 
-      - name: Swap and Reload Backend on VPS
+      - name: Reload Backend on VPS
         uses: appleboy/ssh-action@v0.1.1
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           password: ${{ secrets.VPS_PASSWORD }}
           script: |
-            # Safely replace the old backend folder structure
-            rm -rf /web/inscription-evenements/backend-old
-            [ -d /web/inscription-evenements/backend ] && mv /web/inscription-evenements/backend /web/inscription-evenements/backend-old
-            mv /web/inscription-evenements/backend /web/inscription-evenements/backend
-            
             cd /web/inscription-evenements/backend
             cp .env.production .env
-            
-            # Use PM2 to run the application using pre-bundled production node_modules
-            if pm2 describe inscription-backend > /dev/null; then
+
+            if pm2 describe inscription-backend > /dev/null 2>&1; then
               NODE_ENV=production pm2 restart inscription-backend --update-env
             else
               NODE_ENV=production pm2 start dist/main.js --name inscription-backend
             fi
             pm2 save
-      
-      - name: Swap and Reload Frontend on VPS
+
+      - name: Set Frontend Permissions on VPS
         uses: appleboy/ssh-action@v0.1.1
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           password: ${{ secrets.VPS_PASSWORD }}
           script: |
-            rm -rf /web/inscription-evenements/frontend-old
-            [ -d /web/inscription-evenements/frontend ] && mv /web/inscription-evenements/frontend /web/inscription-evenements/frontend-old
-            mv /web/inscription-evenements/frontend /web/inscription-evenements/frontend
-            
             sudo chown -R www-data:www-data /web/inscription-evenements/frontend
             sudo chmod -R 755 /web/inscription-evenements/frontend
-            rm -rf /web/inscription-evenements/frontend-old
-      
+
       - name: Reload Nginx on VPS
         uses: appleboy/ssh-action@v0.1.1
         with:
