@@ -41,8 +41,8 @@ jobs:
           EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           ADMIN_BOOKING_ID: ${{ secrets.ADMIN_BOOKING_ID }}
-          NEARLY_CLOSING_HRS: ${{ secrets.NEARLY_CLOSING_HRS }}
-          HAS_CLOSED_HRS: ${{ secrets.HAS_CLOSED_HRS }}
+          NEARLY_CLOSING_HRS: ${{ vars.NEARLY_CLOSING_HRS }}
+          HAS_CLOSED_HRS: ${{ vars.HAS_CLOSED_HRS }}
         run: |
           echo "STRIPE_PK=$STRIPE_PK" >> .env.production
           echo "STRIPE_SK=$STRIPE_SK" >> .env.production
