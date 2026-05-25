@@ -1,13 +1,16 @@
 {
     "compilerOptions": {
         "target": "ES6",
-        "module": "commonjs",
+        "module": "esnext",
         "strict": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
-        "outDir": "./dist"
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "moduleResolution": "bundler"
     },
     //"include": ["./**/*", "../shared/src/booking.ts", "../shared/src/event.ts", "../shared/src/member.ts"],
+    "include": ["./**/*"],
     "exclude": ["node_modules", "**/*.spec.ts"]
 }
