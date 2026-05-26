@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development concurrently \"sudo mongod --config ../mongodb.dev.cfg\" \"nodemon --watch . --exec ts-node ./src/main.ts\"",
-    "build": "tsc"
+    "build": "tsc && cp -r src/emails dist/emails"
   },
   "dependencies": {
     "@pdfme/common": "5.4.0",
