@@ -7,3 +7,5 @@ allowBuilds:
   esbuild: true
   vue-demi: false
 nodeLinker: 'hoisted'
+overrides:
+  "@pdfme/pdf-lib": "1.18.4"
