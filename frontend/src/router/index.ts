@@ -9,14 +9,14 @@ const router = createRouter({
     {
       path: '/',
       name: 'landing',
-      //component: LandingView,
-      component: MaintenanceView
+      component: LandingView,
+      //component: MaintenanceView
     },
     {
       path: '/choix',
       name: 'choice',
-      //component: () => import('../views/ChoiceView.vue'),
-      component: MaintenanceView
+      component: () => import('../views/ChoiceView.vue'),
+      //component: MaintenanceView
     },
     {
       path: '/statut',
