@@ -24,7 +24,7 @@ import { customAlphabet} from "nanoid";
 const envPath = process.env.NODE_ENV === 'production' ? __dirname+'/../../.env.production' : __dirname+'/../../.env.development';
 require('dotenv').config({path: envPath});
 
-console.log(process.env)
+// console.log(process.env)
 
 const mailTransport = nodemailer.createTransport({
     pool: true,
@@ -35,6 +35,7 @@ const mailTransport = nodemailer.createTransport({
         pass: process.env.EMAIL_PASS!
     },
     connectionTimeout: 3000,
+    name: "amis-du-littoral.fr"
 });
 
 const emailTemplates: { [key: string]: string } = {};
@@ -259,7 +260,7 @@ async function saveSucceededPayment(pi?: string, pm?: string, id?: string) {
     (updateResult as any).base_url = process.env.BASE_URL;
     (updateResult as any).eventName = eventDetails!.display_name;
     mailTransport.sendMail({
-        from: 'La Merci Ne pas Répondre',
+        from: 'La Merci Ne pas Répondre <ne-pas-repondre@amis-du-littoral.fr>',
         to: updateResult.email,
         subject: "La Merci Littoral - Confirmation d'inscription",
         html: ejs.render(emailTemplates['inscription-confirm'], updateResult),
@@ -269,7 +270,12 @@ async function saveSucceededPayment(pi?: string, pm?: string, id?: string) {
                 content: await generateTicket(updateResult, eventDetails!)
             }
         ]
-    });
+    }, 
+    // (err, info) => {
+    //     if (err) console.error("MAIL ERROR:", err);
+    //     else console.log("MAIL OK:", info);
+    // }
+    );
 
     return updateResult;
 }
