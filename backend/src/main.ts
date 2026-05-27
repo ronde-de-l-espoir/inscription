@@ -335,7 +335,7 @@ router.get("/ticket/:booking_id", async (req, res) => {
         return;
     }
     try {
-        const payload = jwt.verify(authHeader, process.env.JWT_SECRET!);
+        const payload = jwt.verify(authHeader.split(' ')[1], process.env.JWT_SECRET!);
         if ((payload as {booking_id: string}).booking_id! !== req.params.booking_id && (payload as {booking_id: string}).booking_id! !== process.env.ADMIN_BOOKING_ID) {
             throw ''
         }
