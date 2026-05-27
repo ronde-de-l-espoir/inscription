@@ -18,7 +18,7 @@ const validForm = ref(false);
     <h2 :class="{ onlytitle: buyer.member_id == '' }">Informations personnelles</h2>
     <PersonForm :person="buyer" :fields="buyer.selectedEvent.info_fields" @update:is-valid="(isValid) => {validForm = isValid}"/>
     <h4 id="category-sentence">Vous êtes en catégorie "{{ priceCat.display }}" ({{ priceCat.price }} €)</h4>
-    <SubmitButton :destination="'/accompagnants'" :active="validForm"/>
+    <SubmitButton :destination="'/paiement'" :active="validForm"/>
   </div>
 </template>
 
