@@ -125,7 +125,7 @@ router.put("/booking", async (req, res) => {
         userData.booking_id = customAlphabet("1234567890", 6)();
     }
 
-    const event = await EventModel.findById(userData.selectedEvent.id);
+    const event = await EventModel.findById(userData.selectedEvent._id);
     if (event === null) {
         res.status(404).send("Event not found");
         return;
@@ -177,7 +177,7 @@ router.put("/booking", async (req, res) => {
 
     userData = {
         ...userData,
-        event_id: userData.selectedEvent.id,
+        event_id: userData.selectedEvent._id,
         date: new Date(),
         payment: {
             hasPaid: false,
