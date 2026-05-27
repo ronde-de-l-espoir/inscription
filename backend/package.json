@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development concurrently \"sudo mongod --config ../mongodb.dev.cfg\" \"nodemon --watch . --exec ts-node ./src/main.ts\"",
+    "dev": "cross-env NODE_ENV=development concurrently \"mongod --config ../mongodb.dev.cfg\" \"nodemon --watch . --exec ts-node ./src/main.ts\"",
     "build": "tsc && cp -r src/emails dist/emails"
   },
   "dependencies": {

@@ -24,6 +24,8 @@ import { customAlphabet} from "nanoid";
 const envPath = process.env.NODE_ENV === 'production' ? __dirname+'/../../.env.production' : __dirname+'/../../.env.development';
 require('dotenv').config({path: envPath});
 
+console.log(process.env)
+
 const mailTransport = nodemailer.createTransport({
     pool: true,
     host: process.env.EMAIL_HOST!,

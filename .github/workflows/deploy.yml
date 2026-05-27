@@ -107,7 +107,7 @@ jobs:
           password: ${{ secrets.VPS_PASSWORD }}
           script: |
             cd /web/inscription-evenements/backend
-            cp .env.production .env
+            # cp .env.production .env
 
             if pm2 describe inscription-backend > /dev/null 2>&1; then
               NODE_ENV=production pm2 restart inscription-backend --update-env

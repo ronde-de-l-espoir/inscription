@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue';
+import { onBeforeMount, ref, onBeforeUnmount } from 'vue';
 import { EventsResponse, IEvent } from 'lml-shared';
 import Loader from '@/components/Loader.vue';
 import { usePersonStore } from '@/stores/person';
@@ -46,12 +46,18 @@ async function getEvents(){
     })
 }
 
+var interval: NodeJS.Timeout;
+
 onBeforeMount(async () => {
     await getEvents()
     setTimeout(() => {
         loadedEvents.value = true
     }, 1000)
-    setInterval(getEvents, 5000)
+    interval = setInterval(getEvents, 5000)
+})
+
+onBeforeUnmount(async () => {
+    clearInterval(interval);
 })
 
 function chooseEvent(eventId: string) {
